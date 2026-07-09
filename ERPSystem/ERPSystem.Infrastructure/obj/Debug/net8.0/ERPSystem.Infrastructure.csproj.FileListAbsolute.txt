@@ -1,0 +1,17 @@
+C:\Users\cavad\Desktop\FinalProject\ERPSystem\ERPSystem.Infrastructure\bin\Debug\net8.0\ERPSystem.Infrastructure.deps.json
+C:\Users\cavad\Desktop\FinalProject\ERPSystem\ERPSystem.Infrastructure\bin\Debug\net8.0\ERPSystem.Infrastructure.dll
+C:\Users\cavad\Desktop\FinalProject\ERPSystem\ERPSystem.Infrastructure\bin\Debug\net8.0\ERPSystem.Infrastructure.pdb
+C:\Users\cavad\Desktop\FinalProject\ERPSystem\ERPSystem.Infrastructure\bin\Debug\net8.0\ERPSystem.Application.dll
+C:\Users\cavad\Desktop\FinalProject\ERPSystem\ERPSystem.Infrastructure\bin\Debug\net8.0\ERPSystem.Domain.dll
+C:\Users\cavad\Desktop\FinalProject\ERPSystem\ERPSystem.Infrastructure\bin\Debug\net8.0\ERPSystem.Application.pdb
+C:\Users\cavad\Desktop\FinalProject\ERPSystem\ERPSystem.Infrastructure\bin\Debug\net8.0\ERPSystem.Domain.pdb
+C:\Users\cavad\Desktop\FinalProject\ERPSystem\ERPSystem.Infrastructure\obj\Debug\net8.0\ERPSystem.Infrastructure.csproj.AssemblyReference.cache
+C:\Users\cavad\Desktop\FinalProject\ERPSystem\ERPSystem.Infrastructure\obj\Debug\net8.0\ERPSystem.Infrastructure.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\cavad\Desktop\FinalProject\ERPSystem\ERPSystem.Infrastructure\obj\Debug\net8.0\ERPSystem.Infrastructure.AssemblyInfoInputs.cache
+C:\Users\cavad\Desktop\FinalProject\ERPSystem\ERPSystem.Infrastructure\obj\Debug\net8.0\ERPSystem.Infrastructure.AssemblyInfo.cs
+C:\Users\cavad\Desktop\FinalProject\ERPSystem\ERPSystem.Infrastructure\obj\Debug\net8.0\ERPSystem.Infrastructure.csproj.CoreCompileInputs.cache
+C:\Users\cavad\Desktop\FinalProject\ERPSystem\ERPSystem.Infrastructure\obj\Debug\net8.0\ERPSyste.D8DCC4A0.Up2Date
+C:\Users\cavad\Desktop\FinalProject\ERPSystem\ERPSystem.Infrastructure\obj\Debug\net8.0\ERPSystem.Infrastructure.dll
+C:\Users\cavad\Desktop\FinalProject\ERPSystem\ERPSystem.Infrastructure\obj\Debug\net8.0\refint\ERPSystem.Infrastructure.dll
+C:\Users\cavad\Desktop\FinalProject\ERPSystem\ERPSystem.Infrastructure\obj\Debug\net8.0\ERPSystem.Infrastructure.pdb
+C:\Users\cavad\Desktop\FinalProject\ERPSystem\ERPSystem.Infrastructure\obj\Debug\net8.0\ref\ERPSystem.Infrastructure.dll

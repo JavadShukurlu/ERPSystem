@@ -1,0 +1,11 @@
+C:\Users\cavad\Desktop\FinalProject\ERPSystem\ERPSystem.Domain\bin\Debug\net8.0\ERPSystem.Domain.deps.json
+C:\Users\cavad\Desktop\FinalProject\ERPSystem\ERPSystem.Domain\bin\Debug\net8.0\ERPSystem.Domain.dll
+C:\Users\cavad\Desktop\FinalProject\ERPSystem\ERPSystem.Domain\bin\Debug\net8.0\ERPSystem.Domain.pdb
+C:\Users\cavad\Desktop\FinalProject\ERPSystem\ERPSystem.Domain\obj\Debug\net8.0\ERPSystem.Domain.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\cavad\Desktop\FinalProject\ERPSystem\ERPSystem.Domain\obj\Debug\net8.0\ERPSystem.Domain.AssemblyInfoInputs.cache
+C:\Users\cavad\Desktop\FinalProject\ERPSystem\ERPSystem.Domain\obj\Debug\net8.0\ERPSystem.Domain.AssemblyInfo.cs
+C:\Users\cavad\Desktop\FinalProject\ERPSystem\ERPSystem.Domain\obj\Debug\net8.0\ERPSystem.Domain.csproj.CoreCompileInputs.cache
+C:\Users\cavad\Desktop\FinalProject\ERPSystem\ERPSystem.Domain\obj\Debug\net8.0\ERPSystem.Domain.dll
+C:\Users\cavad\Desktop\FinalProject\ERPSystem\ERPSystem.Domain\obj\Debug\net8.0\refint\ERPSystem.Domain.dll
+C:\Users\cavad\Desktop\FinalProject\ERPSystem\ERPSystem.Domain\obj\Debug\net8.0\ERPSystem.Domain.pdb
+C:\Users\cavad\Desktop\FinalProject\ERPSystem\ERPSystem.Domain\obj\Debug\net8.0\ref\ERPSystem.Domain.dll

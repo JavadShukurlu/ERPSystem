@@ -1,0 +1,8 @@
+<Solution>
+  <Project Path="ERPSystem.Application/ERPSystem.Application.csproj" />
+  <Project Path="ERPSystem.Domain/ERPSystem.Domain.csproj" />
+  <Project Path="ERPSystem.Infrastructure/ERPSystem.Infrastructure.csproj" />
+  <Project Path="ERPSystem.Persistence/ERPSystem.Persistence.csproj" />
+  <Project Path="ERPSystem.WebAPI/ERPSystem.WebAPI.csproj" />
+  <Project Path="ERPSystem.WebMVC/ERPSystem.WebMVC.csproj" />
+</Solution>

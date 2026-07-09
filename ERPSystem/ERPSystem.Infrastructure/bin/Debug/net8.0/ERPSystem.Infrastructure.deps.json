@@ -1,0 +1,56 @@
+{
+  "runtimeTarget": {
+    "name": ".NETCoreApp,Version=v8.0",
+    "signature": ""
+  },
+  "compilationOptions": {},
+  "targets": {
+    ".NETCoreApp,Version=v8.0": {
+      "ERPSystem.Infrastructure/1.0.0": {
+        "dependencies": {
+          "ERPSystem.Application": "1.0.0",
+          "ERPSystem.Domain": "1.0.0"
+        },
+        "runtime": {
+          "ERPSystem.Infrastructure.dll": {}
+        }
+      },
+      "ERPSystem.Application/1.0.0": {
+        "dependencies": {
+          "ERPSystem.Domain": "1.0.0"
+        },
+        "runtime": {
+          "ERPSystem.Application.dll": {
+            "assemblyVersion": "1.0.0.0",
+            "fileVersion": "1.0.0.0"
+          }
+        }
+      },
+      "ERPSystem.Domain/1.0.0": {
+        "runtime": {
+          "ERPSystem.Domain.dll": {
+            "assemblyVersion": "1.0.0.0",
+            "fileVersion": "1.0.0.0"
+          }
+        }
+      }
+    }
+  },
+  "libraries": {
+    "ERPSystem.Infrastructure/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "ERPSystem.Application/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "ERPSystem.Domain/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    }
+  }
+}

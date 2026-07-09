@@ -1,0 +1,17 @@
+C:\Users\cavad\Desktop\FinalProject\ERPSystem\ERPSystem.Persistence\bin\Debug\net8.0\ERPSystem.Persistence.deps.json
+C:\Users\cavad\Desktop\FinalProject\ERPSystem\ERPSystem.Persistence\bin\Debug\net8.0\ERPSystem.Persistence.dll
+C:\Users\cavad\Desktop\FinalProject\ERPSystem\ERPSystem.Persistence\bin\Debug\net8.0\ERPSystem.Persistence.pdb
+C:\Users\cavad\Desktop\FinalProject\ERPSystem\ERPSystem.Persistence\bin\Debug\net8.0\ERPSystem.Application.dll
+C:\Users\cavad\Desktop\FinalProject\ERPSystem\ERPSystem.Persistence\bin\Debug\net8.0\ERPSystem.Domain.dll
+C:\Users\cavad\Desktop\FinalProject\ERPSystem\ERPSystem.Persistence\bin\Debug\net8.0\ERPSystem.Application.pdb
+C:\Users\cavad\Desktop\FinalProject\ERPSystem\ERPSystem.Persistence\bin\Debug\net8.0\ERPSystem.Domain.pdb
+C:\Users\cavad\Desktop\FinalProject\ERPSystem\ERPSystem.Persistence\obj\Debug\net8.0\ERPSystem.Persistence.csproj.AssemblyReference.cache
+C:\Users\cavad\Desktop\FinalProject\ERPSystem\ERPSystem.Persistence\obj\Debug\net8.0\ERPSystem.Persistence.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\cavad\Desktop\FinalProject\ERPSystem\ERPSystem.Persistence\obj\Debug\net8.0\ERPSystem.Persistence.AssemblyInfoInputs.cache
+C:\Users\cavad\Desktop\FinalProject\ERPSystem\ERPSystem.Persistence\obj\Debug\net8.0\ERPSystem.Persistence.AssemblyInfo.cs
+C:\Users\cavad\Desktop\FinalProject\ERPSystem\ERPSystem.Persistence\obj\Debug\net8.0\ERPSystem.Persistence.csproj.CoreCompileInputs.cache
+C:\Users\cavad\Desktop\FinalProject\ERPSystem\ERPSystem.Persistence\obj\Debug\net8.0\ERPSyste.6E9F8040.Up2Date
+C:\Users\cavad\Desktop\FinalProject\ERPSystem\ERPSystem.Persistence\obj\Debug\net8.0\ERPSystem.Persistence.dll
+C:\Users\cavad\Desktop\FinalProject\ERPSystem\ERPSystem.Persistence\obj\Debug\net8.0\refint\ERPSystem.Persistence.dll
+C:\Users\cavad\Desktop\FinalProject\ERPSystem\ERPSystem.Persistence\obj\Debug\net8.0\ERPSystem.Persistence.pdb
+C:\Users\cavad\Desktop\FinalProject\ERPSystem\ERPSystem.Persistence\obj\Debug\net8.0\ref\ERPSystem.Persistence.dll
