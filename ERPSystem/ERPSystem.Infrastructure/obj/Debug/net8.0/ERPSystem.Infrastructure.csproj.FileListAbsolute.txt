@@ -15,3 +15,4 @@ C:\Users\cavad\Desktop\FinalProject\ERPSystem\ERPSystem.Infrastructure\obj\Debug
 C:\Users\cavad\Desktop\FinalProject\ERPSystem\ERPSystem.Infrastructure\obj\Debug\net8.0\refint\ERPSystem.Infrastructure.dll
 C:\Users\cavad\Desktop\FinalProject\ERPSystem\ERPSystem.Infrastructure\obj\Debug\net8.0\ERPSystem.Infrastructure.pdb
 C:\Users\cavad\Desktop\FinalProject\ERPSystem\ERPSystem.Infrastructure\obj\Debug\net8.0\ref\ERPSystem.Infrastructure.dll
+C:\Users\cavad\Desktop\FinalProject\ERPSystem\ERPSystem.Infrastructure\obj\Debug\net8.0\ERPSystem.Infrastructure.sourcelink.json

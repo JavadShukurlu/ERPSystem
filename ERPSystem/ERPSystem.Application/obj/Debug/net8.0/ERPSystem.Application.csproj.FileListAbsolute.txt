@@ -13,3 +13,4 @@ C:\Users\cavad\Desktop\FinalProject\ERPSystem\ERPSystem.Application\obj\Debug\ne
 C:\Users\cavad\Desktop\FinalProject\ERPSystem\ERPSystem.Application\obj\Debug\net8.0\refint\ERPSystem.Application.dll
 C:\Users\cavad\Desktop\FinalProject\ERPSystem\ERPSystem.Application\obj\Debug\net8.0\ERPSystem.Application.pdb
 C:\Users\cavad\Desktop\FinalProject\ERPSystem\ERPSystem.Application\obj\Debug\net8.0\ref\ERPSystem.Application.dll
+C:\Users\cavad\Desktop\FinalProject\ERPSystem\ERPSystem.Application\obj\Debug\net8.0\ERPSystem.Application.sourcelink.json

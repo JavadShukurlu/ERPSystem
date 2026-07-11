@@ -42,3 +42,4 @@ C:\Users\cavad\Desktop\FinalProject\ERPSystem\ERPSystem.WebAPI\obj\Debug\net8.0\
 C:\Users\cavad\Desktop\FinalProject\ERPSystem\ERPSystem.WebAPI\obj\Debug\net8.0\ERPSystem.WebAPI.pdb
 C:\Users\cavad\Desktop\FinalProject\ERPSystem\ERPSystem.WebAPI\obj\Debug\net8.0\ERPSystem.WebAPI.genruntimeconfig.cache
 C:\Users\cavad\Desktop\FinalProject\ERPSystem\ERPSystem.WebAPI\obj\Debug\net8.0\ref\ERPSystem.WebAPI.dll
+C:\Users\cavad\Desktop\FinalProject\ERPSystem\ERPSystem.WebAPI\obj\Debug\net8.0\ERPSystem.WebAPI.sourcelink.json

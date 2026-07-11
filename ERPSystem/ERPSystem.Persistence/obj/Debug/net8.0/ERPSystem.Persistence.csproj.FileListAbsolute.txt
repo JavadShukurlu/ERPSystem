@@ -15,3 +15,4 @@ C:\Users\cavad\Desktop\FinalProject\ERPSystem\ERPSystem.Persistence\obj\Debug\ne
 C:\Users\cavad\Desktop\FinalProject\ERPSystem\ERPSystem.Persistence\obj\Debug\net8.0\refint\ERPSystem.Persistence.dll
 C:\Users\cavad\Desktop\FinalProject\ERPSystem\ERPSystem.Persistence\obj\Debug\net8.0\ERPSystem.Persistence.pdb
 C:\Users\cavad\Desktop\FinalProject\ERPSystem\ERPSystem.Persistence\obj\Debug\net8.0\ref\ERPSystem.Persistence.dll
+C:\Users\cavad\Desktop\FinalProject\ERPSystem\ERPSystem.Persistence\obj\Debug\net8.0\ERPSystem.Persistence.sourcelink.json
