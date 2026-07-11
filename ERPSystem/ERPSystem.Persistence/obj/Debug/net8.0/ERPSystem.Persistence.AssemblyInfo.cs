@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("ERPSystem.Persistence")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+fc8058f46c39676b3f595cabfa4e4c0b8369afe1")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+f62dd5cd579094d0340ac11ede053ed0af2cb32f")]
 [assembly: System.Reflection.AssemblyProductAttribute("ERPSystem.Persistence")]
 [assembly: System.Reflection.AssemblyTitleAttribute("ERPSystem.Persistence")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
