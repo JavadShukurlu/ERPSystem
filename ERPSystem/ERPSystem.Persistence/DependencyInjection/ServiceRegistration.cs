@@ -2,6 +2,9 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using ERPSystem.Application.Interfaces;
+using ERPSystem.Application.Interfaces.Repositories;
+using ERPSystem.Persistence.Repositories;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,6 +21,9 @@ namespace ERPSystem.Persistence.DependencyInjection
         {
             services.AddDbContext<AppDbContext>(options =>
                 options.UseSqlServer(configuration.GetConnectionString("DefaultConnection")));
+
+            services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
+            services.AddScoped<IUnitOfWork, UnitOfWork>();
 
             return services;
         }

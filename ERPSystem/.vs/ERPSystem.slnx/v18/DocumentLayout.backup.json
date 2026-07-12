@@ -3,24 +3,24 @@
   "WorkspaceRootPath": "C:\\Users\\cavad\\Desktop\\FinalProject\\ERPSystem\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{41811B85-A2E8-1A66-DE0D-966B846F7E71}|ERPSystem.Persistence\\ERPSystem.Persistence.csproj|c:\\users\\cavad\\desktop\\finalproject\\erpsystem\\erpsystem.persistence\\migrations\\20260711141908_initialcreate.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{41811B85-A2E8-1A66-DE0D-966B846F7E71}|ERPSystem.Persistence\\ERPSystem.Persistence.csproj|solutionrelative:erpsystem.persistence\\migrations\\20260711141908_initialcreate.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{B0A2DE95-64AA-2EEB-2A25-35C06993D5E5}|ERPSystem.WebAPI\\ERPSystem.WebAPI.csproj|c:\\users\\cavad\\desktop\\finalproject\\erpsystem\\erpsystem.webapi\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{B0A2DE95-64AA-2EEB-2A25-35C06993D5E5}|ERPSystem.WebAPI\\ERPSystem.WebAPI.csproj|solutionrelative:erpsystem.webapi\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{B0A2DE95-64AA-2EEB-2A25-35C06993D5E5}|ERPSystem.WebAPI\\ERPSystem.WebAPI.csproj|c:\\users\\cavad\\desktop\\finalproject\\erpsystem\\erpsystem.webapi\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
-      "RelativeMoniker": "D:0:0:{B0A2DE95-64AA-2EEB-2A25-35C06993D5E5}|ERPSystem.WebAPI\\ERPSystem.WebAPI.csproj|solutionrelative:erpsystem.webapi\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{41811B85-A2E8-1A66-DE0D-966B846F7E71}|ERPSystem.Persistence\\ERPSystem.Persistence.csproj|c:\\users\\cavad\\desktop\\finalproject\\erpsystem\\erpsystem.persistence\\dependencyinjection\\serviceregistration.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{41811B85-A2E8-1A66-DE0D-966B846F7E71}|ERPSystem.Persistence\\ERPSystem.Persistence.csproj|solutionrelative:erpsystem.persistence\\dependencyinjection\\serviceregistration.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{41811B85-A2E8-1A66-DE0D-966B846F7E71}|ERPSystem.Persistence\\ERPSystem.Persistence.csproj|c:\\users\\cavad\\desktop\\finalproject\\erpsystem\\erpsystem.persistence\\context\\appdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{41811B85-A2E8-1A66-DE0D-966B846F7E71}|ERPSystem.Persistence\\ERPSystem.Persistence.csproj|solutionrelative:erpsystem.persistence\\context\\appdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{41811B85-A2E8-1A66-DE0D-966B846F7E71}|ERPSystem.Persistence\\ERPSystem.Persistence.csproj|c:\\users\\cavad\\desktop\\finalproject\\erpsystem\\erpsystem.persistence\\repositories\\unitofwork.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{41811B85-A2E8-1A66-DE0D-966B846F7E71}|ERPSystem.Persistence\\ERPSystem.Persistence.csproj|solutionrelative:erpsystem.persistence\\repositories\\unitofwork.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{41811B85-A2E8-1A66-DE0D-966B846F7E71}|ERPSystem.Persistence\\ERPSystem.Persistence.csproj|c:\\users\\cavad\\desktop\\finalproject\\erpsystem\\erpsystem.persistence\\repositories\\genericrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{41811B85-A2E8-1A66-DE0D-966B846F7E71}|ERPSystem.Persistence\\ERPSystem.Persistence.csproj|solutionrelative:erpsystem.persistence\\repositories\\genericrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{DE039D2C-CCBE-0C93-F3EF-2C7AB04EF33E}|ERPSystem.Application\\ERPSystem.Application.csproj|c:\\users\\cavad\\desktop\\finalproject\\erpsystem\\erpsystem.application\\interfaces\\iunitofwork.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{DE039D2C-CCBE-0C93-F3EF-2C7AB04EF33E}|ERPSystem.Application\\ERPSystem.Application.csproj|solutionrelative:erpsystem.application\\interfaces\\iunitofwork.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{DE039D2C-CCBE-0C93-F3EF-2C7AB04EF33E}|ERPSystem.Application\\ERPSystem.Application.csproj|c:\\users\\cavad\\desktop\\finalproject\\erpsystem\\erpsystem.application\\interfaces\\repositories\\igenericrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{DE039D2C-CCBE-0C93-F3EF-2C7AB04EF33E}|ERPSystem.Application\\ERPSystem.Application.csproj|solutionrelative:erpsystem.application\\interfaces\\repositories\\igenericrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -43,63 +43,67 @@
             {
               "$type": "Document",
               "DocumentIndex": 0,
-              "Title": "20260711141908_InitialCreate.cs",
-              "DocumentMoniker": "C:\\Users\\cavad\\Desktop\\FinalProject\\ERPSystem\\ERPSystem.Persistence\\Migrations\\20260711141908_InitialCreate.cs",
-              "RelativeDocumentMoniker": "ERPSystem.Persistence\\Migrations\\20260711141908_InitialCreate.cs",
-              "ToolTip": "C:\\Users\\cavad\\Desktop\\FinalProject\\ERPSystem\\ERPSystem.Persistence\\Migrations\\20260711141908_InitialCreate.cs",
-              "RelativeToolTip": "ERPSystem.Persistence\\Migrations\\20260711141908_InitialCreate.cs",
-              "ViewState": "AgIAAK8AAAAAAAAAAAAQwLgAAAAfAAAAAAAAAA==",
+              "Title": "ServiceRegistration.cs",
+              "DocumentMoniker": "C:\\Users\\cavad\\Desktop\\FinalProject\\ERPSystem\\ERPSystem.Persistence\\DependencyInjection\\ServiceRegistration.cs",
+              "RelativeDocumentMoniker": "ERPSystem.Persistence\\DependencyInjection\\ServiceRegistration.cs",
+              "ToolTip": "C:\\Users\\cavad\\Desktop\\FinalProject\\ERPSystem\\ERPSystem.Persistence\\DependencyInjection\\ServiceRegistration.cs*",
+              "RelativeToolTip": "ERPSystem.Persistence\\DependencyInjection\\ServiceRegistration.cs*",
+              "ViewState": "AgIAAAwAAAAAAAAAAAAAABMAAAApAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-07-11T14:19:08.842Z",
+              "WhenOpened": "2026-07-12T09:34:51.351Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 1,
-              "Title": "Program.cs",
-              "DocumentMoniker": "C:\\Users\\cavad\\Desktop\\FinalProject\\ERPSystem\\ERPSystem.WebAPI\\Program.cs",
-              "RelativeDocumentMoniker": "ERPSystem.WebAPI\\Program.cs",
-              "ToolTip": "C:\\Users\\cavad\\Desktop\\FinalProject\\ERPSystem\\ERPSystem.WebAPI\\Program.cs",
-              "RelativeToolTip": "ERPSystem.WebAPI\\Program.cs",
-              "ViewState": "AgIAAAkAAAAAAAAAAAAAABQAAAABAAAAAAAAAA==",
+              "Title": "UnitOfWork.cs",
+              "DocumentMoniker": "C:\\Users\\cavad\\Desktop\\FinalProject\\ERPSystem\\ERPSystem.Persistence\\Repositories\\UnitOfWork.cs",
+              "RelativeDocumentMoniker": "ERPSystem.Persistence\\Repositories\\UnitOfWork.cs",
+              "ToolTip": "C:\\Users\\cavad\\Desktop\\FinalProject\\ERPSystem\\ERPSystem.Persistence\\Repositories\\UnitOfWork.cs*",
+              "RelativeToolTip": "ERPSystem.Persistence\\Repositories\\UnitOfWork.cs*",
+              "ViewState": "AgIAADEAAAAAAAAAAAA8wD4AAAAFAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-07-11T14:15:03.072Z"
+              "WhenOpened": "2026-07-12T09:34:00.351Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 2,
-              "Title": "appsettings.json",
-              "DocumentMoniker": "C:\\Users\\cavad\\Desktop\\FinalProject\\ERPSystem\\ERPSystem.WebAPI\\appsettings.json",
-              "RelativeDocumentMoniker": "ERPSystem.WebAPI\\appsettings.json",
-              "ToolTip": "C:\\Users\\cavad\\Desktop\\FinalProject\\ERPSystem\\ERPSystem.WebAPI\\appsettings.json",
-              "RelativeToolTip": "ERPSystem.WebAPI\\appsettings.json",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAIAAAB5AAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
-              "WhenOpened": "2026-07-11T14:10:48.544Z"
+              "Title": "GenericRepository.cs",
+              "DocumentMoniker": "C:\\Users\\cavad\\Desktop\\FinalProject\\ERPSystem\\ERPSystem.Persistence\\Repositories\\GenericRepository.cs",
+              "RelativeDocumentMoniker": "ERPSystem.Persistence\\Repositories\\GenericRepository.cs",
+              "ToolTip": "C:\\Users\\cavad\\Desktop\\FinalProject\\ERPSystem\\ERPSystem.Persistence\\Repositories\\GenericRepository.cs*",
+              "RelativeToolTip": "ERPSystem.Persistence\\Repositories\\GenericRepository.cs*",
+              "ViewState": "AgIAAAcAAAAAAAAAAAAiwEsAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-07-12T09:32:48.871Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 3,
-              "Title": "ServiceRegistration.cs",
-              "DocumentMoniker": "C:\\Users\\cavad\\Desktop\\FinalProject\\ERPSystem\\ERPSystem.Persistence\\DependencyInjection\\ServiceRegistration.cs",
-              "RelativeDocumentMoniker": "ERPSystem.Persistence\\DependencyInjection\\ServiceRegistration.cs",
-              "ToolTip": "C:\\Users\\cavad\\Desktop\\FinalProject\\ERPSystem\\ERPSystem.Persistence\\DependencyInjection\\ServiceRegistration.cs",
-              "RelativeToolTip": "ERPSystem.Persistence\\DependencyInjection\\ServiceRegistration.cs",
-              "ViewState": "AgIAAAcAAAAAAAAAAAAAABMAAAAfAAAAAAAAAA==",
+              "Title": "IUnitOfWork.cs",
+              "DocumentMoniker": "C:\\Users\\cavad\\Desktop\\FinalProject\\ERPSystem\\ERPSystem.Application\\Interfaces\\IUnitOfWork.cs",
+              "RelativeDocumentMoniker": "ERPSystem.Application\\Interfaces\\IUnitOfWork.cs",
+              "ToolTip": "C:\\Users\\cavad\\Desktop\\FinalProject\\ERPSystem\\ERPSystem.Application\\Interfaces\\IUnitOfWork.cs*",
+              "RelativeToolTip": "ERPSystem.Application\\Interfaces\\IUnitOfWork.cs*",
+              "ViewState": "AgIAAAMAAAAAAAAAAAAAwB0AAAAFAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-07-11T13:58:47.42Z"
+              "WhenOpened": "2026-07-12T09:31:34.82Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 4,
-              "Title": "AppDbContext.cs",
-              "DocumentMoniker": "C:\\Users\\cavad\\Desktop\\FinalProject\\ERPSystem\\ERPSystem.Persistence\\Context\\AppDbContext.cs",
-              "RelativeDocumentMoniker": "ERPSystem.Persistence\\Context\\AppDbContext.cs",
-              "ToolTip": "C:\\Users\\cavad\\Desktop\\FinalProject\\ERPSystem\\ERPSystem.Persistence\\Context\\AppDbContext.cs",
-              "RelativeToolTip": "ERPSystem.Persistence\\Context\\AppDbContext.cs",
-              "ViewState": "AgIAABcAAAAAAAAAAAAIwB4AAAA2AAAAAAAAAA==",
+              "Title": "IGenericRepository.cs",
+              "DocumentMoniker": "C:\\Users\\cavad\\Desktop\\FinalProject\\ERPSystem\\ERPSystem.Application\\Interfaces\\Repositories\\IGenericRepository.cs",
+              "RelativeDocumentMoniker": "ERPSystem.Application\\Interfaces\\Repositories\\IGenericRepository.cs",
+              "ToolTip": "C:\\Users\\cavad\\Desktop\\FinalProject\\ERPSystem\\ERPSystem.Application\\Interfaces\\Repositories\\IGenericRepository.cs*",
+              "RelativeToolTip": "ERPSystem.Application\\Interfaces\\Repositories\\IGenericRepository.cs*",
+              "ViewState": "AgIAAAYAAAAAAAAAAAAAwBYAAAAeAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-07-11T13:57:51.037Z"
+              "WhenOpened": "2026-07-12T09:30:15.354Z",
+              "EditorCaption": ""
             }
           ]
         },
