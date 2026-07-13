@@ -831,7 +831,8 @@
       },
       "ERPSystem.Application/1.0.0": {
         "dependencies": {
-          "ERPSystem.Domain": "1.0.0"
+          "ERPSystem.Domain": "1.0.0",
+          "Microsoft.EntityFrameworkCore": "8.0.28"
         },
         "runtime": {
           "ERPSystem.Application.dll": {
