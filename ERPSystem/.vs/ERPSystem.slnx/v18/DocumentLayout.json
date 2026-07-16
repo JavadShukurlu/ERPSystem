@@ -3,16 +3,56 @@
   "WorkspaceRootPath": "C:\\Users\\cavad\\Desktop\\FinalProject\\ERPSystem\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{B0A2DE95-64AA-2EEB-2A25-35C06993D5E5}|ERPSystem.WebAPI\\ERPSystem.WebAPI.csproj|c:\\users\\cavad\\desktop\\finalproject\\erpsystem\\erpsystem.webapi\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{B0A2DE95-64AA-2EEB-2A25-35C06993D5E5}|ERPSystem.WebAPI\\ERPSystem.WebAPI.csproj|solutionrelative:erpsystem.webapi\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{B0A2DE95-64AA-2EEB-2A25-35C06993D5E5}|ERPSystem.WebAPI\\ERPSystem.WebAPI.csproj|c:\\users\\cavad\\desktop\\finalproject\\erpsystem\\erpsystem.webapi\\controllers\\employeescontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B0A2DE95-64AA-2EEB-2A25-35C06993D5E5}|ERPSystem.WebAPI\\ERPSystem.WebAPI.csproj|solutionrelative:erpsystem.webapi\\controllers\\employeescontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{B0A2DE95-64AA-2EEB-2A25-35C06993D5E5}|ERPSystem.WebAPI\\ERPSystem.WebAPI.csproj|c:\\users\\cavad\\desktop\\finalproject\\erpsystem\\erpsystem.webapi\\controllers\\productscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{B0A2DE95-64AA-2EEB-2A25-35C06993D5E5}|ERPSystem.WebAPI\\ERPSystem.WebAPI.csproj|solutionrelative:erpsystem.webapi\\controllers\\productscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{B0A2DE95-64AA-2EEB-2A25-35C06993D5E5}|ERPSystem.WebAPI\\ERPSystem.WebAPI.csproj|c:\\users\\cavad\\desktop\\finalproject\\erpsystem\\erpsystem.webapi\\controllers\\departmentscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B0A2DE95-64AA-2EEB-2A25-35C06993D5E5}|ERPSystem.WebAPI\\ERPSystem.WebAPI.csproj|solutionrelative:erpsystem.webapi\\controllers\\departmentscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{B0A2DE95-64AA-2EEB-2A25-35C06993D5E5}|ERPSystem.WebAPI\\ERPSystem.WebAPI.csproj|c:\\users\\cavad\\desktop\\finalproject\\erpsystem\\erpsystem.webapi\\controllers\\categoriescontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{B0A2DE95-64AA-2EEB-2A25-35C06993D5E5}|ERPSystem.WebAPI\\ERPSystem.WebAPI.csproj|solutionrelative:erpsystem.webapi\\controllers\\categoriescontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{DE039D2C-CCBE-0C93-F3EF-2C7AB04EF33E}|ERPSystem.Application\\ERPSystem.Application.csproj|c:\\users\\cavad\\desktop\\finalproject\\erpsystem\\erpsystem.application\\dependencyinjection\\serviceregistration.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{DE039D2C-CCBE-0C93-F3EF-2C7AB04EF33E}|ERPSystem.Application\\ERPSystem.Application.csproj|solutionrelative:erpsystem.application\\dependencyinjection\\serviceregistration.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{DE039D2C-CCBE-0C93-F3EF-2C7AB04EF33E}|ERPSystem.Application\\ERPSystem.Application.csproj|c:\\users\\cavad\\desktop\\finalproject\\erpsystem\\erpsystem.application\\services\\employeeservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{DE039D2C-CCBE-0C93-F3EF-2C7AB04EF33E}|ERPSystem.Application\\ERPSystem.Application.csproj|solutionrelative:erpsystem.application\\services\\employeeservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{DE039D2C-CCBE-0C93-F3EF-2C7AB04EF33E}|ERPSystem.Application\\ERPSystem.Application.csproj|c:\\users\\cavad\\desktop\\finalproject\\erpsystem\\erpsystem.application\\services\\departmentservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{DE039D2C-CCBE-0C93-F3EF-2C7AB04EF33E}|ERPSystem.Application\\ERPSystem.Application.csproj|solutionrelative:erpsystem.application\\services\\departmentservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{DE039D2C-CCBE-0C93-F3EF-2C7AB04EF33E}|ERPSystem.Application\\ERPSystem.Application.csproj|c:\\users\\cavad\\desktop\\finalproject\\erpsystem\\erpsystem.application\\interfaces\\services\\iemployeeservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{DE039D2C-CCBE-0C93-F3EF-2C7AB04EF33E}|ERPSystem.Application\\ERPSystem.Application.csproj|solutionrelative:erpsystem.application\\interfaces\\services\\iemployeeservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{DE039D2C-CCBE-0C93-F3EF-2C7AB04EF33E}|ERPSystem.Application\\ERPSystem.Application.csproj|c:\\users\\cavad\\desktop\\finalproject\\erpsystem\\erpsystem.application\\interfaces\\services\\idepartmentservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{DE039D2C-CCBE-0C93-F3EF-2C7AB04EF33E}|ERPSystem.Application\\ERPSystem.Application.csproj|solutionrelative:erpsystem.application\\interfaces\\services\\idepartmentservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{DE039D2C-CCBE-0C93-F3EF-2C7AB04EF33E}|ERPSystem.Application\\ERPSystem.Application.csproj|c:\\users\\cavad\\desktop\\finalproject\\erpsystem\\erpsystem.application\\dtos\\employees\\updateemployeedto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{DE039D2C-CCBE-0C93-F3EF-2C7AB04EF33E}|ERPSystem.Application\\ERPSystem.Application.csproj|solutionrelative:erpsystem.application\\dtos\\employees\\updateemployeedto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{DE039D2C-CCBE-0C93-F3EF-2C7AB04EF33E}|ERPSystem.Application\\ERPSystem.Application.csproj|c:\\users\\cavad\\desktop\\finalproject\\erpsystem\\erpsystem.application\\dtos\\employees\\createemployeedto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{DE039D2C-CCBE-0C93-F3EF-2C7AB04EF33E}|ERPSystem.Application\\ERPSystem.Application.csproj|solutionrelative:erpsystem.application\\dtos\\employees\\createemployeedto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{DE039D2C-CCBE-0C93-F3EF-2C7AB04EF33E}|ERPSystem.Application\\ERPSystem.Application.csproj|c:\\users\\cavad\\desktop\\finalproject\\erpsystem\\erpsystem.application\\dtos\\employees\\employeedto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{DE039D2C-CCBE-0C93-F3EF-2C7AB04EF33E}|ERPSystem.Application\\ERPSystem.Application.csproj|solutionrelative:erpsystem.application\\dtos\\employees\\employeedto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{DE039D2C-CCBE-0C93-F3EF-2C7AB04EF33E}|ERPSystem.Application\\ERPSystem.Application.csproj|c:\\users\\cavad\\desktop\\finalproject\\erpsystem\\erpsystem.application\\dtos\\departments\\updatedepartmentdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{DE039D2C-CCBE-0C93-F3EF-2C7AB04EF33E}|ERPSystem.Application\\ERPSystem.Application.csproj|solutionrelative:erpsystem.application\\dtos\\departments\\updatedepartmentdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{DE039D2C-CCBE-0C93-F3EF-2C7AB04EF33E}|ERPSystem.Application\\ERPSystem.Application.csproj|c:\\users\\cavad\\desktop\\finalproject\\erpsystem\\erpsystem.application\\dtos\\departments\\createdepartmentdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{DE039D2C-CCBE-0C93-F3EF-2C7AB04EF33E}|ERPSystem.Application\\ERPSystem.Application.csproj|solutionrelative:erpsystem.application\\dtos\\departments\\createdepartmentdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{DE039D2C-CCBE-0C93-F3EF-2C7AB04EF33E}|ERPSystem.Application\\ERPSystem.Application.csproj|c:\\users\\cavad\\desktop\\finalproject\\erpsystem\\erpsystem.application\\dtos\\departments\\departmentdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{DE039D2C-CCBE-0C93-F3EF-2C7AB04EF33E}|ERPSystem.Application\\ERPSystem.Application.csproj|solutionrelative:erpsystem.application\\dtos\\departments\\departmentdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -22,8 +62,47 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 2,
+          "SelectedChildIndex": 0,
           "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "EmployeesController.cs",
+              "DocumentMoniker": "C:\\Users\\cavad\\Desktop\\FinalProject\\ERPSystem\\ERPSystem.WebAPI\\Controllers\\EmployeesController.cs",
+              "RelativeDocumentMoniker": "ERPSystem.WebAPI\\Controllers\\EmployeesController.cs",
+              "ToolTip": "C:\\Users\\cavad\\Desktop\\FinalProject\\ERPSystem\\ERPSystem.WebAPI\\Controllers\\EmployeesController.cs",
+              "RelativeToolTip": "ERPSystem.WebAPI\\Controllers\\EmployeesController.cs",
+              "ViewState": "AgIAADwAAAAAAAAAAAAuwEEAAAANAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-07-16T19:00:02.716Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "DepartmentsController.cs",
+              "DocumentMoniker": "C:\\Users\\cavad\\Desktop\\FinalProject\\ERPSystem\\ERPSystem.WebAPI\\Controllers\\DepartmentsController.cs",
+              "RelativeDocumentMoniker": "ERPSystem.WebAPI\\Controllers\\DepartmentsController.cs",
+              "ToolTip": "C:\\Users\\cavad\\Desktop\\FinalProject\\ERPSystem\\ERPSystem.WebAPI\\Controllers\\DepartmentsController.cs",
+              "RelativeToolTip": "ERPSystem.WebAPI\\Controllers\\DepartmentsController.cs",
+              "ViewState": "AgIAAEEAAAAAAAAAAAAiwFIAAAAFAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-07-16T18:59:27.894Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "ServiceRegistration.cs",
+              "DocumentMoniker": "C:\\Users\\cavad\\Desktop\\FinalProject\\ERPSystem\\ERPSystem.Application\\DependencyInjection\\ServiceRegistration.cs",
+              "RelativeDocumentMoniker": "ERPSystem.Application\\DependencyInjection\\ServiceRegistration.cs",
+              "ToolTip": "C:\\Users\\cavad\\Desktop\\FinalProject\\ERPSystem\\ERPSystem.Application\\DependencyInjection\\ServiceRegistration.cs",
+              "RelativeToolTip": "ERPSystem.Application\\DependencyInjection\\ServiceRegistration.cs",
+              "ViewState": "AgIAAAMAAAAAAAAAAAAAABIAAABEAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-07-16T18:58:33.518Z",
+              "EditorCaption": ""
+            },
             {
               "$type": "Bookmark",
               "Name": "ST:0:0:{0ad07096-bba9-4900-a651-0598d26f6d24}"
@@ -34,41 +113,132 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "Program.cs",
-              "DocumentMoniker": "C:\\Users\\cavad\\Desktop\\FinalProject\\ERPSystem\\ERPSystem.WebAPI\\Program.cs",
-              "RelativeDocumentMoniker": "ERPSystem.WebAPI\\Program.cs",
-              "ToolTip": "C:\\Users\\cavad\\Desktop\\FinalProject\\ERPSystem\\ERPSystem.WebAPI\\Program.cs",
-              "RelativeToolTip": "ERPSystem.WebAPI\\Program.cs",
-              "ViewState": "AgIAAA8AAAAAAAAAAAAAAB0AAAAXAAAAAAAAAA==",
+              "DocumentIndex": 3,
+              "Title": "EmployeeService.cs",
+              "DocumentMoniker": "C:\\Users\\cavad\\Desktop\\FinalProject\\ERPSystem\\ERPSystem.Application\\Services\\EmployeeService.cs",
+              "RelativeDocumentMoniker": "ERPSystem.Application\\Services\\EmployeeService.cs",
+              "ToolTip": "C:\\Users\\cavad\\Desktop\\FinalProject\\ERPSystem\\ERPSystem.Application\\Services\\EmployeeService.cs",
+              "RelativeToolTip": "ERPSystem.Application\\Services\\EmployeeService.cs",
+              "ViewState": "AgIAADQAAAAAAAAAAAAUwDIAAAAVAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-07-14T10:26:36.314Z",
+              "WhenOpened": "2026-07-16T18:57:16.544Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "ProductsController.cs",
-              "DocumentMoniker": "C:\\Users\\cavad\\Desktop\\FinalProject\\ERPSystem\\ERPSystem.WebAPI\\Controllers\\ProductsController.cs",
-              "RelativeDocumentMoniker": "ERPSystem.WebAPI\\Controllers\\ProductsController.cs",
-              "ToolTip": "C:\\Users\\cavad\\Desktop\\FinalProject\\ERPSystem\\ERPSystem.WebAPI\\Controllers\\ProductsController.cs",
-              "RelativeToolTip": "ERPSystem.WebAPI\\Controllers\\ProductsController.cs",
-              "ViewState": "AgIAACwAAAAAAAAAAAAAwFIAAAAFAAAAAAAAAA==",
+              "DocumentIndex": 4,
+              "Title": "DepartmentService.cs",
+              "DocumentMoniker": "C:\\Users\\cavad\\Desktop\\FinalProject\\ERPSystem\\ERPSystem.Application\\Services\\DepartmentService.cs",
+              "RelativeDocumentMoniker": "ERPSystem.Application\\Services\\DepartmentService.cs",
+              "ToolTip": "C:\\Users\\cavad\\Desktop\\FinalProject\\ERPSystem\\ERPSystem.Application\\Services\\DepartmentService.cs",
+              "RelativeToolTip": "ERPSystem.Application\\Services\\DepartmentService.cs",
+              "ViewState": "AgIAAGAAAAAAAAAAAAAcwHwAAAAFAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-07-14T10:25:46.577Z",
+              "WhenOpened": "2026-07-16T18:56:29.692Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "CategoriesController.cs",
-              "DocumentMoniker": "C:\\Users\\cavad\\Desktop\\FinalProject\\ERPSystem\\ERPSystem.WebAPI\\Controllers\\CategoriesController.cs",
-              "RelativeDocumentMoniker": "ERPSystem.WebAPI\\Controllers\\CategoriesController.cs",
-              "ToolTip": "C:\\Users\\cavad\\Desktop\\FinalProject\\ERPSystem\\ERPSystem.WebAPI\\Controllers\\CategoriesController.cs",
-              "RelativeToolTip": "ERPSystem.WebAPI\\Controllers\\CategoriesController.cs",
-              "ViewState": "AgIAAEAAAAAAAAAAAAAQwFIAAAAFAAAAAAAAAA==",
+              "DocumentIndex": 5,
+              "Title": "IEmployeeService.cs",
+              "DocumentMoniker": "C:\\Users\\cavad\\Desktop\\FinalProject\\ERPSystem\\ERPSystem.Application\\Interfaces\\Services\\IEmployeeService.cs",
+              "RelativeDocumentMoniker": "ERPSystem.Application\\Interfaces\\Services\\IEmployeeService.cs",
+              "ToolTip": "C:\\Users\\cavad\\Desktop\\FinalProject\\ERPSystem\\ERPSystem.Application\\Interfaces\\Services\\IEmployeeService.cs",
+              "RelativeToolTip": "ERPSystem.Application\\Interfaces\\Services\\IEmployeeService.cs",
+              "ViewState": "AgIAAAkAAAAAAAAAAAAAABUAAAAFAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-07-14T10:24:39.772Z",
+              "WhenOpened": "2026-07-16T18:56:05.339Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "IDepartmentService.cs",
+              "DocumentMoniker": "C:\\Users\\cavad\\Desktop\\FinalProject\\ERPSystem\\ERPSystem.Application\\Interfaces\\Services\\IDepartmentService.cs",
+              "RelativeDocumentMoniker": "ERPSystem.Application\\Interfaces\\Services\\IDepartmentService.cs",
+              "ToolTip": "C:\\Users\\cavad\\Desktop\\FinalProject\\ERPSystem\\ERPSystem.Application\\Interfaces\\Services\\IDepartmentService.cs",
+              "RelativeToolTip": "ERPSystem.Application\\Interfaces\\Services\\IDepartmentService.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABUAAAAFAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-07-16T18:55:24.971Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "UpdateEmployeeDto.cs",
+              "DocumentMoniker": "C:\\Users\\cavad\\Desktop\\FinalProject\\ERPSystem\\ERPSystem.Application\\DTOs\\Employees\\UpdateEmployeeDto.cs",
+              "RelativeDocumentMoniker": "ERPSystem.Application\\DTOs\\Employees\\UpdateEmployeeDto.cs",
+              "ToolTip": "C:\\Users\\cavad\\Desktop\\FinalProject\\ERPSystem\\ERPSystem.Application\\DTOs\\Employees\\UpdateEmployeeDto.cs",
+              "RelativeToolTip": "ERPSystem.Application\\DTOs\\Employees\\UpdateEmployeeDto.cs",
+              "ViewState": "AgIAAAQAAAAAAAAAAAAAwBsAAAAFAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-07-16T18:54:43.819Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "CreateEmployeeDto.cs",
+              "DocumentMoniker": "C:\\Users\\cavad\\Desktop\\FinalProject\\ERPSystem\\ERPSystem.Application\\DTOs\\Employees\\CreateEmployeeDto.cs",
+              "RelativeDocumentMoniker": "ERPSystem.Application\\DTOs\\Employees\\CreateEmployeeDto.cs",
+              "ToolTip": "C:\\Users\\cavad\\Desktop\\FinalProject\\ERPSystem\\ERPSystem.Application\\DTOs\\Employees\\CreateEmployeeDto.cs",
+              "RelativeToolTip": "ERPSystem.Application\\DTOs\\Employees\\CreateEmployeeDto.cs",
+              "ViewState": "AgIAAAIAAAAAAAAAAAAAwBkAAAAFAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-07-16T18:54:15.421Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
+              "Title": "EmployeeDto.cs",
+              "DocumentMoniker": "C:\\Users\\cavad\\Desktop\\FinalProject\\ERPSystem\\ERPSystem.Application\\DTOs\\Employees\\EmployeeDto.cs",
+              "RelativeDocumentMoniker": "ERPSystem.Application\\DTOs\\Employees\\EmployeeDto.cs",
+              "ToolTip": "C:\\Users\\cavad\\Desktop\\FinalProject\\ERPSystem\\ERPSystem.Application\\DTOs\\Employees\\EmployeeDto.cs",
+              "RelativeToolTip": "ERPSystem.Application\\DTOs\\Employees\\EmployeeDto.cs",
+              "ViewState": "AgIAAAoAAAAAAAAAAAAzwBoAAAAuAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-07-16T18:53:41.856Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 10,
+              "Title": "UpdateDepartmentDto.cs",
+              "DocumentMoniker": "C:\\Users\\cavad\\Desktop\\FinalProject\\ERPSystem\\ERPSystem.Application\\DTOs\\Departments\\UpdateDepartmentDto.cs",
+              "RelativeDocumentMoniker": "ERPSystem.Application\\DTOs\\Departments\\UpdateDepartmentDto.cs",
+              "ToolTip": "C:\\Users\\cavad\\Desktop\\FinalProject\\ERPSystem\\ERPSystem.Application\\DTOs\\Departments\\UpdateDepartmentDto.cs",
+              "RelativeToolTip": "ERPSystem.Application\\DTOs\\Departments\\UpdateDepartmentDto.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA8AAAAFAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-07-16T18:52:46.381Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 11,
+              "Title": "CreateDepartmentDto.cs",
+              "DocumentMoniker": "C:\\Users\\cavad\\Desktop\\FinalProject\\ERPSystem\\ERPSystem.Application\\DTOs\\Departments\\CreateDepartmentDto.cs",
+              "RelativeDocumentMoniker": "ERPSystem.Application\\DTOs\\Departments\\CreateDepartmentDto.cs",
+              "ToolTip": "C:\\Users\\cavad\\Desktop\\FinalProject\\ERPSystem\\ERPSystem.Application\\DTOs\\Departments\\CreateDepartmentDto.cs",
+              "RelativeToolTip": "ERPSystem.Application\\DTOs\\Departments\\CreateDepartmentDto.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA0AAAAFAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-07-16T18:52:26.873Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 12,
+              "Title": "DepartmentDto.cs",
+              "DocumentMoniker": "C:\\Users\\cavad\\Desktop\\FinalProject\\ERPSystem\\ERPSystem.Application\\DTOs\\Departments\\DepartmentDto.cs",
+              "RelativeDocumentMoniker": "ERPSystem.Application\\DTOs\\Departments\\DepartmentDto.cs",
+              "ToolTip": "C:\\Users\\cavad\\Desktop\\FinalProject\\ERPSystem\\ERPSystem.Application\\DTOs\\Departments\\DepartmentDto.cs",
+              "RelativeToolTip": "ERPSystem.Application\\DTOs\\Departments\\DepartmentDto.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA8AAAAFAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-07-16T18:52:02.483Z",
               "EditorCaption": ""
             }
           ]

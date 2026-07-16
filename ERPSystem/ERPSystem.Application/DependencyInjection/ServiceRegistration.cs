@@ -15,6 +15,8 @@ namespace ERPSystem.Application.DependencyInjection
         {
             services.AddScoped<ICategoryService, CategoryService>();
             services.AddScoped<IProductService, ProductService>();
+            services.AddScoped<IDepartmentService, DepartmentService>();
+            services.AddScoped<IEmployeeService, EmployeeService>();
 
             return services;
         }
