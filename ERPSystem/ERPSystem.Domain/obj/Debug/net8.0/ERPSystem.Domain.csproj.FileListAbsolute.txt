@@ -10,3 +10,4 @@ C:\Users\cavad\Desktop\FinalProject\ERPSystem\ERPSystem.Domain\obj\Debug\net8.0\
 C:\Users\cavad\Desktop\FinalProject\ERPSystem\ERPSystem.Domain\obj\Debug\net8.0\ERPSystem.Domain.pdb
 C:\Users\cavad\Desktop\FinalProject\ERPSystem\ERPSystem.Domain\obj\Debug\net8.0\ref\ERPSystem.Domain.dll
 C:\Users\cavad\Desktop\FinalProject\ERPSystem\ERPSystem.Domain\obj\Debug\net8.0\ERPSystem.Domain.sourcelink.json
+C:\Users\cavad\Desktop\FinalProject\ERPSystem\ERPSystem.Domain\obj\Debug\net8.0\ERPSystem.Domain.csproj.AssemblyReference.cache
