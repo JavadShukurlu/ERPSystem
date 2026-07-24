@@ -1,4 +1,5 @@
-﻿using ERPSystem.Application.DTOs.Products;
+﻿using Microsoft.AspNetCore.Authorization;
+using ERPSystem.Application.DTOs.Products;
 using ERPSystem.Application.Interfaces.Services;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -7,6 +8,7 @@ namespace ERPSystem.WebAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class ProductsController : ControllerBase
     {
         private readonly IProductService _productService;
@@ -38,6 +40,7 @@ namespace ERPSystem.WebAPI.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = "Admin,Manager")]
         public async Task<IActionResult> Create(CreateProductDto dto)
         {
             var result = await _productService.CreateAsync(dto);
@@ -51,6 +54,7 @@ namespace ERPSystem.WebAPI.Controllers
         }
 
         [HttpPut("{id}")]
+        [Authorize(Roles = "Admin,Manager")]
         public async Task<IActionResult> Update(int id, UpdateProductDto dto)
         {
             if (id != dto.Id)
@@ -69,6 +73,7 @@ namespace ERPSystem.WebAPI.Controllers
         }
 
         [HttpDelete("{id}")]
+        [Authorize(Roles = "Admin,Manager")]
         public async Task<IActionResult> Delete(int id)
         {
             var result = await _productService.DeleteAsync(id);

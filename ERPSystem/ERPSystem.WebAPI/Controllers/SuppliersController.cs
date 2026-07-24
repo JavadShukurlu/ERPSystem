@@ -1,4 +1,5 @@
-﻿using ERPSystem.Application.DTOs.Suppliers;
+﻿using Microsoft.AspNetCore.Authorization;
+using ERPSystem.Application.DTOs.Suppliers;
 using ERPSystem.Application.Interfaces.Services;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -7,6 +8,7 @@ namespace ERPSystem.WebAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class SuppliersController : ControllerBase
     {
         private readonly ISupplierService _supplierService;
@@ -17,6 +19,7 @@ namespace ERPSystem.WebAPI.Controllers
         }
 
         [HttpGet]
+        [Authorize(Roles = "Admin,Manager,Warehouse")]
         public async Task<IActionResult> GetAll()
         {
             var result = await _supplierService.GetAllAsync();
@@ -25,6 +28,7 @@ namespace ERPSystem.WebAPI.Controllers
         }
 
         [HttpGet("{id}")]
+        [Authorize(Roles = "Admin,Manager,Warehouse")]
         public async Task<IActionResult> GetById(int id)
         {
             var result = await _supplierService.GetByIdAsync(id);
@@ -38,6 +42,7 @@ namespace ERPSystem.WebAPI.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = "Admin,Manager,Warehouse")]
         public async Task<IActionResult> Create(CreateSupplierDto dto)
         {
             var result = await _supplierService.CreateAsync(dto);
@@ -51,6 +56,7 @@ namespace ERPSystem.WebAPI.Controllers
         }
 
         [HttpPut("{id}")]
+        [Authorize(Roles = "Admin,Manager,Warehouse")]
         public async Task<IActionResult> Update(int id, UpdateSupplierDto dto)
         {
             if (id != dto.Id)
@@ -69,6 +75,7 @@ namespace ERPSystem.WebAPI.Controllers
         }
 
         [HttpDelete("{id}")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Delete(int id)
         {
             var result = await _supplierService.DeleteAsync(id);

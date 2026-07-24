@@ -1,8 +1,8 @@
 {
   "openapi": "3.0.1",
   "info": {
-    "title": "ERPSystem.WebAPI",
-    "version": "1.0"
+    "title": "ERPSystem API",
+    "version": "v1"
   },
   "paths": {
     "/api/Auth/register": {
@@ -1168,6 +1168,19 @@
         },
         "additionalProperties": false
       }
+    },
+    "securitySchemes": {
+      "Bearer": {
+        "type": "http",
+        "description": "Enter JWT token. Example: Bearer your_token_here",
+        "scheme": "Bearer",
+        "bearerFormat": "JWT"
+      }
     }
-  }
+  },
+  "security": [
+    {
+      "Bearer": [ ]
+    }
+  ]
 }
