@@ -3,12 +3,60 @@
   "WorkspaceRootPath": "C:\\Users\\cavad\\Desktop\\FinalProject\\ERPSystem\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{B0A2DE95-64AA-2EEB-2A25-35C06993D5E5}|ERPSystem.WebAPI\\ERPSystem.WebAPI.csproj|c:\\users\\cavad\\desktop\\finalproject\\erpsystem\\erpsystem.webapi\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{B0A2DE95-64AA-2EEB-2A25-35C06993D5E5}|ERPSystem.WebAPI\\ERPSystem.WebAPI.csproj|solutionrelative:erpsystem.webapi\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{B0A2DE95-64AA-2EEB-2A25-35C06993D5E5}|ERPSystem.WebAPI\\ERPSystem.WebAPI.csproj|c:\\users\\cavad\\desktop\\finalproject\\erpsystem\\erpsystem.webapi\\controllers\\stockscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B0A2DE95-64AA-2EEB-2A25-35C06993D5E5}|ERPSystem.WebAPI\\ERPSystem.WebAPI.csproj|solutionrelative:erpsystem.webapi\\controllers\\stockscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{B0A2DE95-64AA-2EEB-2A25-35C06993D5E5}|ERPSystem.WebAPI\\ERPSystem.WebAPI.csproj|c:\\users\\cavad\\desktop\\finalproject\\erpsystem\\erpsystem.webapi\\middlewares\\exceptionmiddleware.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{B0A2DE95-64AA-2EEB-2A25-35C06993D5E5}|ERPSystem.WebAPI\\ERPSystem.WebAPI.csproj|solutionrelative:erpsystem.webapi\\middlewares\\exceptionmiddleware.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{DE039D2C-CCBE-0C93-F3EF-2C7AB04EF33E}|ERPSystem.Application\\ERPSystem.Application.csproj|c:\\users\\cavad\\desktop\\finalproject\\erpsystem\\erpsystem.application\\dependencyinjection\\serviceregistration.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{DE039D2C-CCBE-0C93-F3EF-2C7AB04EF33E}|ERPSystem.Application\\ERPSystem.Application.csproj|solutionrelative:erpsystem.application\\dependencyinjection\\serviceregistration.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B0A2DE95-64AA-2EEB-2A25-35C06993D5E5}|ERPSystem.WebAPI\\ERPSystem.WebAPI.csproj|c:\\users\\cavad\\desktop\\finalproject\\erpsystem\\erpsystem.webapi\\controllers\\warehousescontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B0A2DE95-64AA-2EEB-2A25-35C06993D5E5}|ERPSystem.WebAPI\\ERPSystem.WebAPI.csproj|solutionrelative:erpsystem.webapi\\controllers\\warehousescontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{DE039D2C-CCBE-0C93-F3EF-2C7AB04EF33E}|ERPSystem.Application\\ERPSystem.Application.csproj|c:\\users\\cavad\\desktop\\finalproject\\erpsystem\\erpsystem.application\\services\\stockservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{DE039D2C-CCBE-0C93-F3EF-2C7AB04EF33E}|ERPSystem.Application\\ERPSystem.Application.csproj|solutionrelative:erpsystem.application\\services\\stockservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{DE039D2C-CCBE-0C93-F3EF-2C7AB04EF33E}|ERPSystem.Application\\ERPSystem.Application.csproj|c:\\users\\cavad\\desktop\\finalproject\\erpsystem\\erpsystem.application\\services\\warehouseservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{DE039D2C-CCBE-0C93-F3EF-2C7AB04EF33E}|ERPSystem.Application\\ERPSystem.Application.csproj|solutionrelative:erpsystem.application\\services\\warehouseservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{DE039D2C-CCBE-0C93-F3EF-2C7AB04EF33E}|ERPSystem.Application\\ERPSystem.Application.csproj|c:\\users\\cavad\\desktop\\finalproject\\erpsystem\\erpsystem.application\\interfaces\\services\\istockservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{DE039D2C-CCBE-0C93-F3EF-2C7AB04EF33E}|ERPSystem.Application\\ERPSystem.Application.csproj|solutionrelative:erpsystem.application\\interfaces\\services\\istockservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{DE039D2C-CCBE-0C93-F3EF-2C7AB04EF33E}|ERPSystem.Application\\ERPSystem.Application.csproj|c:\\users\\cavad\\desktop\\finalproject\\erpsystem\\erpsystem.application\\interfaces\\services\\iwarehouseservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{DE039D2C-CCBE-0C93-F3EF-2C7AB04EF33E}|ERPSystem.Application\\ERPSystem.Application.csproj|solutionrelative:erpsystem.application\\interfaces\\services\\iwarehouseservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{DE039D2C-CCBE-0C93-F3EF-2C7AB04EF33E}|ERPSystem.Application\\ERPSystem.Application.csproj|c:\\users\\cavad\\desktop\\finalproject\\erpsystem\\erpsystem.application\\dtos\\stocks\\adjuststockdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{DE039D2C-CCBE-0C93-F3EF-2C7AB04EF33E}|ERPSystem.Application\\ERPSystem.Application.csproj|solutionrelative:erpsystem.application\\dtos\\stocks\\adjuststockdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{DE039D2C-CCBE-0C93-F3EF-2C7AB04EF33E}|ERPSystem.Application\\ERPSystem.Application.csproj|c:\\users\\cavad\\desktop\\finalproject\\erpsystem\\erpsystem.application\\dtos\\stocks\\updatestockdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{DE039D2C-CCBE-0C93-F3EF-2C7AB04EF33E}|ERPSystem.Application\\ERPSystem.Application.csproj|solutionrelative:erpsystem.application\\dtos\\stocks\\updatestockdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{DE039D2C-CCBE-0C93-F3EF-2C7AB04EF33E}|ERPSystem.Application\\ERPSystem.Application.csproj|c:\\users\\cavad\\desktop\\finalproject\\erpsystem\\erpsystem.application\\dtos\\warehouses\\warehousedto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{DE039D2C-CCBE-0C93-F3EF-2C7AB04EF33E}|ERPSystem.Application\\ERPSystem.Application.csproj|solutionrelative:erpsystem.application\\dtos\\warehouses\\warehousedto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{DE039D2C-CCBE-0C93-F3EF-2C7AB04EF33E}|ERPSystem.Application\\ERPSystem.Application.csproj|c:\\users\\cavad\\desktop\\finalproject\\erpsystem\\erpsystem.application\\dtos\\warehouses\\createwarehousedto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{DE039D2C-CCBE-0C93-F3EF-2C7AB04EF33E}|ERPSystem.Application\\ERPSystem.Application.csproj|solutionrelative:erpsystem.application\\dtos\\warehouses\\createwarehousedto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{DE039D2C-CCBE-0C93-F3EF-2C7AB04EF33E}|ERPSystem.Application\\ERPSystem.Application.csproj|c:\\users\\cavad\\desktop\\finalproject\\erpsystem\\erpsystem.application\\dtos\\warehouses\\updatewarehousedto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{DE039D2C-CCBE-0C93-F3EF-2C7AB04EF33E}|ERPSystem.Application\\ERPSystem.Application.csproj|solutionrelative:erpsystem.application\\dtos\\warehouses\\updatewarehousedto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{DE039D2C-CCBE-0C93-F3EF-2C7AB04EF33E}|ERPSystem.Application\\ERPSystem.Application.csproj|c:\\users\\cavad\\desktop\\finalproject\\erpsystem\\erpsystem.application\\dtos\\stocks\\stockdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{DE039D2C-CCBE-0C93-F3EF-2C7AB04EF33E}|ERPSystem.Application\\ERPSystem.Application.csproj|solutionrelative:erpsystem.application\\dtos\\stocks\\stockdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{DE039D2C-CCBE-0C93-F3EF-2C7AB04EF33E}|ERPSystem.Application\\ERPSystem.Application.csproj|c:\\users\\cavad\\desktop\\finalproject\\erpsystem\\erpsystem.application\\dtos\\stocks\\createstockdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{DE039D2C-CCBE-0C93-F3EF-2C7AB04EF33E}|ERPSystem.Application\\ERPSystem.Application.csproj|solutionrelative:erpsystem.application\\dtos\\stocks\\createstockdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -23,14 +71,40 @@
             {
               "$type": "Document",
               "DocumentIndex": 0,
-              "Title": "Program.cs",
-              "DocumentMoniker": "C:\\Users\\cavad\\Desktop\\FinalProject\\ERPSystem\\ERPSystem.WebAPI\\Program.cs",
-              "RelativeDocumentMoniker": "ERPSystem.WebAPI\\Program.cs",
-              "ToolTip": "C:\\Users\\cavad\\Desktop\\FinalProject\\ERPSystem\\ERPSystem.WebAPI\\Program.cs",
-              "RelativeToolTip": "ERPSystem.WebAPI\\Program.cs",
-              "ViewState": "AgIAAFcAAAAAAAAAAAAAAFsAAAApAAAAAAAAAA==",
+              "Title": "StocksController.cs",
+              "DocumentMoniker": "C:\\Users\\cavad\\Desktop\\FinalProject\\ERPSystem\\ERPSystem.WebAPI\\Controllers\\StocksController.cs",
+              "RelativeDocumentMoniker": "ERPSystem.WebAPI\\Controllers\\StocksController.cs",
+              "ToolTip": "C:\\Users\\cavad\\Desktop\\FinalProject\\ERPSystem\\ERPSystem.WebAPI\\Controllers\\StocksController.cs",
+              "RelativeToolTip": "ERPSystem.WebAPI\\Controllers\\StocksController.cs",
+              "ViewState": "AgIAAGkAAAAAAAAAAAAAAH4AAAAFAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-07-24T20:26:33.914Z",
+              "WhenOpened": "2026-07-25T10:31:23.557Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "WarehousesController.cs",
+              "DocumentMoniker": "C:\\Users\\cavad\\Desktop\\FinalProject\\ERPSystem\\ERPSystem.WebAPI\\Controllers\\WarehousesController.cs",
+              "RelativeDocumentMoniker": "ERPSystem.WebAPI\\Controllers\\WarehousesController.cs",
+              "ToolTip": "C:\\Users\\cavad\\Desktop\\FinalProject\\ERPSystem\\ERPSystem.WebAPI\\Controllers\\WarehousesController.cs",
+              "RelativeToolTip": "ERPSystem.WebAPI\\Controllers\\WarehousesController.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAFkAAAAFAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-07-25T10:30:49.527Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "ServiceRegistration.cs",
+              "DocumentMoniker": "C:\\Users\\cavad\\Desktop\\FinalProject\\ERPSystem\\ERPSystem.Application\\DependencyInjection\\ServiceRegistration.cs",
+              "RelativeDocumentMoniker": "ERPSystem.Application\\DependencyInjection\\ServiceRegistration.cs",
+              "ToolTip": "C:\\Users\\cavad\\Desktop\\FinalProject\\ERPSystem\\ERPSystem.Application\\DependencyInjection\\ServiceRegistration.cs",
+              "RelativeToolTip": "ERPSystem.Application\\DependencyInjection\\ServiceRegistration.cs",
+              "ViewState": "AgIAAAkAAAAAAAAAAAAAABcAAAA+AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-07-25T10:30:22.139Z",
               "EditorCaption": ""
             },
             {
@@ -43,15 +117,145 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "ExceptionMiddleware.cs",
-              "DocumentMoniker": "C:\\Users\\cavad\\Desktop\\FinalProject\\ERPSystem\\ERPSystem.WebAPI\\Middlewares\\ExceptionMiddleware.cs",
-              "RelativeDocumentMoniker": "ERPSystem.WebAPI\\Middlewares\\ExceptionMiddleware.cs",
-              "ToolTip": "C:\\Users\\cavad\\Desktop\\FinalProject\\ERPSystem\\ERPSystem.WebAPI\\Middlewares\\ExceptionMiddleware.cs",
-              "RelativeToolTip": "ERPSystem.WebAPI\\Middlewares\\ExceptionMiddleware.cs",
-              "ViewState": "AgIAAAoAAAAAAAAAAAA1wCIAAAAFAAAAAAAAAA==",
+              "DocumentIndex": 3,
+              "Title": "StockService.cs",
+              "DocumentMoniker": "C:\\Users\\cavad\\Desktop\\FinalProject\\ERPSystem\\ERPSystem.Application\\Services\\StockService.cs",
+              "RelativeDocumentMoniker": "ERPSystem.Application\\Services\\StockService.cs",
+              "ToolTip": "C:\\Users\\cavad\\Desktop\\FinalProject\\ERPSystem\\ERPSystem.Application\\Services\\StockService.cs",
+              "RelativeToolTip": "ERPSystem.Application\\Services\\StockService.cs",
+              "ViewState": "AgIAAPIAAAAAAAAAAADwvwcBAAAUAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-07-24T20:25:32.228Z",
+              "WhenOpened": "2026-07-25T10:28:46.998Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "WarehouseService.cs",
+              "DocumentMoniker": "C:\\Users\\cavad\\Desktop\\FinalProject\\ERPSystem\\ERPSystem.Application\\Services\\WarehouseService.cs",
+              "RelativeDocumentMoniker": "ERPSystem.Application\\Services\\WarehouseService.cs",
+              "ToolTip": "C:\\Users\\cavad\\Desktop\\FinalProject\\ERPSystem\\ERPSystem.Application\\Services\\WarehouseService.cs",
+              "RelativeToolTip": "ERPSystem.Application\\Services\\WarehouseService.cs",
+              "ViewState": "AgIAAGUAAAAAAAAAAAA6wHwAAAAFAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-07-25T10:27:58.597Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "IStockService.cs",
+              "DocumentMoniker": "C:\\Users\\cavad\\Desktop\\FinalProject\\ERPSystem\\ERPSystem.Application\\Interfaces\\Services\\IStockService.cs",
+              "RelativeDocumentMoniker": "ERPSystem.Application\\Interfaces\\Services\\IStockService.cs",
+              "ToolTip": "C:\\Users\\cavad\\Desktop\\FinalProject\\ERPSystem\\ERPSystem.Application\\Interfaces\\Services\\IStockService.cs",
+              "RelativeToolTip": "ERPSystem.Application\\Interfaces\\Services\\IStockService.cs",
+              "ViewState": "AgIAAAUAAAAAAAAAAAAiwBsAAAAFAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-07-25T10:27:35.016Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "IWarehouseService.cs",
+              "DocumentMoniker": "C:\\Users\\cavad\\Desktop\\FinalProject\\ERPSystem\\ERPSystem.Application\\Interfaces\\Services\\IWarehouseService.cs",
+              "RelativeDocumentMoniker": "ERPSystem.Application\\Interfaces\\Services\\IWarehouseService.cs",
+              "ToolTip": "C:\\Users\\cavad\\Desktop\\FinalProject\\ERPSystem\\ERPSystem.Application\\Interfaces\\Services\\IWarehouseService.cs",
+              "RelativeToolTip": "ERPSystem.Application\\Interfaces\\Services\\IWarehouseService.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABUAAAAFAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-07-25T10:27:14.628Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "AdjustStockDto.cs",
+              "DocumentMoniker": "C:\\Users\\cavad\\Desktop\\FinalProject\\ERPSystem\\ERPSystem.Application\\DTOs\\Stocks\\AdjustStockDto.cs",
+              "RelativeDocumentMoniker": "ERPSystem.Application\\DTOs\\Stocks\\AdjustStockDto.cs",
+              "ToolTip": "C:\\Users\\cavad\\Desktop\\FinalProject\\ERPSystem\\ERPSystem.Application\\DTOs\\Stocks\\AdjustStockDto.cs",
+              "RelativeToolTip": "ERPSystem.Application\\DTOs\\Stocks\\AdjustStockDto.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAgAAAAfAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-07-25T10:25:23.282Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "UpdateStockDto.cs",
+              "DocumentMoniker": "C:\\Users\\cavad\\Desktop\\FinalProject\\ERPSystem\\ERPSystem.Application\\DTOs\\Stocks\\UpdateStockDto.cs",
+              "RelativeDocumentMoniker": "ERPSystem.Application\\DTOs\\Stocks\\UpdateStockDto.cs",
+              "ToolTip": "C:\\Users\\cavad\\Desktop\\FinalProject\\ERPSystem\\ERPSystem.Application\\DTOs\\Stocks\\UpdateStockDto.cs",
+              "RelativeToolTip": "ERPSystem.Application\\DTOs\\Stocks\\UpdateStockDto.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABMAAAAFAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-07-25T10:24:54.355Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 13,
+              "Title": "CreateStockDto.cs",
+              "DocumentMoniker": "C:\\Users\\cavad\\Desktop\\FinalProject\\ERPSystem\\ERPSystem.Application\\DTOs\\Stocks\\CreateStockDto.cs",
+              "RelativeDocumentMoniker": "ERPSystem.Application\\DTOs\\Stocks\\CreateStockDto.cs",
+              "ToolTip": "C:\\Users\\cavad\\Desktop\\FinalProject\\ERPSystem\\ERPSystem.Application\\DTOs\\Stocks\\CreateStockDto.cs",
+              "RelativeToolTip": "ERPSystem.Application\\DTOs\\Stocks\\CreateStockDto.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABEAAAAFAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-07-25T10:24:36.417Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 12,
+              "Title": "StockDto.cs",
+              "DocumentMoniker": "C:\\Users\\cavad\\Desktop\\FinalProject\\ERPSystem\\ERPSystem.Application\\DTOs\\Stocks\\StockDto.cs",
+              "RelativeDocumentMoniker": "ERPSystem.Application\\DTOs\\Stocks\\StockDto.cs",
+              "ToolTip": "C:\\Users\\cavad\\Desktop\\FinalProject\\ERPSystem\\ERPSystem.Application\\DTOs\\Stocks\\StockDto.cs",
+              "RelativeToolTip": "ERPSystem.Application\\DTOs\\Stocks\\StockDto.cs",
+              "ViewState": "AgIAAAwAAAAAAAAAAAAgwBUAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-07-25T10:24:16.005Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 11,
+              "Title": "UpdateWarehouseDto.cs",
+              "DocumentMoniker": "C:\\Users\\cavad\\Desktop\\FinalProject\\ERPSystem\\ERPSystem.Application\\DTOs\\Warehouses\\UpdateWarehouseDto.cs",
+              "RelativeDocumentMoniker": "ERPSystem.Application\\DTOs\\Warehouses\\UpdateWarehouseDto.cs",
+              "ToolTip": "C:\\Users\\cavad\\Desktop\\FinalProject\\ERPSystem\\ERPSystem.Application\\DTOs\\Warehouses\\UpdateWarehouseDto.cs",
+              "RelativeToolTip": "ERPSystem.Application\\DTOs\\Warehouses\\UpdateWarehouseDto.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA8AAAAFAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-07-25T10:23:54.033Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 10,
+              "Title": "CreateWarehouseDto.cs",
+              "DocumentMoniker": "C:\\Users\\cavad\\Desktop\\FinalProject\\ERPSystem\\ERPSystem.Application\\DTOs\\Warehouses\\CreateWarehouseDto.cs",
+              "RelativeDocumentMoniker": "ERPSystem.Application\\DTOs\\Warehouses\\CreateWarehouseDto.cs",
+              "ToolTip": "C:\\Users\\cavad\\Desktop\\FinalProject\\ERPSystem\\ERPSystem.Application\\DTOs\\Warehouses\\CreateWarehouseDto.cs",
+              "RelativeToolTip": "ERPSystem.Application\\DTOs\\Warehouses\\CreateWarehouseDto.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA0AAAAFAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-07-25T10:23:36.597Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
+              "Title": "WarehouseDto.cs",
+              "DocumentMoniker": "C:\\Users\\cavad\\Desktop\\FinalProject\\ERPSystem\\ERPSystem.Application\\DTOs\\Warehouses\\WarehouseDto.cs",
+              "RelativeDocumentMoniker": "ERPSystem.Application\\DTOs\\Warehouses\\WarehouseDto.cs",
+              "ToolTip": "C:\\Users\\cavad\\Desktop\\FinalProject\\ERPSystem\\ERPSystem.Application\\DTOs\\Warehouses\\WarehouseDto.cs",
+              "RelativeToolTip": "ERPSystem.Application\\DTOs\\Warehouses\\WarehouseDto.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA8AAAAFAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-07-25T10:23:21.561Z",
               "EditorCaption": ""
             }
           ]
