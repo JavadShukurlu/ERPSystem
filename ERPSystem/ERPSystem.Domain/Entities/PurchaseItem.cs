@@ -22,5 +22,8 @@ namespace ERPSystem.Domain.Entities
         public decimal UnitPrice { get; set; }
 
         public decimal TotalPrice { get; set; }
+        public int WarehouseId { get; set; }
+
+        public Warehouse Warehouse { get; set; } = null!;
     }
 }

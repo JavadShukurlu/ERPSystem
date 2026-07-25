@@ -427,6 +427,64 @@
     "ReturnTypes": []
   },
   {
+    "ContainingType": "ERPSystem.WebAPI.Controllers.PurchasesController",
+    "Method": "GetAll",
+    "RelativePath": "api/Purchases",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "ERPSystem.WebAPI.Controllers.PurchasesController",
+    "Method": "Create",
+    "RelativePath": "api/Purchases",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "dto",
+        "Type": "ERPSystem.Application.DTOs.Purchases.CreatePurchaseDto",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "ERPSystem.WebAPI.Controllers.PurchasesController",
+    "Method": "GetById",
+    "RelativePath": "api/Purchases/{id}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "ERPSystem.WebAPI.Controllers.PurchasesController",
+    "Method": "Delete",
+    "RelativePath": "api/Purchases/{id}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
     "ContainingType": "ERPSystem.WebAPI.Controllers.StocksController",
     "Method": "GetAll",
     "RelativePath": "api/Stocks",
