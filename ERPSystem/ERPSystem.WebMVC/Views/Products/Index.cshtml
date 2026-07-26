@@ -1,0 +1,38 @@
+﻿@model List<ERPSystem.WebMVC.ViewModels.Products.ProductViewModel>
+
+@{
+    ViewData["Title"] = "Products";
+}
+
+<h3 class="mb-3">Products</h3>
+
+@if (!Model.Any())
+{
+    <div class="alert alert-info">No records found.</div>
+}
+else
+{
+    <table class="table table-hover bg-white">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>SKU</th>
+                <th>Category</th>
+                <th>Purchase Price</th>
+                <th>Sale Price</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var product in Model)
+            {
+                <tr>
+                    <td>@product.Name</td>
+                    <td>@product.SKU</td>
+                    <td>@product.CategoryName</td>
+                    <td>@product.PurchasePrice</td>
+                    <td>@product.SalePrice</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}

@@ -1,0 +1,53 @@
+﻿@model List<ERPSystem.WebMVC.ViewModels.Invoices.InvoiceViewModel>
+
+@{
+    ViewData["Title"] = "Invoices";
+}
+
+<h3 class="mb-3">Invoices</h3>
+
+@if (!Model.Any())
+{
+    <div class="alert alert-info">No records found.</div>
+}
+else
+{
+    <table class="table table-hover bg-white">
+        <thead>
+            <tr>
+                <th>Invoice No</th>
+                <th>Customer</th>
+                <th>Total</th>
+                <th>Paid</th>
+                <th>Remaining</th>
+                <th>Status</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var invoice in Model)
+            {
+                <tr>
+                    <td>@invoice.InvoiceNumber</td>
+                    <td>@invoice.CustomerName</td>
+                    <td>@invoice.TotalAmount</td>
+                    <td>@invoice.PaidAmount</td>
+                    <td>@invoice.RemainingAmount</td>
+                    <td>
+                        @if (invoice.Status == 3)
+                        {
+                            <span class="badge bg-success">Paid</span>
+                        }
+                        else if (invoice.Status == 4)
+                        {
+                            <span class="badge bg-danger">Cancelled</span>
+                        }
+                        else
+                        {
+                            <span class="badge bg-warning text-dark">Pending</span>
+                        }
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}

@@ -3,6 +3,7 @@
   <Project Path="ERPSystem.Domain/ERPSystem.Domain.csproj" />
   <Project Path="ERPSystem.Infrastructure/ERPSystem.Infrastructure.csproj" />
   <Project Path="ERPSystem.Persistence/ERPSystem.Persistence.csproj" />
+  <Project Path="ERPSystem.Tests/ERPSystem.Tests.csproj" Id="f454e6f3-6841-43fe-abdb-a7b1067be953" />
   <Project Path="ERPSystem.WebAPI/ERPSystem.WebAPI.csproj" />
   <Project Path="ERPSystem.WebMVC/ERPSystem.WebMVC.csproj" />
 </Solution>

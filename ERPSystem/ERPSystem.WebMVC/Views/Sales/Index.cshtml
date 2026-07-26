@@ -1,0 +1,36 @@
+﻿@model List<ERPSystem.WebMVC.ViewModels.Sales.SaleViewModel>
+
+@{
+    ViewData["Title"] = "Sales";
+}
+
+<h3 class="mb-3">Sales</h3>
+
+@if (!Model.Any())
+{
+    <div class="alert alert-info">No records found.</div>
+}
+else
+{
+    <table class="table table-hover bg-white">
+        <thead>
+            <tr>
+                <th>Sale Date</th>
+                <th>Customer</th>
+                <th>Total Amount</th>
+                <th>Items</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var sale in Model)
+            {
+                <tr>
+                    <td>@sale.SaleDate.ToString("yyyy-MM-dd")</td>
+                    <td>@sale.CustomerName</td>
+                    <td>@sale.TotalAmount</td>
+                    <td>@sale.Items.Count</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}

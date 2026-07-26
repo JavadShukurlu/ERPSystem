@@ -1,3 +1,4 @@
+using ERPSystem.Infrastructure.DependencyInjection;
 using ERPSystem.WebAPI.Middlewares;
 using Microsoft.OpenApi.Models;
 using System.Text;
@@ -56,6 +57,9 @@ builder.Services.AddSwaggerGen(options =>
 
 builder.Services.AddApplicationServices();
 builder.Services.AddPersistenceServices(builder.Configuration);
+builder.Services.AddInfrastructureServices();
+builder.Services.AddHttpContextAccessor();
+
 
 builder.Services.Configure<JwtSettings>(
     builder.Configuration.GetSection("JwtSettings"));

@@ -1,0 +1,15 @@
+[
+  {
+    "Name": "New Profile",
+    "Projects": [
+      {
+        "Path": "ERPSystem.WebAPI\\ERPSystem.WebAPI.csproj",
+        "Action": "Start"
+      },
+      {
+        "Path": "ERPSystem.WebMVC\\ERPSystem.WebMVC.csproj",
+        "Action": "Start"
+      }
+    ]
+  }
+]

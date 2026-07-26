@@ -1,0 +1,82 @@
+﻿@model ERPSystem.WebMVC.ViewModels.Dashboard.DashboardViewModel
+
+@{
+    ViewData["Title"] = "Dashboard";
+}
+
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <div>
+        <h3 class="mb-1">Dashboard</h3>
+        <p class="text-muted mb-0">Welcome, @ViewBag.UserName</p>
+    </div>
+
+    <a asp-controller="Auth" asp-action="Logout" class="btn btn-outline-danger">
+        Logout
+    </a>
+</div>
+
+<div class="row g-3">
+    <div class="col-md-3">
+        <div class="card border-0 shadow-sm">
+            <div class="card-body">
+                <p class="text-muted mb-1">Products</p>
+                <h3 class="mb-0">@Model.TotalProducts</h3>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-3">
+        <div class="card border-0 shadow-sm">
+            <div class="card-body">
+                <p class="text-muted mb-1">Sales</p>
+                <h3 class="mb-0">@Model.TotalSales</h3>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-3">
+        <div class="card border-0 shadow-sm">
+            <div class="card-body">
+                <p class="text-muted mb-1">Purchases</p>
+                <h3 class="mb-0">@Model.TotalPurchases</h3>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-3">
+        <div class="card border-0 shadow-sm">
+            <div class="card-body">
+                <p class="text-muted mb-1">Low Stock</p>
+                <h3 class="mb-0">@Model.LowStockProductCount</h3>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="card border-0 shadow-sm mt-4">
+    <div class="card-body">
+        <h5 class="mb-3">Financial Overview</h5>
+
+        <div class="row">
+            <div class="col-md-3">
+                <p class="text-muted mb-1">Sales Amount</p>
+                <h5>@Model.TotalSalesAmount</h5>
+            </div>
+
+            <div class="col-md-3">
+                <p class="text-muted mb-1">Purchase Amount</p>
+                <h5>@Model.TotalPurchaseAmount</h5>
+            </div>
+
+            <div class="col-md-3">
+                <p class="text-muted mb-1">Paid Amount</p>
+                <h5>@Model.TotalPaidAmount</h5>
+            </div>
+
+            <div class="col-md-3">
+                <p class="text-muted mb-1">Unpaid Invoice</p>
+                <h5>@Model.TotalUnpaidInvoiceAmount</h5>
+            </div>
+        </div>
+    </div>
+</div>

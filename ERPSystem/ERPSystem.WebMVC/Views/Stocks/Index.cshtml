@@ -1,0 +1,47 @@
+﻿@model List<ERPSystem.WebMVC.ViewModels.Stocks.StockViewModel>
+
+@{
+    ViewData["Title"] = "Stocks";
+}
+
+<h3 class="mb-3">Stocks</h3>
+
+@if (!Model.Any())
+{
+    <div class="alert alert-info">No records found.</div>
+}
+else
+{
+    <table class="table table-hover bg-white">
+        <thead>
+            <tr>
+                <th>Product</th>
+                <th>Warehouse</th>
+                <th>Quantity</th>
+                <th>Minimum</th>
+                <th>Status</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var stock in Model)
+            {
+                <tr>
+                    <td>@stock.ProductName</td>
+                    <td>@stock.WarehouseName</td>
+                    <td>@stock.Quantity</td>
+                    <td>@stock.MinimumQuantity</td>
+                    <td>
+                        @if (stock.IsLowStock)
+                        {
+                            <span class="badge bg-danger">Low Stock</span>
+                        }
+                        else
+                        {
+                            <span class="badge bg-success">Normal</span>
+                        }
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
