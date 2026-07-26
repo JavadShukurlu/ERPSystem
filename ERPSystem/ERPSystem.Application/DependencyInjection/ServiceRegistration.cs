@@ -23,6 +23,7 @@ namespace ERPSystem.Application.DependencyInjection
             services.AddScoped<IWarehouseService, WarehouseService>();
             services.AddScoped<IStockService, StockService>();
             services.AddScoped<IPurchaseService, PurchaseService>();
+            services.AddScoped<ISaleService, SaleService>();
 
             return services;
         }

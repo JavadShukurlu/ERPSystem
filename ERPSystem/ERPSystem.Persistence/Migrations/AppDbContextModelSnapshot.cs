@@ -579,11 +579,16 @@ namespace ERPSystem.Persistence.Migrations
                     b.Property<DateTime?>("UpdatedDate")
                         .HasColumnType("datetime2");
 
+                    b.Property<int>("WarehouseId")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
 
                     b.HasIndex("ProductId");
 
                     b.HasIndex("SaleId");
+
+                    b.HasIndex("WarehouseId");
 
                     b.ToTable("SaleItems");
                 });
@@ -909,9 +914,17 @@ namespace ERPSystem.Persistence.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("ERPSystem.Domain.Entities.Warehouse", "Warehouse")
+                        .WithMany()
+                        .HasForeignKey("WarehouseId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.Navigation("Product");
 
                     b.Navigation("Sale");
+
+                    b.Navigation("Warehouse");
                 });
 
             modelBuilder.Entity("ERPSystem.Domain.Entities.Stock", b =>
