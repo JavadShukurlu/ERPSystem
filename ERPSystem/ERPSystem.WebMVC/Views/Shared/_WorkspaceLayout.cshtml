@@ -1,0 +1,30 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <title>@ViewData["Title"] - ERP Workspace</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link href="~/lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
+</head>
+<body class="bg-light">
+    <header class="bg-white border-bottom px-4 py-3 d-flex justify-content-between align-items-center">
+        <div>
+            <a asp-controller="Workspace" asp-action="Index" class="text-decoration-none text-dark fw-bold">
+                ERP Workspace
+            </a>
+        </div>
+
+        <a asp-controller="Auth" asp-action="Logout" class="btn btn-outline-danger btn-sm">
+            Logout
+        </a>
+    </header>
+
+    <main class="container-fluid px-4 py-4">
+        @RenderBody()
+    </main>
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

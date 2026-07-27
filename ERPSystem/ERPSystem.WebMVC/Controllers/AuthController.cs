@@ -41,7 +41,7 @@ namespace ERPSystem.WebMVC.Controllers
             HttpContext.Session.SetString("JWToken", response.Data.Token);
             HttpContext.Session.SetString("UserName", response.Data.UserName);
 
-            return RedirectToAction("Index", "Dashboard");
+            return RedirectToAction("Index", "Workspace");
         }
 
         public IActionResult Logout()
