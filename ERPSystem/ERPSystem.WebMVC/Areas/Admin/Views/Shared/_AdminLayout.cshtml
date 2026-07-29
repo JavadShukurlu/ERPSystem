@@ -1,0 +1,55 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <title>@ViewData["Title"] - Admin Panel</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link href="~/lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
+</head>
+<body>
+    <div class="d-flex min-vh-100">
+        <aside class="bg-dark text-white p-3" style="width: 260px;">
+            <h5 class="mb-4">Admin Panel</h5>
+
+            <nav class="nav flex-column gap-1">
+                <a class="nav-link text-white" asp-area="Admin" asp-controller="Dashboard" asp-action="Index">Dashboard</a>
+
+                <div class="text-uppercase text-secondary small mt-3 mb-1">Master Data</div>
+                <a class="nav-link text-white" asp-area="Admin" asp-controller="Products" asp-action="Index">Products</a>
+                <a class="nav-link text-white" asp-area="Admin" asp-controller="Categories" asp-action="Index">Categories</a>
+                <a class="nav-link text-white" asp-area="Admin" asp-controller="Customers" asp-action="Index">Customers</a>
+                <a class="nav-link text-white" asp-area="Admin" asp-controller="Suppliers" asp-action="Index">Suppliers</a>
+                <a class="nav-link text-white" asp-area="Admin" asp-controller="Employees" asp-action="Index">Employees</a>
+
+                <div class="text-uppercase text-secondary small mt-3 mb-1">Security</div>
+                <a class="nav-link text-white" asp-area="Admin" asp-controller="Users" asp-action="Index">Users</a>
+                <a class="nav-link text-white" asp-area="Admin" asp-controller="Roles" asp-action="Index">Roles</a>
+
+                <div class="text-uppercase text-secondary small mt-3 mb-1">System</div>
+                <a class="nav-link text-white" asp-area="Admin" asp-controller="AuditLogs" asp-action="Index">Audit Logs</a>
+                <a class="nav-link text-white" asp-area="Admin" asp-controller="Reports" asp-action="Index">Reports</a>
+                <a class="nav-link text-white" asp-area="Admin" asp-controller="SystemSettings" asp-action="Index">System Settings</a>
+
+                <hr class="border-secondary" />
+
+                <a class="nav-link text-white" asp-area="" asp-controller="Workspace" asp-action="Index">Back to Workspace</a>
+                <a class="nav-link text-white" asp-area="Admin" asp-controller="Auth" asp-action="Logout">Logout</a>
+            </nav>
+        </aside>
+
+        <main class="flex-grow-1 bg-light">
+            <header class="bg-white border-bottom px-4 py-3">
+                <strong>@ViewData["Title"]</strong>
+            </header>
+
+            <div class="p-4">
+                @RenderBody()
+            </div>
+        </main>
+    </div>
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

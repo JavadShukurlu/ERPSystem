@@ -10,8 +10,7 @@
         new { Title = "Finance", Subtitle = "Invoices and payments", Controller = "Invoices", Action = "Index", Icon = "💳", Color = "#8b5cf6" },
         new { Title = "Reports", Subtitle = "Business analytics", Controller = "Reports", Action = "Index", Icon = "📊", Color = "#06b6d4" },
         new { Title = "Dashboard", Subtitle = "ERP overview", Controller = "Dashboard", Action = "Index", Icon = "🏠", Color = "#64748b" },
-        new { Title = "Apps", Subtitle = "Marketplace modules", Controller = "Workspace", Action = "Apps", Icon = "🧩", Color = "#ec4899" },
-        new { Title = "Admin", Subtitle = "System control", Controller = "Admin", Action = "Index", Icon = "⚙️", Color = "#111827" }
+        new { Title = "Apps", Subtitle = "Marketplace modules", Controller = "Workspace", Action = "Apps", Icon = "🧩", Color = "#ec4899" }
     };
 }
 
@@ -207,6 +206,17 @@
                     <div class="app-subtitle">@app.Subtitle</div>
                 </a>
             }
+
+            <a class="app-link" asp-area="Admin" asp-controller="Dashboard" asp-action="Index">
+                <div class="app-icon-card">
+                    <div class="app-icon" style="background:#111827">
+                        ⚙️
+                    </div>
+                </div>
+
+                <div class="app-title">Admin</div>
+                <div class="app-subtitle">System control</div>
+            </a>
         </section>
 
         <div class="workspace-footer">

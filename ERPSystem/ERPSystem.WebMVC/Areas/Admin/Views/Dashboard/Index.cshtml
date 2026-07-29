@@ -1,0 +1,97 @@
+﻿@{
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+    ViewData["Title"] = "Admin Dashboard";
+}
+
+<h3 class="mb-1">Admin Dashboard</h3>
+<p class="text-muted mb-4">Manage system data, users, security and configuration.</p>
+
+<div class="row g-3">
+    <div class="col-md-3">
+        <a asp-area="Admin" asp-controller="Products" asp-action="Index" class="text-decoration-none">
+            <div class="card border-0 shadow-sm h-100">
+                <div class="card-body">
+                    <h5>Products</h5>
+                    <p class="text-muted mb-0">Manage product master data</p>
+                </div>
+            </div>
+        </a>
+    </div>
+
+    <div class="col-md-3">
+        <a asp-area="Admin" asp-controller="Categories" asp-action="Index" class="text-decoration-none">
+            <div class="card border-0 shadow-sm h-100">
+                <div class="card-body">
+                    <h5>Categories</h5>
+                    <p class="text-muted mb-0">Manage product categories</p>
+                </div>
+            </div>
+        </a>
+    </div>
+
+    <div class="col-md-3">
+        <a asp-area="Admin" asp-controller="Users" asp-action="Index" class="text-decoration-none">
+            <div class="card border-0 shadow-sm h-100">
+                <div class="card-body">
+                    <h5>Users</h5>
+                    <p class="text-muted mb-0">Manage user accounts</p>
+                </div>
+            </div>
+        </a>
+    </div>
+
+    <div class="col-md-3">
+        <a asp-area="Admin" asp-controller="Roles" asp-action="Index" class="text-decoration-none">
+            <div class="card border-0 shadow-sm h-100">
+                <div class="card-body">
+                    <h5>Roles</h5>
+                    <p class="text-muted mb-0">Manage access roles</p>
+                </div>
+            </div>
+        </a>
+    </div>
+
+    <div class="col-md-3">
+        <a asp-area="Admin" asp-controller="Customers" asp-action="Index" class="text-decoration-none">
+            <div class="card border-0 shadow-sm h-100">
+                <div class="card-body">
+                    <h5>Customers</h5>
+                    <p class="text-muted mb-0">Manage customer records</p>
+                </div>
+            </div>
+        </a>
+    </div>
+
+    <div class="col-md-3">
+        <a asp-area="Admin" asp-controller="Suppliers" asp-action="Index" class="text-decoration-none">
+            <div class="card border-0 shadow-sm h-100">
+                <div class="card-body">
+                    <h5>Suppliers</h5>
+                    <p class="text-muted mb-0">Manage supplier records</p>
+                </div>
+            </div>
+        </a>
+    </div>
+
+    <div class="col-md-3">
+        <a asp-area="Admin" asp-controller="AuditLogs" asp-action="Index" class="text-decoration-none">
+            <div class="card border-0 shadow-sm h-100">
+                <div class="card-body">
+                    <h5>Audit Logs</h5>
+                    <p class="text-muted mb-0">Track system activity</p>
+                </div>
+            </div>
+        </a>
+    </div>
+
+    <div class="col-md-3">
+        <a asp-area="Admin" asp-controller="Reports" asp-action="Index" class="text-decoration-none">
+            <div class="card border-0 shadow-sm h-100">
+                <div class="card-body">
+                    <h5>Reports</h5>
+                    <p class="text-muted mb-0">View system analytics</p>
+                </div>
+            </div>
+        </a>
+    </div>
+</div>

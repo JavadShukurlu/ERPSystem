@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("ERPSystem.WebMVC")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+271a10451cfe189689cd47280f8fb50e83f169b1")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+ffddd7041cc29885ff3b4dc79e426984fdedf0ed")]
 [assembly: System.Reflection.AssemblyProductAttribute("ERPSystem.WebMVC")]
 [assembly: System.Reflection.AssemblyTitleAttribute("ERPSystem.WebMVC")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
