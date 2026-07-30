@@ -42,8 +42,16 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 0,
+          "SelectedChildIndex": 2,
           "Children": [
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{0ad07096-bba9-4900-a651-0598d26f6d24}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{d78612c7-9962-4b83-95d9-268046dad23a}"
+            },
             {
               "$type": "Document",
               "DocumentIndex": 0,
@@ -67,8 +75,7 @@
               "RelativeToolTip": "ERPSystem.WebMVC\\Areas\\Admin\\Views\\Products\\Create.cshtml",
               "ViewState": "AgIAACQAAAAAAAAAAAAUwD0AAAAHAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2026-07-29T00:00:11.659Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-07-29T00:00:11.659Z"
             },
             {
               "$type": "Document",
@@ -80,8 +87,7 @@
               "RelativeToolTip": "ERPSystem.WebMVC\\Areas\\Admin\\Views\\Products\\Index.cshtml",
               "ViewState": "AgIAAC0AAAAAAAAAAAAUwEYAAAABAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2026-07-28T23:59:54.083Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-07-28T23:59:54.083Z"
             },
             {
               "$type": "Document",
@@ -93,8 +99,7 @@
               "RelativeToolTip": "ERPSystem.WebMVC\\Areas\\Admin\\Controllers\\ProductsController.cs",
               "ViewState": "AgIAAKEAAAAAAAAAAAAAALAAAAABAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-07-28T23:59:20.347Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-07-28T23:59:20.347Z"
             },
             {
               "$type": "Document",
@@ -106,8 +111,7 @@
               "RelativeToolTip": "ERPSystem.WebMVC\\ViewModels\\Products\\UpdateProductViewModel.cs",
               "ViewState": "AgIAAAEAAAAAAAAAAAAqwBsAAAAFAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-07-28T23:58:56.322Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-07-28T23:58:56.322Z"
             },
             {
               "$type": "Document",
@@ -119,16 +123,7 @@
               "RelativeToolTip": "ERPSystem.WebMVC\\ViewModels\\Products\\CreateProductViewModel.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAABkAAAAFAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-07-28T23:58:31.143Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Bookmark",
-              "Name": "ST:0:0:{0ad07096-bba9-4900-a651-0598d26f6d24}"
-            },
-            {
-              "$type": "Bookmark",
-              "Name": "ST:0:0:{d78612c7-9962-4b83-95d9-268046dad23a}"
+              "WhenOpened": "2026-07-28T23:58:31.143Z"
             },
             {
               "$type": "Document",
@@ -140,8 +135,7 @@
               "RelativeToolTip": "ERPSystem.WebMVC\\ViewModels\\Products\\ProductViewModel.cs",
               "ViewState": "AgIAAAUAAAAAAAAAAADwvxMAAAAFAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-07-28T23:58:05.544Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-07-28T23:58:05.544Z"
             },
             {
               "$type": "Document",
@@ -153,8 +147,7 @@
               "RelativeToolTip": "ERPSystem.WebMVC\\ViewModels\\Categories\\UpdateCategoryViewModel.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAwAAAAFAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-07-28T23:51:19.306Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-07-28T23:51:19.306Z"
             }
           ]
         },
