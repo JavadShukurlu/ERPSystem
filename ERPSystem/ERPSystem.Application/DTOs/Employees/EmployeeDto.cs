@@ -16,15 +16,17 @@ namespace ERPSystem.Application.DTOs.Employees
 
         public string FullName => $"{FirstName} {LastName}";
 
-        public string Email { get; set; } = null!;
+        public string? Email { get; set; }
 
         public string? PhoneNumber { get; set; }
 
-        public string Position { get; set; } = null!;
+        public string? Position { get; set; }
 
         public decimal Salary { get; set; }
 
         public DateTime HireDate { get; set; }
+
+        public string? ImageUrl { get; set; }
 
         public int DepartmentId { get; set; }
 

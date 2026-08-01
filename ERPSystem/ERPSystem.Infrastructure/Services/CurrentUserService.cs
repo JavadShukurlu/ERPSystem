@@ -18,22 +18,10 @@ namespace ERPSystem.Infrastructure.Services
             _httpContextAccessor = httpContextAccessor;
         }
 
-        public string UserId
-        {
-            get
-            {
-                return _httpContextAccessor.HttpContext?.User?
-                    .FindFirstValue(ClaimTypes.NameIdentifier) ?? "System";
-            }
-        }
+        public string? UserId =>
+            _httpContextAccessor.HttpContext?.User?.FindFirstValue(ClaimTypes.NameIdentifier);
 
-        public string UserName
-        {
-            get
-            {
-                return _httpContextAccessor.HttpContext?.User?
-                    .FindFirstValue(ClaimTypes.Name) ?? "System";
-            }
-        }
+        public string? UserName =>
+            _httpContextAccessor.HttpContext?.User?.Identity?.Name;
     }
 }

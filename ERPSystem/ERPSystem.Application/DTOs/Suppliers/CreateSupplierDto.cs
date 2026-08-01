@@ -17,5 +17,7 @@ namespace ERPSystem.Application.DTOs.Suppliers
         public string? PhoneNumber { get; set; }
 
         public string? Address { get; set; }
+
+        public string? LogoUrl { get; set; }
     }
 }

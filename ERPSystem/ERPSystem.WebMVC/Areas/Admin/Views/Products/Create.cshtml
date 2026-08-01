@@ -16,7 +16,13 @@
 
 <div asp-validation-summary="All" class="text-danger mb-3"></div>
 
-<form asp-area="Admin" asp-controller="Products" asp-action="Create" method="post" class="bg-white p-4 shadow-sm">
+<form asp-area="Admin"
+      asp-controller="Products"
+      asp-action="Create"
+      method="post"
+      enctype="multipart/form-data"
+      class="bg-white p-4 shadow-sm">
+
     <div class="mb-3">
         <label class="form-label">Name</label>
         <input asp-for="Name" class="form-control" />
@@ -33,6 +39,12 @@
         <label class="form-label">Description</label>
         <textarea asp-for="Description" class="form-control" rows="4"></textarea>
         <span asp-validation-for="Description" class="text-danger small"></span>
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label">Product Image</label>
+        <input asp-for="ImageFile" type="file" class="form-control" accept=".jpg,.jpeg,.png,.webp" />
+        <span asp-validation-for="ImageFile" class="text-danger small"></span>
     </div>
 
     <div class="mb-3">

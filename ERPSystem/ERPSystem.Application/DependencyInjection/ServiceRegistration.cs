@@ -1,11 +1,6 @@
 ﻿using ERPSystem.Application.Interfaces.Services;
 using ERPSystem.Application.Services;
 using Microsoft.Extensions.DependencyInjection;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ERPSystem.Application.DependencyInjection
 {
@@ -28,6 +23,10 @@ namespace ERPSystem.Application.DependencyInjection
             services.AddScoped<IPaymentService, PaymentService>();
             services.AddScoped<IAuditLogService, AuditLogService>();
             services.AddScoped<IReportService, ReportService>();
+            services.AddScoped<IRoleService, RoleService>();
+            services.AddScoped<IUserManagementService, UserManagementService>();
+            services.AddScoped<ISystemSettingService, SystemSettingService>();
+            services.AddScoped<IModulePermissionService, ModulePermissionService>();
 
             return services;
         }

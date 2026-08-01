@@ -1,82 +1,117 @@
-﻿@model ERPSystem.WebMVC.ViewModels.Dashboard.DashboardViewModel
+﻿@model ERPSystem.WebMVC.ViewModels.Dashboard.AdminDashboardViewModel
 
 @{
-    ViewData["Title"] = "Dashboard";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+    ViewData["Title"] = "Admin Dashboard";
 }
 
-<div class="d-flex justify-content-between align-items-center mb-4">
-    <div>
-        <h3 class="mb-1">Dashboard</h3>
-        <p class="text-muted mb-0">Welcome, @ViewBag.UserName</p>
-    </div>
-
-    <a asp-controller="Auth" asp-action="Logout" class="btn btn-outline-danger">
-        Logout
-    </a>
+<div class="mb-4">
+    <h2 class="mb-1">Admin Dashboard</h2>
+    <p class="text-muted mb-0">System overview, activity and important metrics.</p>
 </div>
 
-<div class="row g-3">
+<div class="row g-3 mb-4">
     <div class="col-md-3">
-        <div class="card border-0 shadow-sm">
-            <div class="card-body">
-                <p class="text-muted mb-1">Products</p>
-                <h3 class="mb-0">@Model.TotalProducts</h3>
-            </div>
+        <div class="bg-white p-3 shadow-sm border-start border-primary border-4">
+            <div class="text-muted small">Products</div>
+            <h3 class="mb-0">@Model.TotalProducts</h3>
         </div>
     </div>
 
     <div class="col-md-3">
-        <div class="card border-0 shadow-sm">
-            <div class="card-body">
-                <p class="text-muted mb-1">Sales</p>
-                <h3 class="mb-0">@Model.TotalSales</h3>
-            </div>
+        <div class="bg-white p-3 shadow-sm border-start border-success border-4">
+            <div class="text-muted small">Customers</div>
+            <h3 class="mb-0">@Model.TotalCustomers</h3>
         </div>
     </div>
 
     <div class="col-md-3">
-        <div class="card border-0 shadow-sm">
-            <div class="card-body">
-                <p class="text-muted mb-1">Purchases</p>
-                <h3 class="mb-0">@Model.TotalPurchases</h3>
-            </div>
+        <div class="bg-white p-3 shadow-sm border-start border-warning border-4">
+            <div class="text-muted small">Suppliers</div>
+            <h3 class="mb-0">@Model.TotalSuppliers</h3>
         </div>
     </div>
 
     <div class="col-md-3">
-        <div class="card border-0 shadow-sm">
-            <div class="card-body">
-                <p class="text-muted mb-1">Low Stock</p>
-                <h3 class="mb-0">@Model.LowStockProductCount</h3>
-            </div>
+        <div class="bg-white p-3 shadow-sm border-start border-info border-4">
+            <div class="text-muted small">Employees</div>
+            <h3 class="mb-0">@Model.TotalEmployees</h3>
+        </div>
+    </div>
+
+    <div class="col-md-4">
+        <div class="bg-white p-3 shadow-sm border-start border-danger border-4">
+            <div class="text-muted small">Low Stock</div>
+            <h3 class="mb-0">@Model.LowStockCount</h3>
+        </div>
+    </div>
+
+    <div class="col-md-4">
+        <div class="bg-white p-3 shadow-sm border-start border-primary border-4">
+            <div class="text-muted small">Sales Total</div>
+            <h3 class="mb-0">@Model.TotalSalesAmount.ToString("0.00")</h3>
+        </div>
+    </div>
+
+    <div class="col-md-4">
+        <div class="bg-white p-3 shadow-sm border-start border-warning border-4">
+            <div class="text-muted small">Purchase Total</div>
+            <h3 class="mb-0">@Model.TotalPurchaseAmount.ToString("0.00")</h3>
         </div>
     </div>
 </div>
 
-<div class="card border-0 shadow-sm mt-4">
-    <div class="card-body">
-        <h5 class="mb-3">Financial Overview</h5>
+<div class="bg-white p-4 shadow-sm">
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <h4 class="mb-0">Recent Audit Logs</h4>
 
-        <div class="row">
-            <div class="col-md-3">
-                <p class="text-muted mb-1">Sales Amount</p>
-                <h5>@Model.TotalSalesAmount</h5>
-            </div>
-
-            <div class="col-md-3">
-                <p class="text-muted mb-1">Purchase Amount</p>
-                <h5>@Model.TotalPurchaseAmount</h5>
-            </div>
-
-            <div class="col-md-3">
-                <p class="text-muted mb-1">Paid Amount</p>
-                <h5>@Model.TotalPaidAmount</h5>
-            </div>
-
-            <div class="col-md-3">
-                <p class="text-muted mb-1">Unpaid Invoice</p>
-                <h5>@Model.TotalUnpaidInvoiceAmount</h5>
-            </div>
-        </div>
+        <a asp-area="Admin" asp-controller="AuditLogs" asp-action="Index" class="btn btn-sm btn-outline-primary">
+            View All
+        </a>
     </div>
+
+    @if (!Model.RecentAuditLogs.Any())
+    {
+        <div class="alert alert-info mb-0">
+            No recent audit logs found.
+        </div>
+    }
+    else
+    {
+        <table class="table table-hover align-middle mb-0">
+            <thead>
+                <tr>
+                    <th>Date</th>
+                    <th>User</th>
+                    <th>Action</th>
+                    <th>Entity</th>
+                    <th>Details</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var log in Model.RecentAuditLogs)
+                {
+                    var badgeClass = log.Action switch
+                    {
+                        "Created" => "bg-success",
+                        "Updated" => "bg-warning text-dark",
+                        "Deleted" => "bg-danger",
+                        _ => "bg-secondary"
+                    };
+
+                    <tr>
+                        <td>@log.ActionDate.ToString("dd MMM yyyy HH:mm")</td>
+                        <td>@log.UserId</td>
+                        <td>
+                            <span class="badge @badgeClass">
+                                @log.Action
+                            </span>
+                        </td>
+                        <td>@log.EntityName</td>
+                        <td>@log.Details</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
 </div>

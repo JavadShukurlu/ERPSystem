@@ -1,6 +1,4 @@
-wwwroot\css\site.css
 wwwroot\favicon.ico
-wwwroot\js\site.js
 wwwroot\lib\bootstrap\dist\css\bootstrap-grid.css
 wwwroot\lib\bootstrap\dist\css\bootstrap-grid.css.map
 wwwroot\lib\bootstrap\dist\css\bootstrap-grid.min.css
@@ -58,3 +56,17 @@ wwwroot\lib\jquery\dist\jquery.js
 wwwroot\lib\jquery\dist\jquery.min.js
 wwwroot\lib\jquery\dist\jquery.min.map
 wwwroot\lib\jquery\LICENSE.txt
+wwwroot\uploads\employees\558e018c-51f0-4eb2-9c55-c4b970600915.jpg
+wwwroot\uploads\employees\a6fec885-4302-426f-84cd-5ed4a4fe07b5.jpg
+wwwroot\uploads\employees\2ce9f85d-28e0-401c-9e1b-411a64b41eb0.jpg
+wwwroot\uploads\products\48ae8bd5-69a8-45c2-8e72-264de6949d0d.jpg
+wwwroot\uploads\customers\b574fa88-9feb-4ec6-a448-0ef2ae7a0b98.jpg
+wwwroot\uploads\customers\d57c2810-4a3b-4e9c-8a03-a31bc3aa8d6f.jpg
+wwwroot\uploads\suppliers\461f1bf0-9d99-404b-9905-a193c48ab1b8.jpg
+wwwroot\uploads\customers\50ed7680-0e94-402a-8efe-96030af92e07.jpg
+wwwroot\uploads\customers\93be3a04-b733-4b02-a048-57ea6e10aafb.jpg
+wwwroot\uploads\customers\9e3015e4-b596-4ee6-84ed-c321b9c7ca24.jpg
+wwwroot\uploads\products\336d0eb5-2ee8-4712-ad38-372fb7bf93d0.jpg
+wwwroot\js\erp-advanced-filter.js
+wwwroot\css\erp-advanced-filter.css
+wwwroot\uploads\customers\46622391-ade0-4e72-b3c9-a022419e4c9d.jpg

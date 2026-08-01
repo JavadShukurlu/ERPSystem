@@ -41,6 +41,10 @@ namespace ERPSystem.WebMVC.Controllers
             HttpContext.Session.SetString("JWToken", response.Data.Token);
             HttpContext.Session.SetString("UserName", response.Data.UserName);
 
+            var isAdmin = response.Data.Roles.Any(role => role == "Admin");
+
+            HttpContext.Session.SetString("IsAdmin", isAdmin ? "true" : "false");
+
             return RedirectToAction("Index", "Workspace");
         }
 
@@ -48,7 +52,7 @@ namespace ERPSystem.WebMVC.Controllers
         {
             HttpContext.Session.Clear();
 
-            return RedirectToAction("Login");
+            return RedirectToAction("Login", "Auth");
         }
     }
 }

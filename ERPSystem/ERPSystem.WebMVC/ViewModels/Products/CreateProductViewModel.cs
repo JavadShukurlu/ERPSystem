@@ -13,13 +13,17 @@ namespace ERPSystem.WebMVC.ViewModels.Products
 
         public string? Description { get; set; }
 
-        [Range(0.01, double.MaxValue, ErrorMessage = "Purchase price must be greater than zero.")]
+        public string? ImageUrl { get; set; }
+
+        public IFormFile? ImageFile { get; set; }
+
+        [Range(0.01, double.MaxValue)]
         public decimal PurchasePrice { get; set; }
 
-        [Range(0.01, double.MaxValue, ErrorMessage = "Sale price must be greater than zero.")]
+        [Range(0.01, double.MaxValue)]
         public decimal SalePrice { get; set; }
 
-        [Range(1, int.MaxValue, ErrorMessage = "Category is required.")]
+        [Range(1, int.MaxValue)]
         public int CategoryId { get; set; }
 
         public List<SelectListItem> Categories { get; set; } = new();

@@ -59,6 +59,13 @@ public class ProductsController : Controller
             return View(model);
         }
 
+        var imageUrl = await SaveImageAsync(model.ImageFile, "products");
+
+        if (!string.IsNullOrWhiteSpace(imageUrl))
+        {
+            model.ImageUrl = imageUrl;
+        }
+
         var response = await _apiService.PostAsync<CreateProductViewModel, ApiResponse<ProductViewModel>>(
             "api/Products",
             model);
@@ -94,6 +101,7 @@ public class ProductsController : Controller
             Name = response.Data.Name,
             SKU = response.Data.SKU,
             Description = response.Data.Description,
+            ImageUrl = response.Data.ImageUrl,
             PurchasePrice = response.Data.PurchasePrice,
             SalePrice = response.Data.SalePrice,
             CategoryId = response.Data.CategoryId,
@@ -120,6 +128,12 @@ public class ProductsController : Controller
         {
             model.Categories = await GetCategorySelectListAsync();
             return View(model);
+        }
+        var imageUrl = await SaveImageAsync(model.ImageFile, "products");
+
+        if (!string.IsNullOrWhiteSpace(imageUrl))
+        {
+            model.ImageUrl = imageUrl;
         }
 
         var response = await _apiService.PutAsync<UpdateProductViewModel, ApiResponse<ProductViewModel>>(
@@ -173,5 +187,39 @@ public class ProductsController : Controller
     private IActionResult RedirectToAdminLogin()
     {
         return RedirectToAction("Login", "Auth", new { area = "Admin" });
+    }
+    private async Task<string?> SaveImageAsync(IFormFile? file, string folderName)
+    {
+        if (file is null || file.Length == 0)
+        {
+            return null;
+        }
+
+        var allowedExtensions = new[] { ".jpg", ".jpeg", ".png", ".webp" };
+        var extension = Path.GetExtension(file.FileName).ToLowerInvariant();
+
+        if (!allowedExtensions.Contains(extension))
+        {
+            throw new InvalidOperationException("Only jpg, jpeg, png and webp files are allowed.");
+        }
+
+        var uploadsFolder = Path.Combine(
+            Directory.GetCurrentDirectory(),
+            "wwwroot",
+            "uploads",
+            folderName);
+
+        if (!Directory.Exists(uploadsFolder))
+        {
+            Directory.CreateDirectory(uploadsFolder);
+        }
+
+        var fileName = $"{Guid.NewGuid()}{extension}";
+        var filePath = Path.Combine(uploadsFolder, fileName);
+
+        using var stream = new FileStream(filePath, FileMode.Create);
+        await file.CopyToAsync(stream);
+
+        return $"/uploads/{folderName}/{fileName}";
     }
 }

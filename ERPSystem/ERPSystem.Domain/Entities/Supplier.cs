@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace ERPSystem.Domain.Entities
 {
-    public class Supplier:BaseEntity
+    public class Supplier : BaseEntity
     {
         public string CompanyName { get; set; } = null!;
 
@@ -18,6 +18,8 @@ namespace ERPSystem.Domain.Entities
         public string? PhoneNumber { get; set; }
 
         public string? Address { get; set; }
+
+        public string? LogoUrl { get; set; }
 
         public ICollection<Purchase> Purchases { get; set; } = new List<Purchase>();
     }

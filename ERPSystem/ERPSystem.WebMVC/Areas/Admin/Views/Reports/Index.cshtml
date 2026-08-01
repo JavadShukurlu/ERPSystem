@@ -1,11 +1,76 @@
-﻿@{
+﻿@model ERPSystem.WebMVC.ViewModels.Reports.AdminReportViewModel
+
+@{
     Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
     ViewData["Title"] = "Reports";
 }
 
-<h3>Reports</h3>
-<p class="text-muted">Administrative reports and system analytics will be available here.</p>
+<div class="mb-4">
+    <h2 class="mb-1">Reports</h2>
+    <p class="text-muted mb-0">Quick overview of ERP system data.</p>
+</div>
 
-<div class="alert alert-info">
-    This page is prepared as a placeholder for admin reports.
+<div class="row g-3">
+    <div class="col-md-3">
+        <div class="bg-white p-3 shadow-sm border-start border-primary border-4">
+            <div class="text-muted small">Products</div>
+            <h3 class="mb-0">@Model.TotalProducts</h3>
+        </div>
+    </div>
+
+    <div class="col-md-3">
+        <div class="bg-white p-3 shadow-sm border-start border-success border-4">
+            <div class="text-muted small">Customers</div>
+            <h3 class="mb-0">@Model.TotalCustomers</h3>
+        </div>
+    </div>
+
+    <div class="col-md-3">
+        <div class="bg-white p-3 shadow-sm border-start border-warning border-4">
+            <div class="text-muted small">Suppliers</div>
+            <h3 class="mb-0">@Model.TotalSuppliers</h3>
+        </div>
+    </div>
+
+    <div class="col-md-3">
+        <div class="bg-white p-3 shadow-sm border-start border-info border-4">
+            <div class="text-muted small">Employees</div>
+            <h3 class="mb-0">@Model.TotalEmployees</h3>
+        </div>
+    </div>
+
+    <div class="col-md-3">
+        <div class="bg-white p-3 shadow-sm border-start border-secondary border-4">
+            <div class="text-muted small">Warehouses</div>
+            <h3 class="mb-0">@Model.TotalWarehouses</h3>
+        </div>
+    </div>
+
+    <div class="col-md-3">
+        <div class="bg-white p-3 shadow-sm border-start border-dark border-4">
+            <div class="text-muted small">Stock Quantity</div>
+            <h3 class="mb-0">@Model.TotalStockQuantity</h3>
+        </div>
+    </div>
+
+    <div class="col-md-3">
+        <div class="bg-white p-3 shadow-sm border-start border-danger border-4">
+            <div class="text-muted small">Low Stock</div>
+            <h3 class="mb-0">@Model.LowStockCount</h3>
+        </div>
+    </div>
+
+    <div class="col-md-3">
+        <div class="bg-white p-3 shadow-sm border-start border-primary border-4">
+            <div class="text-muted small">Sales Total</div>
+            <h3 class="mb-0">@Model.TotalSalesAmount.ToString("0.00")</h3>
+        </div>
+    </div>
+
+    <div class="col-md-3">
+        <div class="bg-white p-3 shadow-sm border-start border-warning border-4">
+            <div class="text-muted small">Purchase Total</div>
+            <h3 class="mb-0">@Model.TotalPurchaseAmount.ToString("0.00")</h3>
+        </div>
+    </div>
 </div>

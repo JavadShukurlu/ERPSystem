@@ -14,6 +14,7 @@ namespace ERPSystem.Domain.Entities
         public string SKU { get; set; } = null!;
 
         public string? Description { get; set; }
+        public string? ImageUrl { get; set; }
 
         public decimal PurchasePrice { get; set; }
 

@@ -1,29 +1,33 @@
-﻿using Microsoft.AspNetCore.Mvc.Rendering;
+﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using System.ComponentModel.DataAnnotations;
 
-namespace ERPSystem.WebMVC.ViewModels.Products
+namespace ERPSystem.WebMVC.ViewModels.Products;
+
+public class UpdateProductViewModel
 {
-    public class UpdateProductViewModel
-    {
-        public int Id { get; set; }
+    public int Id { get; set; }
 
-        [Required]
-        public string Name { get; set; } = null!;
+    [Required]
+    public string Name { get; set; } = null!;
 
-        [Required]
-        public string SKU { get; set; } = null!;
+    [Required]
+    public string SKU { get; set; } = null!;
 
-        public string? Description { get; set; }
+    public string? Description { get; set; }
 
-        [Range(0.01, double.MaxValue, ErrorMessage = "Purchase price must be greater than zero.")]
-        public decimal PurchasePrice { get; set; }
+    public string? ImageUrl { get; set; }
 
-        [Range(0.01, double.MaxValue, ErrorMessage = "Sale price must be greater than zero.")]
-        public decimal SalePrice { get; set; }
+    public IFormFile? ImageFile { get; set; }
 
-        [Range(1, int.MaxValue, ErrorMessage = "Category is required.")]
-        public int CategoryId { get; set; }
+    [Range(0.01, double.MaxValue)]
+    public decimal PurchasePrice { get; set; }
 
-        public List<SelectListItem> Categories { get; set; } = new();
-    }
+    [Range(0.01, double.MaxValue)]
+    public decimal SalePrice { get; set; }
+
+    [Range(1, int.MaxValue)]
+    public int CategoryId { get; set; }
+
+    public List<SelectListItem> Categories { get; set; } = new();
 }

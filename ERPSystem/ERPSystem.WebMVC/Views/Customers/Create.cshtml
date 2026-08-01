@@ -1,0 +1,205 @@
+﻿@model ERPSystem.WebMVC.ViewModels.Customers.CreateCustomerViewModel
+
+@{
+    Layout = null;
+    ViewData["Title"] = "Create Customer";
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <title>Create Customer - ERP Workspace</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link href="~/lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
+
+    <style>
+            body {
+                background: #f5f6f8;
+                color: #1f2937;
+            }
+
+            .topbar {
+                height: 58px;
+                background: #2f3a45;
+                color: white;
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                padding: 0 22px;
+            }
+
+            .page {
+                padding: 24px 32px;
+            }
+
+            .form-shell {
+                background: white;
+                border: 1px solid #e5e7eb;
+            }
+
+            .form-header {
+                border-bottom: 1px solid #e5e7eb;
+                padding: 18px 22px;
+            }
+
+            .form-body {
+                padding: 22px;
+            }
+
+            .preview-box {
+                height: 250px;
+                background: #f3f4f6;
+                border: 1px dashed #cbd5e1;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                color: #6b7280;
+                cursor: pointer;
+                overflow: hidden;
+                border-radius: 50%;
+                max-width: 250px;
+                margin: auto;
+            }
+
+                .preview-box:hover {
+                    background: #eef2ff;
+                    border-color: #93c5fd;
+                }
+
+                .preview-box img {
+                    width: 100%;
+                    height: 100%;
+                    object-fit: cover;
+                }
+
+            .hidden-file-input {
+                display: none;
+            }
+    </style>
+</head>
+<body>
+    <header class="topbar">
+        <div class="d-flex align-items-center gap-3">
+            <a asp-controller="Customers" asp-action="Index" class="btn btn-sm btn-outline-light">
+                Back
+            </a>
+            <strong>ERP System / Sales</strong>
+        </div>
+
+        <a asp-controller="Auth" asp-action="Logout" class="btn btn-sm btn-outline-light">
+            Logout
+        </a>
+    </header>
+
+    <main class="page">
+        <div class="mb-4">
+            <div class="text-muted small">Workspace / Sales / Customers</div>
+            <h1 class="mb-0">Create Customer</h1>
+        </div>
+
+        @if (ViewBag.Error is not null)
+        {
+            <div class="alert alert-danger">
+                @ViewBag.Error
+            </div>
+        }
+
+        <form asp-controller="Customers"
+              asp-action="Create"
+              method="post"
+              enctype="multipart/form-data"
+              class="form-shell">
+
+            <div class="form-header d-flex justify-content-between align-items-center">
+                <strong>Customer Information</strong>
+
+                <button type="submit" class="btn btn-primary">
+                    Save Customer
+                </button>
+            </div>
+
+            <div class="form-body">
+                <div class="row g-4">
+                    <div class="col-lg-4 text-center">
+                        <label class="form-label d-block">Customer Image</label>
+
+                        <label for="ImageFile" class="preview-box mb-3">
+                            <span id="imagePreviewText">Upload customer image</span>
+                            <img id="imagePreview" src="#" alt="Customer preview" style="display:none;" />
+                        </label>
+
+                        <input asp-for="ImageFile"
+                               id="ImageFile"
+                               class="hidden-file-input"
+                               type="file"
+                               accept=".jpg,.jpeg,.png,.webp" />
+
+                        <span asp-validation-for="ImageFile" class="text-danger small"></span>
+                    </div>
+
+                    <div class="col-lg-8">
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label">Full Name</label>
+                                <input asp-for="FullName" class="form-control" />
+                                <span asp-validation-for="FullName" class="text-danger small"></span>
+                            </div>
+
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label">Email</label>
+                                <input asp-for="Email" class="form-control" />
+                                <span asp-validation-for="Email" class="text-danger small"></span>
+                            </div>
+
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label">Phone Number</label>
+                                <input asp-for="PhoneNumber" class="form-control" />
+                                <span asp-validation-for="PhoneNumber" class="text-danger small"></span>
+                            </div>
+
+                            <div class="col-md-12 mb-3">
+                                <label class="form-label">Address</label>
+                                <textarea asp-for="Address" class="form-control" rows="5"></textarea>
+                                <span asp-validation-for="Address" class="text-danger small"></span>
+                            </div>
+                        </div>
+
+                        <a asp-controller="Customers" asp-action="Index" class="btn btn-outline-secondary">
+                            Cancel
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </main>
+
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script>
+        const imageInput = document.getElementById("ImageFile");
+        const imagePreview = document.getElementById("imagePreview");
+        const imagePreviewText = document.getElementById("imagePreviewText");
+
+        imageInput.addEventListener("change", function () {
+        const file = this.files[0];
+
+        if (!file) {
+        imagePreview.style.display = "none";
+        imagePreviewText.style.display = "inline";
+        return;
+        }
+
+        const reader = new FileReader();
+
+        reader.onload = function (event) {
+        imagePreview.src = event.target.result;
+        imagePreview.style.display = "block";
+        imagePreviewText.style.display = "none";
+        };
+
+        reader.readAsDataURL(file);
+        });
+    </script>
+</body>
+</html>

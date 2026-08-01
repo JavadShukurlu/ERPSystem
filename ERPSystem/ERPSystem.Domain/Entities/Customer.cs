@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace ERPSystem.Domain.Entities
 {
-    public class Customer:BaseEntity
+    public class Customer : BaseEntity
     {
         public string FullName { get; set; } = null!;
 
@@ -16,6 +16,8 @@ namespace ERPSystem.Domain.Entities
         public string? PhoneNumber { get; set; }
 
         public string? Address { get; set; }
+
+        public string? ImageUrl { get; set; }
 
         public ICollection<Sale> Sales { get; set; } = new List<Sale>();
     }

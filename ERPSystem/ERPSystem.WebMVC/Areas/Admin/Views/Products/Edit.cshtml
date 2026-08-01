@@ -16,8 +16,34 @@
 
 <div asp-validation-summary="All" class="text-danger mb-3"></div>
 
-<form asp-area="Admin" asp-controller="Products" asp-action="Edit" asp-route-id="@Model.Id" method="post" class="bg-white p-4 shadow-sm">
+<form asp-area="Admin"
+      asp-controller="Products"
+      asp-action="Edit"
+      asp-route-id="@Model.Id"
+      method="post"
+      enctype="multipart/form-data"
+      class="bg-white p-4 shadow-sm">
+
     <input asp-for="Id" type="hidden" />
+    <input asp-for="ImageUrl" type="hidden" />
+
+    @if (!string.IsNullOrWhiteSpace(Model.ImageUrl))
+    {
+        <div class="mb-3">
+            <label class="form-label">Current Image</label>
+            <div>
+                <img src="@Model.ImageUrl"
+                     alt="@Model.Name"
+                     style="width:96px;height:96px;object-fit:cover;border-radius:10px;" />
+            </div>
+        </div>
+    }
+
+    <div class="mb-3">
+        <label class="form-label">Change Image</label>
+        <input asp-for="ImageFile" type="file" class="form-control" accept=".jpg,.jpeg,.png,.webp" />
+        <span asp-validation-for="ImageFile" class="text-danger small"></span>
+    </div>
 
     <div class="mb-3">
         <label class="form-label">Name</label>

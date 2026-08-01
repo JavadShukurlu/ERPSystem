@@ -24,9 +24,10 @@
 }
 else
 {
-    <table class="table table-hover bg-white">
+    <table class="table table-hover bg-white align-middle">
         <thead>
             <tr>
+                <th>Image</th>
                 <th>Name</th>
                 <th>SKU</th>
                 <th>Category</th>
@@ -39,6 +40,18 @@ else
             @foreach (var product in Model)
             {
                 <tr>
+                    <td>
+                        @if (!string.IsNullOrWhiteSpace(product.ImageUrl))
+                        {
+                            <img src="@product.ImageUrl"
+                                 alt="@product.Name"
+                                 style="width:48px;height:48px;object-fit:cover;border-radius:8px;" />
+                        }
+                        else
+                        {
+                            <span class="text-muted">No image</span>
+                        }
+                    </td>
                     <td>@product.Name</td>
                     <td>@product.SKU</td>
                     <td>@product.CategoryName</td>

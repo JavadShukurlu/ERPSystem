@@ -2,15 +2,90 @@
     Layout = null;
     ViewData["Title"] = "Workspace";
 
-    var apps = new[]
+    var userName = Context.Session.GetString("UserName") ?? "User";
+
+    var modules = new[]
     {
-        new { Title = "Inventory", Subtitle = "Products and stock", Controller = "Products", Action = "Index", Icon = "📦", Color = "#22c55e" },
-        new { Title = "Sales", Subtitle = "Orders and customers", Controller = "Sales", Action = "Index", Icon = "📈", Color = "#3b82f6" },
-        new { Title = "Purchases", Subtitle = "Suppliers and orders", Controller = "Purchases", Action = "Index", Icon = "🛒", Color = "#f97316" },
-        new { Title = "Finance", Subtitle = "Invoices and payments", Controller = "Invoices", Action = "Index", Icon = "💳", Color = "#8b5cf6" },
-        new { Title = "Reports", Subtitle = "Business analytics", Controller = "Reports", Action = "Index", Icon = "📊", Color = "#06b6d4" },
-        new { Title = "Dashboard", Subtitle = "ERP overview", Controller = "Dashboard", Action = "Index", Icon = "🏠", Color = "#64748b" },
-        new { Title = "Apps", Subtitle = "Marketplace modules", Controller = "Workspace", Action = "Apps", Icon = "🧩", Color = "#ec4899" }
+        new
+        {
+            Title = "Inventory",
+            Subtitle = "Products, stocks and warehouses",
+            Area = "",
+            Controller = "Products",
+            Action = "Index",
+            Icon = "📦",
+            Color = "#2563eb"
+        },
+        new
+        {
+            Title = "Customers",
+            Subtitle = "Customer profiles and sales contacts",
+            Area = "",
+            Controller = "Customers",
+            Action = "Index",
+            Icon = "👥",
+            Color = "#0f766e"
+        },
+        new
+        {
+            Title = "Sales",
+            Subtitle = "Sales orders and customer invoices",
+            Area = "",
+            Controller = "Sales",
+            Action = "Index",
+            Icon = "🧾",
+            Color = "#16a34a"
+        },
+        new
+        {
+            Title = "Purchases",
+            Subtitle = "Suppliers and purchase orders",
+            Area = "",
+            Controller = "Purchases",
+            Action = "Index",
+            Icon = "🛒",
+            Color = "#f59e0b"
+        },
+        new
+        {
+            Title = "Finance",
+            Subtitle = "Invoices, payments and reports",
+            Area = "",
+            Controller = "Invoices",
+            Action = "Index",
+            Icon = "💳",
+            Color = "#7c3aed"
+        },
+        new
+        {
+            Title = "Apps",
+            Subtitle = "Marketplace and custom modules",
+            Area = "",
+            Controller = "Apps",
+            Action = "Index",
+            Icon = "🧩",
+            Color = "#0891b2"
+        },
+        new
+        {
+            Title = "Reports",
+            Subtitle = "Dashboard and business analytics",
+            Area = "",
+            Controller = "Reports",
+            Action = "Index",
+            Icon = "📊",
+            Color = "#dc2626"
+        },
+        new
+        {
+            Title = "Admin Panel",
+            Subtitle = "System management and audit logs",
+            Area = "Admin",
+            Controller = "Dashboard",
+            Action = "Index",
+            Icon = "⚙️",
+            Color = "#111827"
+        }
     };
 }
 
@@ -25,203 +100,79 @@
     <style>
             body {
                 min-height: 100vh;
-                margin: 0;
-                font-family: "Segoe UI", Arial, sans-serif;
-                background: linear-gradient(135deg, rgba(248, 250, 252, 0.95), rgba(226, 232, 240, 0.9)), radial-gradient(circle at top left, #dbeafe, transparent 30%), radial-gradient(circle at bottom right, #fce7f3, transparent 35%);
-                color: #1f2937;
+                background: linear-gradient(135deg, #f4f7fb 0%, #eef2ff 45%, #f8fafc 100%);
             }
 
-            .workspace-topbar {
-                height: 58px;
-                display: flex;
-                align-items: center;
-                justify-content: space-between;
-                padding: 0 34px;
-                background: rgba(255, 255, 255, 0.72);
-                border-bottom: 1px solid rgba(148, 163, 184, 0.28);
-                backdrop-filter: blur(14px);
-            }
-
-            .brand {
-                font-weight: 700;
-                font-size: 18px;
-                color: #111827;
-            }
-
-            .top-actions {
-                display: flex;
-                align-items: center;
-                gap: 14px;
-                color: #475569;
-                font-size: 14px;
-            }
-
-            .avatar {
-                width: 34px;
-                height: 34px;
-                border-radius: 50%;
-                background: #111827;
+            .topbar {
+                height: 64px;
+                background: #222831;
                 color: white;
-                display: inline-flex;
-                align-items: center;
-                justify-content: center;
-                font-weight: 700;
             }
 
-            .workspace-shell {
-                max-width: 1120px;
-                margin: 0 auto;
-                padding: 48px 24px 72px;
+            .app-tile {
+                border-radius: 16px;
+                transition: transform 0.15s ease, box-shadow 0.15s ease;
             }
 
-            .workspace-header {
-                text-align: center;
-                margin-bottom: 38px;
-            }
-
-                .workspace-header h1 {
-                    font-size: 32px;
-                    font-weight: 700;
-                    margin-bottom: 8px;
+                .app-tile:hover {
+                    transform: translateY(-4px);
+                    box-shadow: 0 12px 28px rgba(15, 23, 42, 0.15) !important;
                 }
-
-                .workspace-header p {
-                    color: #64748b;
-                    margin: 0;
-                }
-
-            .app-grid {
-                display: grid;
-                grid-template-columns: repeat(auto-fill, minmax(132px, 1fr));
-                gap: 34px 42px;
-                justify-items: center;
-            }
-
-            .app-link {
-                text-decoration: none;
-                color: inherit;
-                width: 132px;
-                text-align: center;
-            }
-
-            .app-icon-card {
-                width: 78px;
-                height: 78px;
-                margin: 0 auto 12px;
-                border-radius: 18px;
-                background: white;
-                box-shadow: 0 10px 24px rgba(15, 23, 42, 0.12);
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                transition: transform 0.18s ease, box-shadow 0.18s ease;
-                border: 1px solid rgba(148, 163, 184, 0.22);
-            }
-
-            .app-link:hover .app-icon-card {
-                transform: translateY(-5px);
-                box-shadow: 0 16px 34px rgba(15, 23, 42, 0.18);
-            }
 
             .app-icon {
-                width: 48px;
-                height: 48px;
-                border-radius: 14px;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                font-size: 28px;
+                width: 72px;
+                height: 72px;
+                border-radius: 18px;
                 color: white;
-            }
-
-            .app-title {
-                font-weight: 600;
-                font-size: 15px;
-                margin-bottom: 3px;
-            }
-
-            .app-subtitle {
-                color: #64748b;
-                font-size: 12px;
-                line-height: 1.3;
-            }
-
-            .workspace-footer {
-                margin-top: 46px;
-                text-align: center;
-            }
-
-            .admin-shortcut {
-                color: #475569;
-                text-decoration: none;
-                font-size: 14px;
-            }
-
-                .admin-shortcut:hover {
-                    color: #111827;
-                }
-
-            @@media (max-width: 768px) {
-                .workspace-topbar {
-                    padding: 0 18px;
-                }
-
-                .workspace-shell {
-                    padding-top: 34px;
-                }
-
-                .app-grid {
-                    gap: 26px 22px;
-                }
+                font-size: 34px;
             }
     </style>
 </head>
 <body>
-    <header class="workspace-topbar">
-        <div class="brand">ERP System</div>
+    <header class="topbar d-flex align-items-center justify-content-between px-4">
+        <div class="d-flex align-items-center gap-3">
+            <strong>ERP System</strong>
+            <span class="text-white-50">Workspace</span>
+        </div>
 
-        <div class="top-actions">
-            <span>@ViewBag.UserName</span>
-            <span class="avatar">@((ViewBag.UserName as string)?.Substring(0, 1).ToUpper() ?? "U")</span>
+        <div class="d-flex align-items-center gap-3">
+            <span class="text-white-50">Welcome, @userName</span>
+
+            <a asp-controller="Auth" asp-action="Logout" class="btn btn-sm btn-outline-light">
+                Logout
+            </a>
         </div>
     </header>
 
-    <main class="workspace-shell">
-        <section class="workspace-header">
-            <h1>Workspace</h1>
-            <p>Choose a business app to continue your work.</p>
-        </section>
+    <main class="container py-5">
+        <div class="mb-5">
+            <h1 class="mb-2">ERP Workspace</h1>
+            <p class="text-muted mb-0">Choose a module to manage business operations.</p>
+        </div>
 
-        <section class="app-grid">
-            @foreach (var app in apps)
+        <div class="row g-4">
+            @foreach (var module in modules)
             {
-                <a class="app-link" asp-controller="@app.Controller" asp-action="@app.Action">
-                    <div class="app-icon-card">
-                        <div class="app-icon" style="background:@app.Color">
-                            @app.Icon
+                <div class="col-6 col-md-4 col-lg-3">
+                    <a asp-area="@module.Area"
+                       asp-controller="@module.Controller"
+                       asp-action="@module.Action"
+                       class="text-decoration-none">
+                        <div class="app-tile bg-white shadow-sm h-100 p-4 text-center">
+                            <div class="app-icon mx-auto mb-3 d-flex align-items-center justify-content-center"
+                                 style="background:@module.Color;">
+                                @module.Icon
+                            </div>
+
+                            <h5 class="text-dark mb-1">@module.Title</h5>
+                            <p class="text-muted small mb-0">@module.Subtitle</p>
                         </div>
-                    </div>
-
-                    <div class="app-title">@app.Title</div>
-                    <div class="app-subtitle">@app.Subtitle</div>
-                </a>
-            }
-
-            <a class="app-link" asp-area="Admin" asp-controller="Dashboard" asp-action="Index">
-                <div class="app-icon-card">
-                    <div class="app-icon" style="background:#111827">
-                        ⚙️
-                    </div>
+                    </a>
                 </div>
-
-                <div class="app-title">Admin</div>
-                <div class="app-subtitle">System control</div>
-            </a>
-        </section>
-
-        <div class="workspace-footer">
-            <a class="admin-shortcut" asp-controller="Auth" asp-action="Logout">Logout</a>
+            }
         </div>
     </main>
+
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

@@ -16,6 +16,8 @@ namespace ERPSystem.Application.DTOs.Products
 
         public string? Description { get; set; }
 
+        public string? ImageUrl { get; set; }
+
         public decimal PurchasePrice { get; set; }
 
         public decimal SalePrice { get; set; }
@@ -23,5 +25,9 @@ namespace ERPSystem.Application.DTOs.Products
         public int CategoryId { get; set; }
 
         public string? CategoryName { get; set; }
+
+        public DateTime CreatedDate { get; set; }
+
+        public DateTime? UpdatedDate { get; set; }
     }
 }

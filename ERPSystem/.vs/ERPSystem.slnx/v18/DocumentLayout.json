@@ -3,36 +3,16 @@
   "WorkspaceRootPath": "C:\\Users\\cavad\\Desktop\\FinalProject\\ERPSystem\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{6FAD6E84-7802-291A-2026-334945D7E435}|ERPSystem.WebMVC\\ERPSystem.WebMVC.csproj|c:\\users\\cavad\\desktop\\finalproject\\erpsystem\\erpsystem.webmvc\\areas\\admin\\views\\products\\edit.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{6FAD6E84-7802-291A-2026-334945D7E435}|ERPSystem.WebMVC\\ERPSystem.WebMVC.csproj|solutionrelative:erpsystem.webmvc\\areas\\admin\\views\\products\\edit.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+      "AbsoluteMoniker": "D:0:0:{6FAD6E84-7802-291A-2026-334945D7E435}|ERPSystem.WebMVC\\ERPSystem.WebMVC.csproj|c:\\users\\cavad\\desktop\\finalproject\\erpsystem\\erpsystem.webmvc\\controllers\\customerscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{6FAD6E84-7802-291A-2026-334945D7E435}|ERPSystem.WebMVC\\ERPSystem.WebMVC.csproj|solutionrelative:erpsystem.webmvc\\controllers\\customerscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{6FAD6E84-7802-291A-2026-334945D7E435}|ERPSystem.WebMVC\\ERPSystem.WebMVC.csproj|c:\\users\\cavad\\desktop\\finalproject\\erpsystem\\erpsystem.webmvc\\areas\\admin\\views\\products\\create.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{6FAD6E84-7802-291A-2026-334945D7E435}|ERPSystem.WebMVC\\ERPSystem.WebMVC.csproj|solutionrelative:erpsystem.webmvc\\areas\\admin\\views\\products\\create.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+      "AbsoluteMoniker": "D:0:0:{6FAD6E84-7802-291A-2026-334945D7E435}|ERPSystem.WebMVC\\ERPSystem.WebMVC.csproj|c:\\users\\cavad\\desktop\\finalproject\\erpsystem\\erpsystem.webmvc\\views\\customers\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{6FAD6E84-7802-291A-2026-334945D7E435}|ERPSystem.WebMVC\\ERPSystem.WebMVC.csproj|solutionrelative:erpsystem.webmvc\\views\\customers\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{6FAD6E84-7802-291A-2026-334945D7E435}|ERPSystem.WebMVC\\ERPSystem.WebMVC.csproj|c:\\users\\cavad\\desktop\\finalproject\\erpsystem\\erpsystem.webmvc\\areas\\admin\\views\\products\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{6FAD6E84-7802-291A-2026-334945D7E435}|ERPSystem.WebMVC\\ERPSystem.WebMVC.csproj|solutionrelative:erpsystem.webmvc\\areas\\admin\\views\\products\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{6FAD6E84-7802-291A-2026-334945D7E435}|ERPSystem.WebMVC\\ERPSystem.WebMVC.csproj|c:\\users\\cavad\\desktop\\finalproject\\erpsystem\\erpsystem.webmvc\\areas\\admin\\controllers\\productscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{6FAD6E84-7802-291A-2026-334945D7E435}|ERPSystem.WebMVC\\ERPSystem.WebMVC.csproj|solutionrelative:erpsystem.webmvc\\areas\\admin\\controllers\\productscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{6FAD6E84-7802-291A-2026-334945D7E435}|ERPSystem.WebMVC\\ERPSystem.WebMVC.csproj|c:\\users\\cavad\\desktop\\finalproject\\erpsystem\\erpsystem.webmvc\\viewmodels\\products\\updateproductviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{6FAD6E84-7802-291A-2026-334945D7E435}|ERPSystem.WebMVC\\ERPSystem.WebMVC.csproj|solutionrelative:erpsystem.webmvc\\viewmodels\\products\\updateproductviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{6FAD6E84-7802-291A-2026-334945D7E435}|ERPSystem.WebMVC\\ERPSystem.WebMVC.csproj|c:\\users\\cavad\\desktop\\finalproject\\erpsystem\\erpsystem.webmvc\\viewmodels\\products\\createproductviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{6FAD6E84-7802-291A-2026-334945D7E435}|ERPSystem.WebMVC\\ERPSystem.WebMVC.csproj|solutionrelative:erpsystem.webmvc\\viewmodels\\products\\createproductviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{6FAD6E84-7802-291A-2026-334945D7E435}|ERPSystem.WebMVC\\ERPSystem.WebMVC.csproj|c:\\users\\cavad\\desktop\\finalproject\\erpsystem\\erpsystem.webmvc\\viewmodels\\products\\productviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{6FAD6E84-7802-291A-2026-334945D7E435}|ERPSystem.WebMVC\\ERPSystem.WebMVC.csproj|solutionrelative:erpsystem.webmvc\\viewmodels\\products\\productviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{6FAD6E84-7802-291A-2026-334945D7E435}|ERPSystem.WebMVC\\ERPSystem.WebMVC.csproj|c:\\users\\cavad\\desktop\\finalproject\\erpsystem\\erpsystem.webmvc\\viewmodels\\categories\\updatecategoryviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{6FAD6E84-7802-291A-2026-334945D7E435}|ERPSystem.WebMVC\\ERPSystem.WebMVC.csproj|solutionrelative:erpsystem.webmvc\\viewmodels\\categories\\updatecategoryviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{6FAD6E84-7802-291A-2026-334945D7E435}|ERPSystem.WebMVC\\ERPSystem.WebMVC.csproj|c:\\users\\cavad\\desktop\\finalproject\\erpsystem\\erpsystem.webmvc\\services\\apiservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{6FAD6E84-7802-291A-2026-334945D7E435}|ERPSystem.WebMVC\\ERPSystem.WebMVC.csproj|solutionrelative:erpsystem.webmvc\\services\\apiservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -42,8 +22,21 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 2,
+          "SelectedChildIndex": 0,
           "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "CustomersController.cs",
+              "DocumentMoniker": "C:\\Users\\cavad\\Desktop\\FinalProject\\ERPSystem\\ERPSystem.WebMVC\\Controllers\\CustomersController.cs",
+              "RelativeDocumentMoniker": "ERPSystem.WebMVC\\Controllers\\CustomersController.cs",
+              "ToolTip": "C:\\Users\\cavad\\Desktop\\FinalProject\\ERPSystem\\ERPSystem.WebMVC\\Controllers\\CustomersController.cs",
+              "RelativeToolTip": "ERPSystem.WebMVC\\Controllers\\CustomersController.cs",
+              "ViewState": "AgIAABEAAAAAAAAAAAAqwI4AAAAlAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-08-01T21:51:33.125Z",
+              "EditorCaption": ""
+            },
             {
               "$type": "Bookmark",
               "Name": "ST:0:0:{0ad07096-bba9-4900-a651-0598d26f6d24}"
@@ -54,100 +47,29 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "Edit.cshtml",
-              "DocumentMoniker": "C:\\Users\\cavad\\Desktop\\FinalProject\\ERPSystem\\ERPSystem.WebMVC\\Areas\\Admin\\Views\\Products\\Edit.cshtml",
-              "RelativeDocumentMoniker": "ERPSystem.WebMVC\\Areas\\Admin\\Views\\Products\\Edit.cshtml",
-              "ToolTip": "C:\\Users\\cavad\\Desktop\\FinalProject\\ERPSystem\\ERPSystem.WebMVC\\Areas\\Admin\\Views\\Products\\Edit.cshtml",
-              "RelativeToolTip": "ERPSystem.WebMVC\\Areas\\Admin\\Views\\Products\\Edit.cshtml",
-              "ViewState": "AgIAACYAAAAAAAAAAAAUwD8AAAAHAAAAAAAAAA==",
+              "DocumentIndex": 1,
+              "Title": "Index.cshtml",
+              "DocumentMoniker": "C:\\Users\\cavad\\Desktop\\FinalProject\\ERPSystem\\ERPSystem.WebMVC\\Views\\Customers\\Index.cshtml",
+              "RelativeDocumentMoniker": "ERPSystem.WebMVC\\Views\\Customers\\Index.cshtml",
+              "ToolTip": "C:\\Users\\cavad\\Desktop\\FinalProject\\ERPSystem\\ERPSystem.WebMVC\\Views\\Customers\\Index.cshtml",
+              "RelativeToolTip": "ERPSystem.WebMVC\\Views\\Customers\\Index.cshtml",
+              "ViewState": "AgIAANgAAAAAAAAAAAAtwN0AAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2026-07-29T00:00:29.013Z",
+              "WhenOpened": "2026-08-01T21:52:49.016Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "Create.cshtml",
-              "DocumentMoniker": "C:\\Users\\cavad\\Desktop\\FinalProject\\ERPSystem\\ERPSystem.WebMVC\\Areas\\Admin\\Views\\Products\\Create.cshtml",
-              "RelativeDocumentMoniker": "ERPSystem.WebMVC\\Areas\\Admin\\Views\\Products\\Create.cshtml",
-              "ToolTip": "C:\\Users\\cavad\\Desktop\\FinalProject\\ERPSystem\\ERPSystem.WebMVC\\Areas\\Admin\\Views\\Products\\Create.cshtml",
-              "RelativeToolTip": "ERPSystem.WebMVC\\Areas\\Admin\\Views\\Products\\Create.cshtml",
-              "ViewState": "AgIAACQAAAAAAAAAAAAUwD0AAAAHAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2026-07-29T00:00:11.659Z"
-            },
-            {
-              "$type": "Document",
               "DocumentIndex": 2,
-              "Title": "Index.cshtml",
-              "DocumentMoniker": "C:\\Users\\cavad\\Desktop\\FinalProject\\ERPSystem\\ERPSystem.WebMVC\\Areas\\Admin\\Views\\Products\\Index.cshtml",
-              "RelativeDocumentMoniker": "ERPSystem.WebMVC\\Areas\\Admin\\Views\\Products\\Index.cshtml",
-              "ToolTip": "C:\\Users\\cavad\\Desktop\\FinalProject\\ERPSystem\\ERPSystem.WebMVC\\Areas\\Admin\\Views\\Products\\Index.cshtml",
-              "RelativeToolTip": "ERPSystem.WebMVC\\Areas\\Admin\\Views\\Products\\Index.cshtml",
-              "ViewState": "AgIAAC0AAAAAAAAAAAAUwEYAAAABAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2026-07-28T23:59:54.083Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 3,
-              "Title": "ProductsController.cs",
-              "DocumentMoniker": "C:\\Users\\cavad\\Desktop\\FinalProject\\ERPSystem\\ERPSystem.WebMVC\\Areas\\Admin\\Controllers\\ProductsController.cs",
-              "RelativeDocumentMoniker": "ERPSystem.WebMVC\\Areas\\Admin\\Controllers\\ProductsController.cs",
-              "ToolTip": "C:\\Users\\cavad\\Desktop\\FinalProject\\ERPSystem\\ERPSystem.WebMVC\\Areas\\Admin\\Controllers\\ProductsController.cs",
-              "RelativeToolTip": "ERPSystem.WebMVC\\Areas\\Admin\\Controllers\\ProductsController.cs",
-              "ViewState": "AgIAAKEAAAAAAAAAAAAAALAAAAABAAAAAAAAAA==",
+              "Title": "ApiService.cs",
+              "DocumentMoniker": "C:\\Users\\cavad\\Desktop\\FinalProject\\ERPSystem\\ERPSystem.WebMVC\\Services\\ApiService.cs",
+              "RelativeDocumentMoniker": "ERPSystem.WebMVC\\Services\\ApiService.cs",
+              "ToolTip": "C:\\Users\\cavad\\Desktop\\FinalProject\\ERPSystem\\ERPSystem.WebMVC\\Services\\ApiService.cs",
+              "RelativeToolTip": "ERPSystem.WebMVC\\Services\\ApiService.cs",
+              "ViewState": "AgIAAEsAAAAAAAAAAAAkwGUAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-07-28T23:59:20.347Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 4,
-              "Title": "UpdateProductViewModel.cs",
-              "DocumentMoniker": "C:\\Users\\cavad\\Desktop\\FinalProject\\ERPSystem\\ERPSystem.WebMVC\\ViewModels\\Products\\UpdateProductViewModel.cs",
-              "RelativeDocumentMoniker": "ERPSystem.WebMVC\\ViewModels\\Products\\UpdateProductViewModel.cs",
-              "ToolTip": "C:\\Users\\cavad\\Desktop\\FinalProject\\ERPSystem\\ERPSystem.WebMVC\\ViewModels\\Products\\UpdateProductViewModel.cs",
-              "RelativeToolTip": "ERPSystem.WebMVC\\ViewModels\\Products\\UpdateProductViewModel.cs",
-              "ViewState": "AgIAAAEAAAAAAAAAAAAqwBsAAAAFAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-07-28T23:58:56.322Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 5,
-              "Title": "CreateProductViewModel.cs",
-              "DocumentMoniker": "C:\\Users\\cavad\\Desktop\\FinalProject\\ERPSystem\\ERPSystem.WebMVC\\ViewModels\\Products\\CreateProductViewModel.cs",
-              "RelativeDocumentMoniker": "ERPSystem.WebMVC\\ViewModels\\Products\\CreateProductViewModel.cs",
-              "ToolTip": "C:\\Users\\cavad\\Desktop\\FinalProject\\ERPSystem\\ERPSystem.WebMVC\\ViewModels\\Products\\CreateProductViewModel.cs",
-              "RelativeToolTip": "ERPSystem.WebMVC\\ViewModels\\Products\\CreateProductViewModel.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABkAAAAFAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-07-28T23:58:31.143Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 6,
-              "Title": "ProductViewModel.cs",
-              "DocumentMoniker": "C:\\Users\\cavad\\Desktop\\FinalProject\\ERPSystem\\ERPSystem.WebMVC\\ViewModels\\Products\\ProductViewModel.cs",
-              "RelativeDocumentMoniker": "ERPSystem.WebMVC\\ViewModels\\Products\\ProductViewModel.cs",
-              "ToolTip": "C:\\Users\\cavad\\Desktop\\FinalProject\\ERPSystem\\ERPSystem.WebMVC\\ViewModels\\Products\\ProductViewModel.cs",
-              "RelativeToolTip": "ERPSystem.WebMVC\\ViewModels\\Products\\ProductViewModel.cs",
-              "ViewState": "AgIAAAUAAAAAAAAAAADwvxMAAAAFAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-07-28T23:58:05.544Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 7,
-              "Title": "UpdateCategoryViewModel.cs",
-              "DocumentMoniker": "C:\\Users\\cavad\\Desktop\\FinalProject\\ERPSystem\\ERPSystem.WebMVC\\ViewModels\\Categories\\UpdateCategoryViewModel.cs",
-              "RelativeDocumentMoniker": "ERPSystem.WebMVC\\ViewModels\\Categories\\UpdateCategoryViewModel.cs",
-              "ToolTip": "C:\\Users\\cavad\\Desktop\\FinalProject\\ERPSystem\\ERPSystem.WebMVC\\ViewModels\\Categories\\UpdateCategoryViewModel.cs",
-              "RelativeToolTip": "ERPSystem.WebMVC\\ViewModels\\Categories\\UpdateCategoryViewModel.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAwAAAAFAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-07-28T23:51:19.306Z"
+              "WhenOpened": "2026-08-01T21:52:02.041Z",
+              "EditorCaption": ""
             }
           ]
         },

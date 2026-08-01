@@ -1,97 +1,117 @@
-﻿@{
+﻿@model ERPSystem.WebMVC.ViewModels.Dashboard.AdminDashboardViewModel
+
+@{
     Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
     ViewData["Title"] = "Admin Dashboard";
 }
 
-<h3 class="mb-1">Admin Dashboard</h3>
-<p class="text-muted mb-4">Manage system data, users, security and configuration.</p>
+<div class="mb-4">
+    <h2 class="mb-1">Admin Dashboard</h2>
+    <p class="text-muted mb-0">System overview, activity and important metrics.</p>
+</div>
 
-<div class="row g-3">
+<div class="row g-3 mb-4">
     <div class="col-md-3">
-        <a asp-area="Admin" asp-controller="Products" asp-action="Index" class="text-decoration-none">
-            <div class="card border-0 shadow-sm h-100">
-                <div class="card-body">
-                    <h5>Products</h5>
-                    <p class="text-muted mb-0">Manage product master data</p>
-                </div>
-            </div>
-        </a>
+        <div class="bg-white p-3 shadow-sm border-start border-primary border-4">
+            <div class="text-muted small">Products</div>
+            <h3 class="mb-0">@Model.TotalProducts</h3>
+        </div>
     </div>
 
     <div class="col-md-3">
-        <a asp-area="Admin" asp-controller="Categories" asp-action="Index" class="text-decoration-none">
-            <div class="card border-0 shadow-sm h-100">
-                <div class="card-body">
-                    <h5>Categories</h5>
-                    <p class="text-muted mb-0">Manage product categories</p>
-                </div>
-            </div>
-        </a>
+        <div class="bg-white p-3 shadow-sm border-start border-success border-4">
+            <div class="text-muted small">Customers</div>
+            <h3 class="mb-0">@Model.TotalCustomers</h3>
+        </div>
     </div>
 
     <div class="col-md-3">
-        <a asp-area="Admin" asp-controller="Users" asp-action="Index" class="text-decoration-none">
-            <div class="card border-0 shadow-sm h-100">
-                <div class="card-body">
-                    <h5>Users</h5>
-                    <p class="text-muted mb-0">Manage user accounts</p>
-                </div>
-            </div>
-        </a>
+        <div class="bg-white p-3 shadow-sm border-start border-warning border-4">
+            <div class="text-muted small">Suppliers</div>
+            <h3 class="mb-0">@Model.TotalSuppliers</h3>
+        </div>
     </div>
 
     <div class="col-md-3">
-        <a asp-area="Admin" asp-controller="Roles" asp-action="Index" class="text-decoration-none">
-            <div class="card border-0 shadow-sm h-100">
-                <div class="card-body">
-                    <h5>Roles</h5>
-                    <p class="text-muted mb-0">Manage access roles</p>
-                </div>
-            </div>
+        <div class="bg-white p-3 shadow-sm border-start border-info border-4">
+            <div class="text-muted small">Employees</div>
+            <h3 class="mb-0">@Model.TotalEmployees</h3>
+        </div>
+    </div>
+
+    <div class="col-md-4">
+        <div class="bg-white p-3 shadow-sm border-start border-danger border-4">
+            <div class="text-muted small">Low Stock</div>
+            <h3 class="mb-0">@Model.LowStockCount</h3>
+        </div>
+    </div>
+
+    <div class="col-md-4">
+        <div class="bg-white p-3 shadow-sm border-start border-primary border-4">
+            <div class="text-muted small">Sales Total</div>
+            <h3 class="mb-0">@Model.TotalSalesAmount.ToString("0.00")</h3>
+        </div>
+    </div>
+
+    <div class="col-md-4">
+        <div class="bg-white p-3 shadow-sm border-start border-warning border-4">
+            <div class="text-muted small">Purchase Total</div>
+            <h3 class="mb-0">@Model.TotalPurchaseAmount.ToString("0.00")</h3>
+        </div>
+    </div>
+</div>
+
+<div class="bg-white p-4 shadow-sm">
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <h4 class="mb-0">Recent Audit Logs</h4>
+
+        <a asp-area="Admin" asp-controller="AuditLogs" asp-action="Index" class="btn btn-sm btn-outline-primary">
+            View All
         </a>
     </div>
 
-    <div class="col-md-3">
-        <a asp-area="Admin" asp-controller="Customers" asp-action="Index" class="text-decoration-none">
-            <div class="card border-0 shadow-sm h-100">
-                <div class="card-body">
-                    <h5>Customers</h5>
-                    <p class="text-muted mb-0">Manage customer records</p>
-                </div>
-            </div>
-        </a>
-    </div>
+    @if (!Model.RecentAuditLogs.Any())
+    {
+        <div class="alert alert-info mb-0">
+            No recent audit logs found.
+        </div>
+    }
+    else
+    {
+        <table class="table table-hover align-middle mb-0">
+            <thead>
+                <tr>
+                    <th>Date</th>
+                    <th>User</th>
+                    <th>Action</th>
+                    <th>Entity</th>
+                    <th>Details</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var log in Model.RecentAuditLogs)
+                {
+                    var badgeClass = log.Action switch
+                    {
+                        "Created" => "bg-success",
+                        "Updated" => "bg-warning text-dark",
+                        "Deleted" => "bg-danger",
+                        _ => "bg-secondary"
+                    };
 
-    <div class="col-md-3">
-        <a asp-area="Admin" asp-controller="Suppliers" asp-action="Index" class="text-decoration-none">
-            <div class="card border-0 shadow-sm h-100">
-                <div class="card-body">
-                    <h5>Suppliers</h5>
-                    <p class="text-muted mb-0">Manage supplier records</p>
-                </div>
-            </div>
-        </a>
-    </div>
-
-    <div class="col-md-3">
-        <a asp-area="Admin" asp-controller="AuditLogs" asp-action="Index" class="text-decoration-none">
-            <div class="card border-0 shadow-sm h-100">
-                <div class="card-body">
-                    <h5>Audit Logs</h5>
-                    <p class="text-muted mb-0">Track system activity</p>
-                </div>
-            </div>
-        </a>
-    </div>
-
-    <div class="col-md-3">
-        <a asp-area="Admin" asp-controller="Reports" asp-action="Index" class="text-decoration-none">
-            <div class="card border-0 shadow-sm h-100">
-                <div class="card-body">
-                    <h5>Reports</h5>
-                    <p class="text-muted mb-0">View system analytics</p>
-                </div>
-            </div>
-        </a>
-    </div>
+                    <tr>
+                        <td>@log.ActionDate.ToString("dd MMM yyyy HH:mm")</td>
+                        <td>@log.UserId</td>
+                        <td>
+                            <span class="badge @badgeClass">
+                                @log.Action
+                            </span>
+                        </td>
+                        <td>@log.EntityName</td>
+                        <td>@log.Details</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
 </div>

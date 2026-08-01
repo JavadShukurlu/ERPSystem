@@ -3,11 +3,7 @@ using ERPSystem.Application.DTOs.Suppliers;
 using ERPSystem.Application.Interfaces;
 using ERPSystem.Application.Interfaces.Services;
 using ERPSystem.Domain.Entities;
-using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ERPSystem.Application.Services
 {
@@ -31,7 +27,8 @@ namespace ERPSystem.Application.Services
                 ContactName = supplier.ContactName,
                 Email = supplier.Email,
                 PhoneNumber = supplier.PhoneNumber,
-                Address = supplier.Address
+                Address = supplier.Address,
+                LogoUrl = supplier.LogoUrl
             }).ToList();
 
             return ResultDto<List<SupplierDto>>.Success(result);
@@ -53,7 +50,8 @@ namespace ERPSystem.Application.Services
                 ContactName = supplier.ContactName,
                 Email = supplier.Email,
                 PhoneNumber = supplier.PhoneNumber,
-                Address = supplier.Address
+                Address = supplier.Address,
+                LogoUrl = supplier.LogoUrl
             };
 
             return ResultDto<SupplierDto>.Success(result);
@@ -67,7 +65,8 @@ namespace ERPSystem.Application.Services
                 ContactName = dto.ContactName,
                 Email = dto.Email,
                 PhoneNumber = dto.PhoneNumber,
-                Address = dto.Address
+                Address = dto.Address,
+                LogoUrl = dto.LogoUrl
             };
 
             await _unitOfWork.Suppliers.AddAsync(supplier);
@@ -80,7 +79,8 @@ namespace ERPSystem.Application.Services
                 ContactName = supplier.ContactName,
                 Email = supplier.Email,
                 PhoneNumber = supplier.PhoneNumber,
-                Address = supplier.Address
+                Address = supplier.Address,
+                LogoUrl = supplier.LogoUrl
             };
 
             return ResultDto<SupplierDto>.Success(result, "Supplier created successfully.");
@@ -100,6 +100,7 @@ namespace ERPSystem.Application.Services
             supplier.Email = dto.Email;
             supplier.PhoneNumber = dto.PhoneNumber;
             supplier.Address = dto.Address;
+            supplier.LogoUrl = dto.LogoUrl;
 
             _unitOfWork.Suppliers.Update(supplier);
             await _unitOfWork.SaveChangesAsync();
@@ -111,7 +112,8 @@ namespace ERPSystem.Application.Services
                 ContactName = supplier.ContactName,
                 Email = supplier.Email,
                 PhoneNumber = supplier.PhoneNumber,
-                Address = supplier.Address
+                Address = supplier.Address,
+                LogoUrl = supplier.LogoUrl
             };
 
             return ResultDto<SupplierDto>.Success(result, "Supplier updated successfully.");

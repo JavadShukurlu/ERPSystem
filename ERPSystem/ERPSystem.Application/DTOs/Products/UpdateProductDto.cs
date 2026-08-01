@@ -16,6 +16,8 @@ namespace ERPSystem.Application.DTOs.Products
 
         public string? Description { get; set; }
 
+        public string? ImageUrl { get; set; }
+
         public decimal PurchasePrice { get; set; }
 
         public decimal SalePrice { get; set; }

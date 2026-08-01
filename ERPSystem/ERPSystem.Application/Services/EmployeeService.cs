@@ -3,12 +3,7 @@ using ERPSystem.Application.DTOs.Employees;
 using ERPSystem.Application.Interfaces;
 using ERPSystem.Application.Interfaces.Services;
 using ERPSystem.Domain.Entities;
-using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ERPSystem.Application.Services
 {
@@ -23,33 +18,29 @@ namespace ERPSystem.Application.Services
 
         public async Task<ResultDto<List<EmployeeDto>>> GetAllAsync()
         {
-            var employees = await _unitOfWork.Employees
-                .GetQueryable()
-                .Include(employee => employee.Department)
-                .Select(employee => new EmployeeDto
-                {
-                    Id = employee.Id,
-                    FirstName = employee.FirstName,
-                    LastName = employee.LastName,
-                    Email = employee.Email,
-                    PhoneNumber = employee.PhoneNumber,
-                    Position = employee.Position,
-                    Salary = employee.Salary,
-                    HireDate = employee.HireDate,
-                    DepartmentId = employee.DepartmentId,
-                    DepartmentName = employee.Department.Name
-                })
-                .ToListAsync();
+            var employees = await _unitOfWork.Employees.GetAllAsync();
 
-            return ResultDto<List<EmployeeDto>>.Success(employees);
+            var result = employees.Select(employee => new EmployeeDto
+            {
+                Id = employee.Id,
+                FirstName = employee.FirstName,
+                LastName = employee.LastName,
+                Email = employee.Email,
+                PhoneNumber = employee.PhoneNumber,
+                Position = employee.Position,
+                Salary = employee.Salary,
+                HireDate = employee.HireDate,
+                ImageUrl = employee.ImageUrl,
+                DepartmentId = employee.DepartmentId,
+                DepartmentName = employee.Department?.Name
+            }).ToList();
+
+            return ResultDto<List<EmployeeDto>>.Success(result);
         }
 
         public async Task<ResultDto<EmployeeDto>> GetByIdAsync(int id)
         {
-            var employee = await _unitOfWork.Employees
-                .GetQueryable()
-                .Include(employee => employee.Department)
-                .FirstOrDefaultAsync(employee => employee.Id == id);
+            var employee = await _unitOfWork.Employees.GetByIdAsync(id);
 
             if (employee is null)
             {
@@ -66,8 +57,9 @@ namespace ERPSystem.Application.Services
                 Position = employee.Position,
                 Salary = employee.Salary,
                 HireDate = employee.HireDate,
+                ImageUrl = employee.ImageUrl,
                 DepartmentId = employee.DepartmentId,
-                DepartmentName = employee.Department.Name
+                DepartmentName = employee.Department?.Name
             };
 
             return ResultDto<EmployeeDto>.Success(result);
@@ -75,13 +67,6 @@ namespace ERPSystem.Application.Services
 
         public async Task<ResultDto<EmployeeDto>> CreateAsync(CreateEmployeeDto dto)
         {
-            var department = await _unitOfWork.Departments.GetByIdAsync(dto.DepartmentId);
-
-            if (department is null)
-            {
-                return ResultDto<EmployeeDto>.Failure("Department not found.");
-            }
-
             var employee = new Employee
             {
                 FirstName = dto.FirstName,
@@ -91,6 +76,7 @@ namespace ERPSystem.Application.Services
                 Position = dto.Position,
                 Salary = dto.Salary,
                 HireDate = dto.HireDate,
+                ImageUrl = dto.ImageUrl,
                 DepartmentId = dto.DepartmentId
             };
 
@@ -107,8 +93,9 @@ namespace ERPSystem.Application.Services
                 Position = employee.Position,
                 Salary = employee.Salary,
                 HireDate = employee.HireDate,
+                ImageUrl = employee.ImageUrl,
                 DepartmentId = employee.DepartmentId,
-                DepartmentName = department.Name
+                DepartmentName = employee.Department?.Name
             };
 
             return ResultDto<EmployeeDto>.Success(result, "Employee created successfully.");
@@ -123,13 +110,6 @@ namespace ERPSystem.Application.Services
                 return ResultDto<EmployeeDto>.Failure("Employee not found.");
             }
 
-            var department = await _unitOfWork.Departments.GetByIdAsync(dto.DepartmentId);
-
-            if (department is null)
-            {
-                return ResultDto<EmployeeDto>.Failure("Department not found.");
-            }
-
             employee.FirstName = dto.FirstName;
             employee.LastName = dto.LastName;
             employee.Email = dto.Email;
@@ -137,6 +117,7 @@ namespace ERPSystem.Application.Services
             employee.Position = dto.Position;
             employee.Salary = dto.Salary;
             employee.HireDate = dto.HireDate;
+            employee.ImageUrl = dto.ImageUrl;
             employee.DepartmentId = dto.DepartmentId;
 
             _unitOfWork.Employees.Update(employee);
@@ -152,8 +133,9 @@ namespace ERPSystem.Application.Services
                 Position = employee.Position,
                 Salary = employee.Salary,
                 HireDate = employee.HireDate,
+                ImageUrl = employee.ImageUrl,
                 DepartmentId = employee.DepartmentId,
-                DepartmentName = department.Name
+                DepartmentName = employee.Department?.Name
             };
 
             return ResultDto<EmployeeDto>.Success(result, "Employee updated successfully.");

@@ -38,9 +38,39 @@ namespace ERPSystem.Persistence.Context
         public DbSet<Invoice> Invoices { get; set; }
         public DbSet<Payment> Payments { get; set; }
         public DbSet<AuditLog> AuditLogs { get; set; }
+        public DbSet<SystemSetting> SystemSettings { get; set; }
+        public DbSet<ModulePermission> ModulePermissions { get; set; }
+
+        protected override void OnModelCreating(ModelBuilder builder)
+        {
+            base.OnModelCreating(builder);
+
+            builder.Entity<AppUser>()
+                .HasOne(user => user.Employee)
+                .WithOne(employee => employee.AppUser)
+                .HasForeignKey<Employee>(employee => employee.AppUserId)
+                .OnDelete(DeleteBehavior.SetNull);
+
+            builder.Entity<ModulePermission>()
+                .HasOne(permission => permission.User)
+                .WithMany(user => user.ModulePermissions)
+                .HasForeignKey(permission => permission.UserId)
+                .OnDelete(DeleteBehavior.Cascade);
+
+            builder.Entity<ModulePermission>()
+                .HasIndex(permission => new
+                {
+                    permission.UserId,
+                    permission.ModuleName,
+                    permission.ActionName
+                })
+                .IsUnique();
+        }
 
         public override async Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
         {
+            SetAuditFields();
+
             var auditEntries = CreateAuditEntries();
 
             var result = await base.SaveChangesAsync(cancellationToken);
@@ -52,6 +82,31 @@ namespace ERPSystem.Persistence.Context
             }
 
             return result;
+        }
+        private void SetAuditFields()
+        {
+            var userId = _currentUserService?.UserId;
+
+            var entries = ChangeTracker.Entries<BaseEntity>()
+                .Where(entry =>
+                    entry.Entity is not AuditLog &&
+                    entry.State is EntityState.Added or EntityState.Modified)
+                .ToList();
+
+            foreach (var entry in entries)
+            {
+                if (entry.State == EntityState.Added)
+                {
+                    entry.Entity.CreatedDate = DateTime.UtcNow;
+                    entry.Entity.CreatedByUserId = userId;
+                }
+
+                if (entry.State == EntityState.Modified)
+                {
+                    entry.Entity.UpdatedDate = DateTime.UtcNow;
+                    entry.Entity.UpdatedByUserId = userId;
+                }
+            }
         }
 
         private List<AuditLog> CreateAuditEntries()

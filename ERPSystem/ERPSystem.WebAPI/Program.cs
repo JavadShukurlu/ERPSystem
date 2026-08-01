@@ -1,15 +1,17 @@
-using ERPSystem.Infrastructure.DependencyInjection;
-using ERPSystem.WebAPI.Middlewares;
-using Microsoft.OpenApi.Models;
-using System.Text;
 using ERPSystem.Application.Common;
+using ERPSystem.Application.DependencyInjection;
+using ERPSystem.Application.Interfaces.Services;
+using ERPSystem.Application.Services;
 using ERPSystem.Domain.Entities;
+using ERPSystem.Infrastructure.DependencyInjection;
 using ERPSystem.Persistence.Context;
+using ERPSystem.Persistence.DependencyInjection;
+using ERPSystem.WebAPI.Middlewares;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.IdentityModel.Tokens;
-using ERPSystem.Application.DependencyInjection;
-using ERPSystem.Persistence.DependencyInjection;
+using Microsoft.OpenApi.Models;
+using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
 
