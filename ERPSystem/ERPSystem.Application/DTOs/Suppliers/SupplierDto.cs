@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace ERPSystem.Application.DTOs.Suppliers
+﻿namespace ERPSystem.Application.DTOs.Suppliers
 {
     public class SupplierDto
     {
@@ -21,5 +15,13 @@ namespace ERPSystem.Application.DTOs.Suppliers
         public string? Address { get; set; }
 
         public string? LogoUrl { get; set; }
+
+        public DateTime CreatedDate { get; set; }
+
+        public DateTime? UpdatedDate { get; set; }
+
+        public string? CreatedByUserId { get; set; }
+
+        public string? UpdatedByUserId { get; set; }
     }
 }

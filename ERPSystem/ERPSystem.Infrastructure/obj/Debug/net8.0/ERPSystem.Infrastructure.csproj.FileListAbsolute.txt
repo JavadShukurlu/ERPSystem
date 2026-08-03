@@ -10,9 +10,9 @@ C:\Users\cavad\Desktop\FinalProject\ERPSystem\ERPSystem.Infrastructure\obj\Debug
 C:\Users\cavad\Desktop\FinalProject\ERPSystem\ERPSystem.Infrastructure\obj\Debug\net8.0\ERPSystem.Infrastructure.AssemblyInfoInputs.cache
 C:\Users\cavad\Desktop\FinalProject\ERPSystem\ERPSystem.Infrastructure\obj\Debug\net8.0\ERPSystem.Infrastructure.AssemblyInfo.cs
 C:\Users\cavad\Desktop\FinalProject\ERPSystem\ERPSystem.Infrastructure\obj\Debug\net8.0\ERPSystem.Infrastructure.csproj.CoreCompileInputs.cache
+C:\Users\cavad\Desktop\FinalProject\ERPSystem\ERPSystem.Infrastructure\obj\Debug\net8.0\ERPSystem.Infrastructure.sourcelink.json
 C:\Users\cavad\Desktop\FinalProject\ERPSystem\ERPSystem.Infrastructure\obj\Debug\net8.0\ERPSyste.D8DCC4A0.Up2Date
 C:\Users\cavad\Desktop\FinalProject\ERPSystem\ERPSystem.Infrastructure\obj\Debug\net8.0\ERPSystem.Infrastructure.dll
 C:\Users\cavad\Desktop\FinalProject\ERPSystem\ERPSystem.Infrastructure\obj\Debug\net8.0\refint\ERPSystem.Infrastructure.dll
 C:\Users\cavad\Desktop\FinalProject\ERPSystem\ERPSystem.Infrastructure\obj\Debug\net8.0\ERPSystem.Infrastructure.pdb
 C:\Users\cavad\Desktop\FinalProject\ERPSystem\ERPSystem.Infrastructure\obj\Debug\net8.0\ref\ERPSystem.Infrastructure.dll
-C:\Users\cavad\Desktop\FinalProject\ERPSystem\ERPSystem.Infrastructure\obj\Debug\net8.0\ERPSystem.Infrastructure.sourcelink.json

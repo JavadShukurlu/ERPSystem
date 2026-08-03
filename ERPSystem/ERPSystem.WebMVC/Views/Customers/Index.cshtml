@@ -1,366 +1,160 @@
 ﻿@model ERPSystem.WebMVC.ViewModels.Customers.CustomerIndexPageViewModel
 
 @{
-    Layout = null;
+    Layout = "~/Views/Shared/_Layout.cshtml";
     ViewData["Title"] = "Customers";
+
+    var activeTab = ViewBag.ActiveTab as string;
+    var showPermissionsTab = activeTab == "permissions";
+
+    var selectedUser = Model.PermissionPage.Users
+        .FirstOrDefault(user => user.Id == Model.PermissionPage.SelectedUserId);
 }
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="utf-8" />
-    <title>Customers - ERP System</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-
-    <link href="~/lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
-    <link href="~/css/erp-advanced-filter.css" rel="stylesheet" />
-
-    <style>
-            body {
-                background: #f5f6f8;
-                color: #111827;
-            }
-
-            .erp-topbar {
-                height: 58px;
-                background: #ffffff;
-                border-bottom: 1px solid #dde2ea;
-                display: flex;
-                align-items: center;
-                justify-content: space-between;
-                padding: 0 28px;
-            }
-
-            .erp-shell {
-                padding: 24px 32px;
-            }
-
-            .page-heading {
-                display: flex;
-                align-items: flex-end;
-                justify-content: space-between;
-                gap: 18px;
-            }
-
-            .page-title {
-                font-size: 34px;
-                font-weight: 600;
-                margin-bottom: 4px;
-            }
-
-            .breadcrumb-text {
-                color: #6b7280;
-                font-size: 15px;
-                margin-bottom: 4px;
-            }
-
-            .module-tabs {
-                display: flex;
-                gap: 6px;
-                margin-top: 18px;
-                border-bottom: 1px solid #dde2ea;
-            }
-
-            .module-tab {
-                border: 0;
-                background: transparent;
-                padding: 10px 14px;
-                color: #6b7280;
-            }
-
-                .module-tab.active {
-                    color: #111827;
-                    border-bottom: 2px solid #0d6efd;
-                    font-weight: 600;
-                }
-
-            .tab-content-panel {
-                display: none;
-            }
-
-                .tab-content-panel.active {
-                    display: block;
-                }
-
-            .customer-grid {
-                display: grid;
-                grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
-                gap: 16px;
-            }
-
-            .customer-card {
-                background: #ffffff;
-                border: 1px solid #dde2ea;
-                padding: 16px;
-                display: grid;
-                grid-template-columns: 82px 1fr auto;
-                gap: 14px;
-                align-items: start;
-                position: relative;
-            }
-
-            .customer-image {
-                width: 82px;
-                height: 82px;
-                object-fit: cover;
-                border-radius: 50%;
-                background: #eef1f5;
-            }
-
-            .customer-placeholder {
-                width: 82px;
-                height: 82px;
-                border-radius: 50%;
-                background: #eef1f5;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                color: #6b7280;
-                font-weight: 600;
-            }
-
-            .customer-name {
-                font-size: 21px;
-                font-weight: 600;
-                margin-bottom: 4px;
-            }
-
-            .muted-text {
-                color: #6b7280;
-            }
-
-            .date-row {
-                font-size: 13px;
-                color: #6b7280;
-                margin-top: 8px;
-            }
-
-            .menu-button {
-                border: 1px solid #cfd6df;
-                background: #ffffff;
-                width: 34px;
-                height: 34px;
-            }
-
-            .customer-menu {
-                display: none;
-                position: absolute;
-                right: 16px;
-                top: 52px;
-                background: #ffffff;
-                border: 1px solid #dde2ea;
-                min-width: 130px;
-                z-index: 10;
-                box-shadow: 0 10px 30px rgba(15, 23, 42, .12);
-            }
-
-                .customer-menu a,
-                .customer-menu button {
-                    display: block;
-                    width: 100%;
-                    border: 0;
-                    background: transparent;
-                    padding: 9px 12px;
-                    text-align: left;
-                    text-decoration: none;
-                    color: #111827;
-                }
-
-                .customer-menu button {
-                    color: #dc3545;
-                }
-
-            .list-view .customer-grid {
-                display: block;
-            }
-
-            .list-view .customer-card {
-                margin-bottom: 10px;
-                grid-template-columns: 58px 1fr auto;
-            }
-
-            .list-view .customer-image,
-            .list-view .customer-placeholder {
-                width: 58px;
-                height: 58px;
-            }
-
-            .permission-panel {
-                background: #ffffff;
-                border: 1px solid #dde2ea;
-                padding: 18px;
-                margin-top: 18px;
-            }
-    </style>
-</head>
-
-<body>
-    <header class="erp-topbar">
+<div class="erp-topbar">
+    <div class="erp-topbar-left">
         <a asp-controller="Workspace" asp-action="Index" class="btn btn-outline-secondary">
             Apps
         </a>
+    </div>
 
-        <strong>ERP System</strong>
-    </header>
+    <div class="erp-topbar-title">ERP System</div>
+</div>
 
-    <main class="erp-shell" id="customerPage">
-        <div class="breadcrumb-text">Workspace / Customers</div>
-
-        <div class="page-heading">
-            <div>
-                <h1 class="page-title">Customers</h1>
-                <p class="text-muted mb-0">Manage customer records and contact information.</p>
-            </div>
-
-            @if (Model.CanCreate)
-            {
-                <a asp-controller="Customers" asp-action="Create" class="btn btn-primary">
-                    New Customer
-                </a>
-            }
+<div class="erp-page">
+    <div class="erp-page-header">
+        <div>
+            <div class="erp-breadcrumb">Workspace / Customers</div>
+            <h1>Customers</h1>
+            <p>Manage customer records and contact information.</p>
         </div>
 
-        <div class="module-tabs">
-            <button type="button" class="module-tab active" data-tab-target="customersTab">
-                Customers
+        @if (Model.CanCreate)
+        {
+            <a asp-controller="Customers" asp-action="Create" class="btn btn-primary">
+                New Customer
+            </a>
+        }
+    </div>
+
+    <div class="module-tabs">
+        <button type="button"
+                class="module-tab @(showPermissionsTab ? "" : "is-active")"
+                data-tab-target="customersTab">
+            Customers
+        </button>
+
+        @if (Model.CanViewAccessPermissions)
+        {
+            <button type="button"
+                    class="module-tab @(showPermissionsTab ? "is-active" : "")"
+                    data-tab-target="permissionsTab">
+                Access Permissions
             </button>
+        }
+    </div>
 
-            @if (Model.CanViewAccessPermissions)
-            {
-                <button type="button" class="module-tab" data-tab-target="permissionsTab">
-                    Access Permissions
-                </button>
-            }
-        </div>
-
-        <section id="customersTab" class="tab-content-panel active">
-            <div class="search-area">
-                <div class="search-toolbar">
-                    <div class="search-box">
-                        <span class="search-label">Search</span>
-
-                        <div class="search-input-wrapper">
-                            <div id="activeFilterChip" class="active-filter-chip" style="display:none;">
-                                <span id="activeFilterName"></span>
-                                <button type="button" id="clearActiveFilterButton">x</button>
-                            </div>
-
-                            <input id="quickSearch"
-                                   class="search-input filter-input"
-                                   placeholder="Search customer name, email, phone, address or date" />
+    <div id="customersTab" class="module-tab-panel @(showPermissionsTab ? "" : "is-active")">
+        @if (!Model.CanView)
+        {
+            <div class="alert alert-warning mt-3">
+                You do not have permission to view customer records.
+            </div>
+        }
+        else
+        {
+            <div class="erp-search-shell">
+                <div class="erp-search-row">
+                    <div class="erp-search-input-wrap">
+                        <div id="activeFilterChip" class="erp-filter-chip d-none">
+                            <span id="activeFilterName"></span>
+                            <button type="button" id="clearActiveFilter">x</button>
                         </div>
+
+                        <input type="text"
+                               id="quickSearch"
+                               class="erp-search-input"
+                               placeholder="Search customer name, email, phone, address or date"
+                               autocomplete="off" />
                     </div>
 
-                    <button type="button" id="kanbanButton" class="btn btn-dark">
-                        ▦
+                    <button type="button" class="erp-view-button is-active" data-view-mode="kanban" title="Grid view">
+                        &#9638;
                     </button>
 
-                    <button type="button" id="listButton" class="btn btn-outline-secondary">
-                        ☰
+                    <button type="button" class="erp-view-button" data-view-mode="list" title="List view">
+                        &#9776;
                     </button>
                 </div>
 
-                <div id="filterPopup" class="filter-popup">
-                    <aside class="filter-popup-sidebar">
-                        <div class="saved-filter-title">Saved filters</div>
+                <div class="advanced-filter-popup" id="advancedFilterPopup">
+                    <div class="advanced-filter-sidebar">
+                        <h6>Saved filters</h6>
 
                         <div id="savedFiltersList" class="saved-filter-list"></div>
+
+                        <div id="saveFilterBox" class="save-filter-box d-none">
+                            <label>Filter name</label>
+
+                            <input type="text"
+                                   id="saveFilterNameInput"
+                                   placeholder="Filter name" />
+
+                            <div class="save-filter-actions">
+                                <button type="button" id="confirmSaveFilterButton">
+                                    Save
+                                </button>
+
+                                <button type="button" id="cancelSaveFilterButton">
+                                    Cancel
+                                </button>
+                            </div>
+                        </div>
 
                         <button type="button" id="saveFilterButton" class="save-filter-button">
                             + Save filter
                         </button>
-                    </aside>
+                    </div>
 
-                    <section class="filter-popup-body">
-                        <div class="filter-grid">
-                            <div class="filter-field">
-                                <label>Full Name</label>
-                                <input id="filterFullName" class="form-control filter-input" />
-                            </div>
+                    <div class="advanced-filter-body">
+                        <div id="filterFields" class="filter-fields"></div>
 
-                            <div class="filter-field">
-                                <label>Email</label>
-                                <input id="filterEmail" class="form-control filter-input" />
-                            </div>
+                        <div class="add-field-wrap">
+                            <button type="button" id="addFieldButton" class="add-field-button">
+                                Add field
+                            </button>
 
-                            <div class="filter-field">
-                                <label>Phone</label>
-                                <input id="filterPhone" class="form-control filter-input" />
-                            </div>
-
-                            <div class="filter-field optional-filter" data-filter-field="address" style="display:none;">
-                                <label>Address</label>
-                                <input id="filterAddress" class="form-control filter-input" />
-                            </div>
-
-                            <div class="filter-field optional-filter" data-filter-field="created" style="display:none;">
-                                <label>Created Date</label>
-                                <input id="filterCreated" type="date" class="form-control filter-input" />
-                            </div>
-
-                            <div class="filter-field optional-filter" data-filter-field="updated" style="display:none;">
-                                <label>Updated Date</label>
-                                <input id="filterUpdated" type="date" class="form-control filter-input" />
-                            </div>
-                        </div>
-
-                        <div class="filter-actions">
-                            <div class="add-field-wrapper">
-                                <button type="button" id="addFieldButton" class="btn btn-link px-0">
-                                    Add field
-                                </button>
-
-                                <div id="addFieldMenu" class="add-field-menu">
-                                    <label>
-                                        <input type="checkbox" class="field-choice" value="address" />
-                                        Address
-                                    </label>
-
-                                    <label>
-                                        <input type="checkbox" class="field-choice" value="created" />
-                                        Created Date
-                                    </label>
-
-                                    <label>
-                                        <input type="checkbox" class="field-choice" value="updated" />
-                                        Updated Date
-                                    </label>
-                                </div>
-                            </div>
-
-                            <button type="button" id="restoreFiltersButton" class="restore-button text-muted">
+                            <button type="button" id="restoreDefaultFields" class="restore-fields-button">
                                 Restore default fields
                             </button>
+
+                            <div id="fieldPicker" class="field-picker"></div>
                         </div>
 
-                        <div class="filter-submit-actions">
-                            <button type="button" id="searchButton" class="btn btn-primary px-4">
+                        <div class="advanced-filter-actions">
+                            <button type="button" id="applyAdvancedFilter" class="btn btn-primary">
                                 Search
                             </button>
 
-                            <button type="button" id="resetButton" class="btn btn-link text-muted">
+                            <button type="button" id="resetAdvancedFilter" class="btn btn-link">
                                 Reset
                             </button>
                         </div>
-                    </section>
+                    </div>
                 </div>
             </div>
 
             @if (!Model.Customers.Any())
             {
-                <div class="alert alert-info">
-                    No customers found.
-                </div>
+                <div class="alert alert-info mt-3">No customers found.</div>
             }
             else
             {
-                <div class="customer-grid">
+                <div id="customerList" class="customer-grid">
                     @foreach (var customer in Model.Customers)
                     {
-                        var createdText = customer.CreatedDate.ToString("yyyy-MM-dd");
-                        var updatedText = customer.UpdatedDate.HasValue
-                            ? customer.UpdatedDate.Value.ToString("yyyy-MM-dd")
-                            : "";
+                        var createdDate = customer.CreatedDate.ToString("yyyy-MM-dd");
+                        var updatedDate = customer.UpdatedDate?.ToString("yyyy-MM-dd") ?? "";
 
                         var canUpdateThisCustomer =
                             Model.IsAdmin ||
@@ -372,352 +166,381 @@
                             Model.CanDeleteAll ||
                             (Model.CanDeleteOwn && customer.CreatedByUserId == Model.CurrentUserId);
 
-                        <article class="customer-card customer-item"
-                                 data-search="@($"{customer.FullName} {customer.Email} {customer.PhoneNumber} {customer.Address} {createdText} {updatedText}")"
-                                 data-fullname="@customer.FullName"
-                                 data-email="@customer.Email"
-                                 data-phone="@customer.PhoneNumber"
-                                 data-address="@customer.Address"
-                                 data-created="@createdText"
-                                 data-updated="@updatedText">
-
-                            @if (!string.IsNullOrWhiteSpace(customer.ImageUrl))
-                            {
-                                <img src="@customer.ImageUrl" class="customer-image" alt="@customer.FullName" />
-                            }
-                            else
-                            {
-                                <div class="customer-placeholder">
-                                    @customer.FullName.Substring(0, 1).ToUpper()
-                                </div>
-                            }
-
-                            <div>
-                                <div class="customer-name">@customer.FullName</div>
-                                <div class="muted-text">@customer.Email</div>
-                                <div class="muted-text">@customer.PhoneNumber</div>
-                                <div class="muted-text">@customer.Address</div>
-
-                                <div class="date-row">
-                                    Created: @createdText
-                                    @if (!string.IsNullOrWhiteSpace(updatedText))
+                        <div class="customer-item"
+                             data-fullname="@customer.FullName"
+                             data-email="@customer.Email"
+                             data-phone="@customer.PhoneNumber"
+                             data-address="@customer.Address"
+                             data-created="@createdDate"
+                             data-updated="@updatedDate">
+                            <div class="customer-card">
+                                <div class="customer-avatar">
+                                    @if (!string.IsNullOrWhiteSpace(customer.ImageUrl))
                                     {
-                                        <span> / Updated: @updatedText</span>
+                                        <img src="@customer.ImageUrl" alt="@customer.FullName" />
+                                    }
+                                    else
+                                    {
+                                        <span>@customer.FullName.Substring(0, 1).ToUpper()</span>
                                     }
                                 </div>
-                            </div>
 
-                            @if (canUpdateThisCustomer || canDeleteThisCustomer)
-                            {
-                                <div>
-                                    <button type="button" class="menu-button customer-menu-button">
-                                        ☰
-                                    </button>
+                                <div class="customer-info">
+                                    <h3>@customer.FullName</h3>
+                                    <p>@customer.Email</p>
+                                    <p>@customer.PhoneNumber</p>
+                                    <p>@customer.Address</p>
 
-                                    <div class="customer-menu">
-                                        @if (canUpdateThisCustomer)
+                                    <div class="customer-dates">
+                                        Created: @createdDate
+                                        @if (!string.IsNullOrWhiteSpace(updatedDate))
                                         {
-                                            <a asp-controller="Customers"
-                                               asp-action="Edit"
-                                               asp-route-id="@customer.Id">
-                                                Edit
-                                            </a>
-                                        }
-
-                                        @if (canDeleteThisCustomer)
-                                        {
-                                            <form asp-controller="Customers"
-                                                  asp-action="Delete"
-                                                  asp-route-id="@customer.Id"
-                                                  method="post">
-                                                <button type="submit">
-                                                    Delete
-                                                </button>
-                                            </form>
+                                            <span>/ Updated: @updatedDate</span>
                                         }
                                     </div>
                                 </div>
-                            }
-                        </article>
+
+                                @if (canUpdateThisCustomer || canDeleteThisCustomer)
+                                {
+                                    <div class="customer-menu">
+                                        <button type="button" class="customer-menu-button" title="Actions">
+                                            &#9776;
+                                        </button>
+
+                                        <div class="customer-menu-dropdown">
+                                            @if (canUpdateThisCustomer)
+                                            {
+                                                <a asp-controller="Customers"
+                                                   asp-action="Edit"
+                                                   asp-route-id="@customer.Id">
+                                                    Edit
+                                                </a>
+                                            }
+
+                                            @if (canDeleteThisCustomer)
+                                            {
+                                                <form asp-controller="Customers"
+                                                      asp-action="Delete"
+                                                      asp-route-id="@customer.Id"
+                                                      method="post">
+                                                    @Html.AntiForgeryToken()
+
+                                                    <button type="submit">Delete</button>
+                                                </form>
+                                            }
+                                        </div>
+                                    </div>
+                                }
+                            </div>
+                        </div>
                     }
                 </div>
             }
-        </section>
+        }
+    </div>
 
-        @if (Model.CanViewAccessPermissions)
-        {
-            <section id="permissionsTab" class="tab-content-panel">
-                <div class="permission-panel">
-                    <div class="d-flex justify-content-between align-items-start mb-3">
-                        <div>
-                            <h4 class="mb-1">Access Permissions</h4>
-                            <p class="text-muted mb-0">
-                                Manage who can view, create, update and delete customer records.
-                            </p>
+    @if (Model.CanViewAccessPermissions)
+    {
+        <div id="permissionsTab" class="module-tab-panel @(showPermissionsTab ? "is-active" : "")">
+            <div class="permission-panel">
+                <div class="permission-header">
+                    <h2>Access Permissions</h2>
+                    <p>Manage who can view, create, update and delete customer records.</p>
+                </div>
+
+                <form asp-controller="Customers"
+                      asp-action="Index"
+                      method="get"
+                      id="permissionUserForm"
+                      class="permission-user-form">
+                    <input type="hidden" name="activeTab" value="permissions" />
+
+                    <div class="permission-user-picker">
+                        <label class="form-label">Select employee/user</label>
+
+                        <input type="hidden"
+                               id="selectedPermissionUserId"
+                               name="selectedUserId"
+                               value="@Model.PermissionPage.SelectedUserId" />
+
+                        <button type="button"
+                                class="permission-user-trigger"
+                                id="permissionUserTrigger">
+                            @if (selectedUser is not null)
+                            {
+                                <span>@selectedUser.FullName (@selectedUser.UserName)</span>
+                            }
+                            else
+                            {
+                                <span>Select employee/user</span>
+                            }
+
+                            <span>v</span>
+                        </button>
+
+                        <div class="permission-user-dropdown" id="permissionUserDropdown">
+                            <input type="text"
+                                   id="permissionUserSearch"
+                                   class="form-control permission-user-search"
+                                   placeholder="search" />
+
+                            <div class="permission-user-list">
+                                @foreach (var user in Model.PermissionPage.Users)
+                                {
+                                    <button type="button"
+                                            class="permission-user-option"
+                                            data-user-id="@user.Id"
+                                            data-user-label="@user.FullName (@user.UserName)"
+                                            data-search="@($"{user.FullName} {user.UserName} {user.Email}".ToLower())">
+                                        <div class="permission-user-avatar">
+                                            @user.FullName.Substring(0, 1).ToUpper()
+                                        </div>
+
+                                        <div>
+                                            <div class="permission-user-name">@user.FullName</div>
+                                            <div class="permission-user-meta">@user.UserName - @user.Email</div>
+                                        </div>
+                                    </button>
+                                }
+                            </div>
                         </div>
                     </div>
+                </form>
 
-                    @if (TempData["PermissionSuccess"] is not null)
-                    {
-                        <div class="alert alert-success">
-                            @TempData["PermissionSuccess"]
-                        </div>
-                    }
+                @if (!string.IsNullOrWhiteSpace(Model.PermissionPage.SelectedUserId))
+                {
+                    <form asp-controller="Customers"
+                          asp-action="SavePermissions"
+                          method="post"
+                          class="permission-save-form">
+                        @Html.AntiForgeryToken()
 
-                    @if (TempData["PermissionError"] is not null)
-                    {
-                        <div class="alert alert-danger">
-                            @TempData["PermissionError"]
-                        </div>
-                    }
+                        <input type="hidden" name="UserId" value="@Model.PermissionPage.SelectedUserId" />
+                        <input type="hidden" name="ModuleName" value="Customers" />
 
-                    @if (!Model.PermissionPage.Users.Any())
-                    {
-                        <div class="alert alert-info">
-                            No users found.
-                        </div>
-                    }
-                    else
-                    {
-                        <form asp-controller="Customers" asp-action="Index" method="get" class="mb-4">
-                            <label class="form-label">Select employee/user</label>
+                        <table class="table permission-table">
+                            <thead>
+                                <tr>
+                                    <th>Action</th>
+                                    <th>Access Level</th>
+                                    <th>Description</th>
+                                </tr>
+                            </thead>
 
-                            <div class="d-flex gap-2">
-                                <select name="selectedUserId" class="form-select" style="max-width: 420px;">
-                                    @foreach (var user in Model.PermissionPage.Users)
-                                    {
-                                        if (user.Id == Model.PermissionPage.SelectedUserId)
-                                        {
-                                            <option value="@user.Id" selected>
-                                                @user.FullName (@user.UserName)
-                                            </option>
-                                        }
-                                        else
-                                        {
-                                            <option value="@user.Id">
-                                                @user.FullName (@user.UserName)
-                                            </option>
-                                        }
-                                    }
-                                </select>
+                            <tbody>
+                                @for (var i = 0; i < Model.PermissionPage.Actions.Count; i++)
+                                {
+                                    var actionName = Model.PermissionPage.Actions[i];
 
-                                <button type="submit" class="btn btn-outline-primary">
-                                    Load Permissions
-                                </button>
-                            </div>
-                        </form>
+                                    var permission = Model.PermissionPage.Permissions
+                                        .FirstOrDefault(permission => permission.ActionName == actionName);
 
-                        <form asp-controller="Customers" asp-action="SavePermissions" method="post">
-                            @Html.AntiForgeryToken()
+                                    var accessLevel = permission?.AccessLevel ?? 0;
 
-                            <input type="hidden" name="UserId" value="@Model.PermissionPage.SelectedUserId" />
-                            <input type="hidden" name="ModuleName" value="Customers" />
+                                    <tr>
+                                        <td>
+                                            <strong>@actionName</strong>
 
-                            <div class="table-responsive">
-                                <table class="table table-hover bg-white align-middle">
-                                    <thead>
-                                        <tr>
-                                            <th>Action</th>
-                                            <th style="width: 260px;">Access Level</th>
-                                            <th>Description</th>
-                                        </tr>
-                                    </thead>
+                                            <input type="hidden" name="Permissions[@i].UserId" value="@Model.PermissionPage.SelectedUserId" />
+                                            <input type="hidden" name="Permissions[@i].ModuleName" value="Customers" />
+                                            <input type="hidden" name="Permissions[@i].ActionName" value="@actionName" />
+                                        </td>
 
-                                    <tbody>
-                                        @for (var i = 0; i < Model.PermissionPage.Actions.Count; i++)
-                                        {
-                                            var actionName = Model.PermissionPage.Actions[i];
+                                        <td>
+                                            <select name="Permissions[@i].AccessLevel" class="form-select">
+                                                @if (accessLevel == 0)
+                                                {
+                                                    <option value="0" selected>None</option>
+                                                }
+                                                else
+                                                {
+                                                    <option value="0">None</option>
+                                                }
 
-                                            var existingPermission = Model.PermissionPage.Permissions
-                                                .FirstOrDefault(permission => permission.ActionName == actionName);
-
-                                            var accessLevel = existingPermission?.AccessLevel ?? 0;
-
-                                            <tr>
-                                                <td>
-                                                    <strong>@actionName</strong>
-
-                                                    <input type="hidden"
-                                                           name="Permissions[@i].ActionName"
-                                                           value="@actionName" />
-
-                                                    <input type="hidden"
-                                                           name="Permissions[@i].UserId"
-                                                           value="@Model.PermissionPage.SelectedUserId" />
-
-                                                    <input type="hidden"
-                                                           name="Permissions[@i].ModuleName"
-                                                           value="Customers" />
-                                                </td>
-
-                                                <td>
-                                                    <select name="Permissions[@i].AccessLevel" class="form-select">
-                                                        @if (accessLevel == 0)
-                                                        {
-                                                            <option value="0" selected>None</option>
-                                                        }
-                                                        else
-                                                        {
-                                                            <option value="0">None</option>
-                                                        }
-
-                                                        @if (actionName == "Create")
-                                                        {
-                                                            if (accessLevel == 2)
-                                                            {
-                                                                <option value="2" selected>Allowed</option>
-                                                            }
-                                                            else
-                                                            {
-                                                                <option value="2">Allowed</option>
-                                                            }
-                                                        }
-                                                        else
-                                                        {
-                                                            if (accessLevel == 1)
-                                                            {
-                                                                <option value="1" selected>Own records</option>
-                                                            }
-                                                            else
-                                                            {
-                                                                <option value="1">Own records</option>
-                                                            }
-
-                                                            if (accessLevel == 2)
-                                                            {
-                                                                <option value="2" selected>All records</option>
-                                                            }
-                                                            else
-                                                            {
-                                                                <option value="2">All records</option>
-                                                            }
-                                                        }
-                                                    </select>
-                                                </td>
-
-                                                <td class="text-muted">
-                                                    @if (actionName == "View")
+                                                @if (actionName == "Create")
+                                                {
+                                                    if (accessLevel == 2)
                                                     {
-                                                        <span>Controls whether the user can see customer records.</span>
+                                                        <option value="2" selected>Allowed</option>
                                                     }
-                                                    else if (actionName == "Create")
+                                                    else
                                                     {
-                                                        <span>Controls whether the user can create new customer records.</span>
+                                                        <option value="2">Allowed</option>
                                                     }
-                                                    else if (actionName == "Update")
+                                                }
+                                                else
+                                                {
+                                                    if (accessLevel == 1)
                                                     {
-                                                        <span>Controls whether the user can edit own or all customer records.</span>
+                                                        <option value="1" selected>Own records</option>
                                                     }
-                                                    else if (actionName == "Delete")
+                                                    else
                                                     {
-                                                        <span>Controls whether the user can delete own or all customer records.</span>
+                                                        <option value="1">Own records</option>
                                                     }
-                                                </td>
-                                            </tr>
-                                        }
-                                    </tbody>
-                                </table>
-                            </div>
 
-                            <button type="submit" class="btn btn-primary">
-                                Save Permissions
-                            </button>
-                        </form>
-                    }
-                </div>
-            </section>
-        }
-    </main>
+                                                    if (accessLevel == 2)
+                                                    {
+                                                        <option value="2" selected>All records</option>
+                                                    }
+                                                    else
+                                                    {
+                                                        <option value="2">All records</option>
+                                                    }
+                                                }
+                                            </select>
+                                        </td>
 
-    <script src="~/lib/jquery/dist/jquery.min.js"></script>
-    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+                                        <td>
+                                            @if (actionName == "View")
+                                            {
+                                                <span>Controls whether the user can see customer records.</span>
+                                            }
+                                            else if (actionName == "Create")
+                                            {
+                                                <span>Controls whether the user can create new customer records.</span>
+                                            }
+                                            else if (actionName == "Update")
+                                            {
+                                                <span>Controls whether the user can edit own or all customer records.</span>
+                                            }
+                                            else if (actionName == "Delete")
+                                            {
+                                                <span>Controls whether the user can delete own or all customer records.</span>
+                                            }
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+
+                        <button type="submit" class="btn btn-primary">
+                            Save Permissions
+                        </button>
+                    </form>
+                }
+                else
+                {
+                    <div class="alert alert-info">Select a user to manage permissions.</div>
+                }
+            </div>
+        </div>
+    }
+</div>
+
+@section Scripts {
     <script src="~/js/erp-advanced-filter.js"></script>
 
     <script>
-        initializeAdvancedFilter({
-        storageKey: "erp_customer_saved_filters",
-        pinnedKey: "erp_customer_pinned_filter",
-        itemSelector: ".customer-item",
-        pageSelector: "#customerPage",
-        defaultPlaceholder: "Search customer name, email, phone, address or date",
-        fields: [
-        {
-        key: "quick",
-        inputId: "quickSearch",
-        dataKey: "search"
-        },
-        {
-        key: "fullName",
-        inputId: "filterFullName",
-        dataKey: "fullname"
-        },
-        {
-        key: "email",
-        inputId: "filterEmail",
-        dataKey: "email"
-        },
-        {
-        key: "phone",
-        inputId: "filterPhone",
-        dataKey: "phone"
-        },
-        {
-        key: "address",
-        inputId: "filterAddress",
-        dataKey: "address"
-        },
-        {
-        key: "created",
-        inputId: "filterCreated",
-        dataKey: "created"
-        },
-        {
-        key: "updated",
-        inputId: "filterUpdated",
-        dataKey: "updated"
-        }
-        ]
+        document.querySelectorAll(".module-tab").forEach(tab => {
+        tab.addEventListener("click", function () {
+        document.querySelectorAll(".module-tab").forEach(item => item.classList.remove("is-active"));
+        document.querySelectorAll(".module-tab-panel").forEach(item => item.classList.remove("is-active"));
+
+        this.classList.add("is-active");
+        document.getElementById(this.dataset.tabTarget)?.classList.add("is-active");
         });
-
-        const customerPage = document.getElementById("customerPage");
-        const kanbanButton = document.getElementById("kanbanButton");
-        const listButton = document.getElementById("listButton");
-
-        kanbanButton?.addEventListener("click", () => {
-        customerPage.classList.remove("list-view");
-        kanbanButton.className = "btn btn-dark";
-        listButton.className = "btn btn-outline-secondary";
-        });
-
-        listButton?.addEventListener("click", () => {
-        customerPage.classList.add("list-view");
-        listButton.className = "btn btn-dark";
-        kanbanButton.className = "btn btn-outline-secondary";
         });
 
         document.querySelectorAll(".customer-menu-button").forEach(button => {
+        button.addEventListener("click", function (event) {
+        event.stopPropagation();
+
+        document.querySelectorAll(".customer-menu-dropdown").forEach(dropdown => {
+        if (dropdown !== this.nextElementSibling) {
+        dropdown.classList.remove("is-open");
+        }
+        });
+
+        this.nextElementSibling.classList.toggle("is-open");
+        });
+        });
+
+        document.addEventListener("click", function () {
+        document.querySelectorAll(".customer-menu-dropdown").forEach(dropdown => {
+        dropdown.classList.remove("is-open");
+        });
+        });
+
+        if (document.getElementById("quickSearch")) {
+        initializeAdvancedFilter({
+        storageKey: "erp_customers_saved_filters",
+        pinnedStorageKey: "erp_customers_pinned_filter",
+        quickSearchInputId: "quickSearch",
+        advancedFilterPopupId: "advancedFilterPopup",
+        filterFieldsId: "filterFields",
+        addFieldButtonId: "addFieldButton",
+        fieldPickerId: "fieldPicker",
+        restoreDefaultFieldsId: "restoreDefaultFields",
+        applyButtonId: "applyAdvancedFilter",
+        resetButtonId: "resetAdvancedFilter",
+        saveFilterButtonId: "saveFilterButton",
+        savedFiltersListId: "savedFiltersList",
+        activeFilterChipId: "activeFilterChip",
+        activeFilterNameId: "activeFilterName",
+        clearActiveFilterId: "clearActiveFilter",
+        itemSelector: ".customer-item",
+        defaultFields: ["fullname", "email"],
+        availableFields: [
+        { key: "fullname", label: "Full Name", type: "text" },
+        { key: "email", label: "Email", type: "text" },
+        { key: "phone", label: "Phone", type: "text" },
+        { key: "address", label: "Address", type: "text" },
+        { key: "created", label: "Created Date", type: "date" },
+        { key: "updated", label: "Updated Date", type: "date" }
+        ]
+        });
+        }
+
+        document.querySelectorAll("[data-view-mode]").forEach(button => {
         button.addEventListener("click", function () {
-        const menu = this.parentElement.querySelector(".customer-menu");
-        menu.style.display = menu.style.display === "block" ? "none" : "block";
+        document.querySelectorAll("[data-view-mode]").forEach(item => item.classList.remove("is-active"));
+        this.classList.add("is-active");
+
+        const customerList = document.getElementById("customerList");
+
+        if (this.dataset.viewMode === "list") {
+        customerList?.classList.add("is-list-view");
+        } else {
+        customerList?.classList.remove("is-list-view");
+        }
         });
         });
 
-        document.querySelectorAll(".module-tab").forEach(tab => {
-        tab.addEventListener("click", function () {
-        const targetId = this.dataset.tabTarget;
+        const permissionUserTrigger = document.getElementById("permissionUserTrigger");
+        const permissionUserDropdown = document.getElementById("permissionUserDropdown");
+        const permissionUserSearch = document.getElementById("permissionUserSearch");
+        const selectedPermissionUserId = document.getElementById("selectedPermissionUserId");
+        const permissionUserForm = document.getElementById("permissionUserForm");
 
-        document.querySelectorAll(".module-tab").forEach(item => {
-        item.classList.remove("active");
+        permissionUserTrigger?.addEventListener("click", function () {
+        permissionUserDropdown.classList.toggle("is-open");
+        permissionUserSearch?.focus();
         });
 
-        document.querySelectorAll(".tab-content-panel").forEach(panel => {
-        panel.classList.remove("active");
+        permissionUserSearch?.addEventListener("input", function () {
+        const searchValue = this.value.toLowerCase();
+        const options = document.querySelectorAll(".permission-user-option");
+
+        options.forEach(option => {
+        const searchableText = option.dataset.search || "";
+        option.style.display = searchableText.includes(searchValue) ? "flex" : "none";
+        });
         });
 
-        this.classList.add("active");
-        document.getElementById(targetId).classList.add("active");
+        document.querySelectorAll(".permission-user-option").forEach(option => {
+        option.addEventListener("click", function () {
+        selectedPermissionUserId.value = this.dataset.userId;
+        permissionUserTrigger.querySelector("span").textContent = this.dataset.userLabel;
+        permissionUserDropdown.classList.remove("is-open");
+        permissionUserForm.submit();
         });
+        });
+
+        document.addEventListener("click", function (event) {
+        if (!event.target.closest(".permission-user-picker")) {
+        permissionUserDropdown?.classList.remove("is-open");
+        }
         });
     </script>
-</body>
-</html>
+}

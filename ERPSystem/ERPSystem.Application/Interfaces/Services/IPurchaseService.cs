@@ -15,6 +15,7 @@ namespace ERPSystem.Application.Interfaces.Services
         Task<ResultDto<PurchaseDto>> GetByIdAsync(int id);
 
         Task<ResultDto<PurchaseDto>> CreateAsync(CreatePurchaseDto dto);
+        Task<ResultDto<PurchaseDto>> UpdateAsync(UpdatePurchaseDto dto);
 
         Task<ResultDto<bool>> DeleteAsync(int id);
     }

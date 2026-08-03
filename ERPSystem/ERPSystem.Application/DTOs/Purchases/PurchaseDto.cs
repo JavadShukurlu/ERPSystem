@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace ERPSystem.Application.DTOs.Purchases
+﻿namespace ERPSystem.Application.DTOs.Purchases
 {
     public class PurchaseDto
     {
@@ -17,6 +11,12 @@ namespace ERPSystem.Application.DTOs.Purchases
         public string? SupplierName { get; set; }
 
         public decimal TotalAmount { get; set; }
+
+        public string? CreatedByUserId { get; set; }
+
+        public DateTime CreatedDate { get; set; }
+
+        public DateTime? UpdatedDate { get; set; }
 
         public List<PurchaseItemDto> Items { get; set; } = new();
     }

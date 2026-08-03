@@ -1,7 +1,6 @@
 ﻿using ERPSystem.Application.DTOs.Purchases;
 using ERPSystem.Application.Interfaces.Services;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ERPSystem.WebAPI.Controllers
@@ -19,16 +18,19 @@ namespace ERPSystem.WebAPI.Controllers
         }
 
         [HttpGet]
-        [Authorize(Roles = "Admin,Manager,Warehouse,Accountant")]
         public async Task<IActionResult> GetAll()
         {
             var result = await _purchaseService.GetAllAsync();
+
+            if (!result.IsSuccess)
+            {
+                return BadRequest(result);
+            }
 
             return Ok(result);
         }
 
         [HttpGet("{id}")]
-        [Authorize(Roles = "Admin,Manager,Warehouse,Accountant")]
         public async Task<IActionResult> GetById(int id)
         {
             var result = await _purchaseService.GetByIdAsync(id);
@@ -42,7 +44,6 @@ namespace ERPSystem.WebAPI.Controllers
         }
 
         [HttpPost]
-        [Authorize(Roles = "Admin,Manager,Warehouse")]
         public async Task<IActionResult> Create(CreatePurchaseDto dto)
         {
             var result = await _purchaseService.CreateAsync(dto);
@@ -54,16 +55,32 @@ namespace ERPSystem.WebAPI.Controllers
 
             return CreatedAtAction(nameof(GetById), new { id = result.Data!.Id }, result);
         }
+        [HttpPut("{id}")]
+        public async Task<IActionResult> Update(int id, UpdatePurchaseDto dto)
+        {
+            if (id != dto.Id)
+            {
+                return BadRequest("Route id and body id do not match.");
+            }
+
+            var result = await _purchaseService.UpdateAsync(dto);
+
+            if (!result.IsSuccess)
+            {
+                return BadRequest(result);
+            }
+
+            return Ok(result);
+        }
 
         [HttpDelete("{id}")]
-        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Delete(int id)
         {
             var result = await _purchaseService.DeleteAsync(id);
 
             if (!result.IsSuccess)
             {
-                return NotFound(result);
+                return BadRequest(result);
             }
 
             return Ok(result);

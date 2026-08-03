@@ -1,0 +1,142 @@
+﻿@model ERPSystem.WebMVC.ViewModels.Suppliers.UpdateSupplierViewModel
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewData["Title"] = "Edit Supplier";
+}
+
+<div class="erp-form-page">
+    <div class="erp-form-topbar">
+        <div>
+            <a asp-controller="Suppliers" asp-action="Index" class="btn btn-outline-secondary">
+                Back
+            </a>
+        </div>
+
+        <button type="submit" form="supplierEditForm" class="btn btn-primary">
+            Update Supplier
+        </button>
+    </div>
+
+    <form id="supplierEditForm"
+          asp-controller="Suppliers"
+          asp-action="Edit"
+          asp-route-id="@Model.Id"
+          method="post"
+          enctype="multipart/form-data"
+          class="erp-form-card">
+
+        <input asp-for="Id" type="hidden" />
+        <input asp-for="LogoUrl" type="hidden" />
+
+        <div class="erp-form-card-header">
+            <h2>Supplier Information</h2>
+        </div>
+
+        @if (ViewBag.Error is not null)
+        {
+            <div class="alert alert-danger m-4 mb-0">
+                @ViewBag.Error
+            </div>
+        }
+
+        <div asp-validation-summary="All" class="text-danger px-4 pt-3"></div>
+
+        <div class="erp-form-grid">
+            <div class="erp-image-upload-area">
+                <label class="form-label">Supplier Logo</label>
+
+                <label for="LogoFile" class="erp-image-upload-box">
+                    @if (!string.IsNullOrWhiteSpace(Model.LogoUrl))
+                    {
+                        <img id="logoPreview" src="@Model.LogoUrl" alt="@Model.CompanyName" />
+                        <span id="logoPlaceholder" class="d-none">Upload supplier logo</span>
+                    }
+                    else
+                    {
+                        <img id="logoPreview" src="" alt="" class="d-none" />
+                        <span id="logoPlaceholder">Upload supplier logo</span>
+                    }
+                </label>
+
+                <input asp-for="LogoFile"
+                       id="LogoFile"
+                       type="file"
+                       class="d-none"
+                       accept=".jpg,.jpeg,.png,.webp" />
+
+                <span asp-validation-for="LogoFile" class="text-danger small"></span>
+            </div>
+
+            <div class="erp-form-fields">
+                <div class="row g-3">
+                    <div class="col-md-6">
+                        <label class="form-label">Company Name</label>
+                        <input asp-for="CompanyName" class="form-control" />
+                        <span asp-validation-for="CompanyName" class="text-danger small"></span>
+                    </div>
+
+                    <div class="col-md-6">
+                        <label class="form-label">Contact Name</label>
+                        <input asp-for="ContactName" class="form-control" />
+                        <span asp-validation-for="ContactName" class="text-danger small"></span>
+                    </div>
+
+                    <div class="col-md-6">
+                        <label class="form-label">Email</label>
+                        <input asp-for="Email" class="form-control" />
+                        <span asp-validation-for="Email" class="text-danger small"></span>
+                    </div>
+
+                    <div class="col-md-6">
+                        <label class="form-label">Phone Number</label>
+                        <input asp-for="PhoneNumber" class="form-control" />
+                        <span asp-validation-for="PhoneNumber" class="text-danger small"></span>
+                    </div>
+
+                    <div class="col-12">
+                        <label class="form-label">Address</label>
+                        <textarea asp-for="Address" class="form-control" rows="5"></textarea>
+                        <span asp-validation-for="Address" class="text-danger small"></span>
+                    </div>
+                </div>
+
+                <div class="erp-form-actions">
+                    <a asp-controller="Suppliers" asp-action="Index" class="btn btn-outline-secondary">
+                        Cancel
+                    </a>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const fileInput = document.getElementById("LogoFile");
+            const preview = document.getElementById("logoPreview");
+            const placeholder = document.getElementById("logoPlaceholder");
+
+            fileInput?.addEventListener("change", function () {
+                const file = fileInput.files?.[0];
+
+                if (!file) {
+                    return;
+                }
+
+                const reader = new FileReader();
+
+                reader.onload = function (event) {
+                    preview.src = event.target.result;
+                    preview.classList.remove("d-none");
+                    placeholder.classList.add("d-none");
+                };
+
+                reader.readAsDataURL(file);
+            });
+        });
+    </script>
+}

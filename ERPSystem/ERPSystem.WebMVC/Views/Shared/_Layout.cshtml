@@ -2,43 +2,20 @@
 <html lang="en">
 <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - ERPSystem.WebMVC</title>
-    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
-    <link rel="stylesheet" href="~/ERPSystem.WebMVC.styles.css" asp-append-version="true" />
+    <title>@ViewData["Title"] - ERP System</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <link href="~/lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/css/erp-advanced-filter.css" rel="stylesheet" asp-append-version="true" />
 </head>
 <body>
-    <div class="d-flex min-vh-100">
-        <aside class="bg-dark text-white p-3" style="width: 260px;">
-            <h5 class="mb-4">ERP System</h5>
-
-            <nav class="nav flex-column gap-1">
-                <a class="nav-link text-white" asp-controller="Workspace" asp-action="Index">Workspace</a>
-                <a class="nav-link text-white" asp-controller="Dashboard" asp-action="Index">Dashboard</a>
-                <a class="nav-link text-white" asp-controller="Products" asp-action="Index">Products</a>
-                <a class="nav-link text-white" asp-controller="Stocks" asp-action="Index">Stocks</a>
-                <a class="nav-link text-white" asp-controller="Sales" asp-action="Index">Sales</a>
-                <a class="nav-link text-white" asp-controller="Purchases" asp-action="Index">Purchases</a>
-                <a class="nav-link text-white" asp-controller="Invoices" asp-action="Index">Invoices</a>
-                <a class="nav-link text-white" asp-controller="Reports" asp-action="Index">Reports</a>
-                <a class="nav-link text-white" asp-controller="Admin" asp-action="Index">Admin Panel</a>
-            </nav>
-        </aside>
-
-        <main class="flex-grow-1 bg-light">
-            <header class="bg-white border-bottom px-4 py-3">
-                <strong>@ViewData["Title"]</strong>
-            </header>
-
-            <div class="p-4">
-                @RenderBody()
-            </div>
-        </main>
-    </div>
+    <main>
+        @RenderBody()
+    </main>
 
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/erp-advanced-filter.js" asp-append-version="true"></script>
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>

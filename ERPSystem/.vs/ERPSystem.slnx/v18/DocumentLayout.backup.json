@@ -3,16 +3,8 @@
   "WorkspaceRootPath": "C:\\Users\\cavad\\Desktop\\FinalProject\\ERPSystem\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{6FAD6E84-7802-291A-2026-334945D7E435}|ERPSystem.WebMVC\\ERPSystem.WebMVC.csproj|c:\\users\\cavad\\desktop\\finalproject\\erpsystem\\erpsystem.webmvc\\controllers\\customerscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{6FAD6E84-7802-291A-2026-334945D7E435}|ERPSystem.WebMVC\\ERPSystem.WebMVC.csproj|solutionrelative:erpsystem.webmvc\\controllers\\customerscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{6FAD6E84-7802-291A-2026-334945D7E435}|ERPSystem.WebMVC\\ERPSystem.WebMVC.csproj|c:\\users\\cavad\\desktop\\finalproject\\erpsystem\\erpsystem.webmvc\\views\\customers\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{6FAD6E84-7802-291A-2026-334945D7E435}|ERPSystem.WebMVC\\ERPSystem.WebMVC.csproj|solutionrelative:erpsystem.webmvc\\views\\customers\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{6FAD6E84-7802-291A-2026-334945D7E435}|ERPSystem.WebMVC\\ERPSystem.WebMVC.csproj|c:\\users\\cavad\\desktop\\finalproject\\erpsystem\\erpsystem.webmvc\\services\\apiservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{6FAD6E84-7802-291A-2026-334945D7E435}|ERPSystem.WebMVC\\ERPSystem.WebMVC.csproj|solutionrelative:erpsystem.webmvc\\services\\apiservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{6FAD6E84-7802-291A-2026-334945D7E435}|ERPSystem.WebMVC\\ERPSystem.WebMVC.csproj|c:\\users\\cavad\\desktop\\finalproject\\erpsystem\\erpsystem.webmvc\\views\\sales\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{6FAD6E84-7802-291A-2026-334945D7E435}|ERPSystem.WebMVC\\ERPSystem.WebMVC.csproj|solutionrelative:erpsystem.webmvc\\views\\sales\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     }
   ],
   "DocumentGroupContainers": [
@@ -22,21 +14,8 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 0,
+          "SelectedChildIndex": 2,
           "Children": [
-            {
-              "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "CustomersController.cs",
-              "DocumentMoniker": "C:\\Users\\cavad\\Desktop\\FinalProject\\ERPSystem\\ERPSystem.WebMVC\\Controllers\\CustomersController.cs",
-              "RelativeDocumentMoniker": "ERPSystem.WebMVC\\Controllers\\CustomersController.cs",
-              "ToolTip": "C:\\Users\\cavad\\Desktop\\FinalProject\\ERPSystem\\ERPSystem.WebMVC\\Controllers\\CustomersController.cs",
-              "RelativeToolTip": "ERPSystem.WebMVC\\Controllers\\CustomersController.cs",
-              "ViewState": "AgIAABEAAAAAAAAAAAAqwI4AAAAlAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-08-01T21:51:33.125Z",
-              "EditorCaption": ""
-            },
             {
               "$type": "Bookmark",
               "Name": "ST:0:0:{0ad07096-bba9-4900-a651-0598d26f6d24}"
@@ -47,28 +26,15 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 0,
               "Title": "Index.cshtml",
-              "DocumentMoniker": "C:\\Users\\cavad\\Desktop\\FinalProject\\ERPSystem\\ERPSystem.WebMVC\\Views\\Customers\\Index.cshtml",
-              "RelativeDocumentMoniker": "ERPSystem.WebMVC\\Views\\Customers\\Index.cshtml",
-              "ToolTip": "C:\\Users\\cavad\\Desktop\\FinalProject\\ERPSystem\\ERPSystem.WebMVC\\Views\\Customers\\Index.cshtml",
-              "RelativeToolTip": "ERPSystem.WebMVC\\Views\\Customers\\Index.cshtml",
-              "ViewState": "AgIAANgAAAAAAAAAAAAtwN0AAAAAAAAAAAAAAA==",
+              "DocumentMoniker": "C:\\Users\\cavad\\Desktop\\FinalProject\\ERPSystem\\ERPSystem.WebMVC\\Views\\Sales\\Index.cshtml",
+              "RelativeDocumentMoniker": "ERPSystem.WebMVC\\Views\\Sales\\Index.cshtml",
+              "ToolTip": "C:\\Users\\cavad\\Desktop\\FinalProject\\ERPSystem\\ERPSystem.WebMVC\\Views\\Sales\\Index.cshtml",
+              "RelativeToolTip": "ERPSystem.WebMVC\\Views\\Sales\\Index.cshtml",
+              "ViewState": "AgIAABkCAAAAAAAAAAAYwC0CAAABAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2026-08-01T21:52:49.016Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "ApiService.cs",
-              "DocumentMoniker": "C:\\Users\\cavad\\Desktop\\FinalProject\\ERPSystem\\ERPSystem.WebMVC\\Services\\ApiService.cs",
-              "RelativeDocumentMoniker": "ERPSystem.WebMVC\\Services\\ApiService.cs",
-              "ToolTip": "C:\\Users\\cavad\\Desktop\\FinalProject\\ERPSystem\\ERPSystem.WebMVC\\Services\\ApiService.cs",
-              "RelativeToolTip": "ERPSystem.WebMVC\\Services\\ApiService.cs",
-              "ViewState": "AgIAAEsAAAAAAAAAAAAkwGUAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-08-01T21:52:02.041Z",
+              "WhenOpened": "2026-08-03T13:07:01.478Z",
               "EditorCaption": ""
             }
           ]

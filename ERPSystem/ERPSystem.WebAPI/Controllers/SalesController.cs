@@ -1,7 +1,6 @@
 ﻿using ERPSystem.Application.DTOs.Sales;
 using ERPSystem.Application.Interfaces.Services;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ERPSystem.WebAPI.Controllers
@@ -19,7 +18,6 @@ namespace ERPSystem.WebAPI.Controllers
         }
 
         [HttpGet]
-        [Authorize(Roles = "Admin,Manager,Sales,Accountant")]
         public async Task<IActionResult> GetAll()
         {
             var result = await _saleService.GetAllAsync();
@@ -28,21 +26,19 @@ namespace ERPSystem.WebAPI.Controllers
         }
 
         [HttpGet("{id}")]
-        [Authorize(Roles = "Admin,Manager,Sales,Accountant")]
         public async Task<IActionResult> GetById(int id)
         {
             var result = await _saleService.GetByIdAsync(id);
 
             if (!result.IsSuccess)
             {
-                return NotFound(result);
+                return BadRequest(result);
             }
 
             return Ok(result);
         }
 
         [HttpPost]
-        [Authorize(Roles = "Admin,Manager,Sales")]
         public async Task<IActionResult> Create(CreateSaleDto dto)
         {
             var result = await _saleService.CreateAsync(dto);
@@ -56,14 +52,13 @@ namespace ERPSystem.WebAPI.Controllers
         }
 
         [HttpDelete("{id}")]
-        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Delete(int id)
         {
             var result = await _saleService.DeleteAsync(id);
 
             if (!result.IsSuccess)
             {
-                return NotFound(result);
+                return BadRequest(result);
             }
 
             return Ok(result);

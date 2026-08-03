@@ -1,0 +1,200 @@
+﻿@model ERPSystem.WebMVC.ViewModels.Sales.UpdateSaleViewModel
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewData["Title"] = "Edit Sale";
+}
+
+<div class="erp-page">
+    <div class="erp-page-header">
+        <div>
+            <a asp-controller="Sales" asp-action="Index" class="btn btn-outline-secondary erp-apps-btn">
+                Back
+            </a>
+
+            <div class="erp-breadcrumb">
+                ERP System / Sales / Edit Sale
+            </div>
+
+            <h1>Edit Sale</h1>
+            <p>Update customer sale order information and sold products.</p>
+        </div>
+
+        <div>
+            <button type="submit" form="saleEditForm" class="btn btn-primary">
+                Update Sale
+            </button>
+        </div>
+    </div>
+
+    @if (ViewBag.Error is not null)
+    {
+        <div class="alert alert-danger">
+            @ViewBag.Error
+        </div>
+    }
+
+    <div asp-validation-summary="All" class="text-danger mb-3"></div>
+
+    <form id="saleEditForm"
+          asp-controller="Sales"
+          asp-action="Edit"
+          asp-route-id="@Model.Id"
+          method="post"
+          class="erp-form-card">
+
+        <input asp-for="Id" type="hidden" />
+
+        <div class="erp-form-section">
+            <h3>Sale Information</h3>
+
+            <div class="row g-4">
+                <div class="col-md-6">
+                    <label class="form-label">Customer</label>
+                    <select asp-for="CustomerId" asp-items="Model.Customers" class="form-select">
+                        <option value="">Select customer</option>
+                    </select>
+                    <span asp-validation-for="CustomerId" class="text-danger small"></span>
+                </div>
+
+                <div class="col-md-6">
+                    <label class="form-label">Sale Date</label>
+                    <input asp-for="SaleDate" type="datetime-local" class="form-control" />
+                    <span asp-validation-for="SaleDate" class="text-danger small"></span>
+                </div>
+            </div>
+        </div>
+
+        <div class="erp-form-section mt-4">
+            <div class="d-flex justify-content-between align-items-center mb-3">
+                <div>
+                    <h3 class="mb-1">Sale Items</h3>
+                    <p class="text-muted mb-0">Update products, warehouses, quantities and prices.</p>
+                </div>
+
+                <button type="button" id="addSaleItemButton" class="btn btn-outline-primary">
+                    Add Item
+                </button>
+            </div>
+
+            <div id="saleItemsContainer">
+                @for (var i = 0; i < Model.Items.Count; i++)
+                {
+                    <div class="erp-line-item">
+                        <input asp-for="Items[i].Id" type="hidden" />
+
+                        <div class="row g-3 align-items-end">
+                            <div class="col-md-3">
+                                <label class="form-label">Product</label>
+                                <select asp-for="Items[i].ProductId" asp-items="Model.Items[i].Products" class="form-select">
+                                    <option value="">Select product</option>
+                                </select>
+                                <span asp-validation-for="Items[i].ProductId" class="text-danger small"></span>
+                            </div>
+
+                            <div class="col-md-3">
+                                <label class="form-label">Warehouse</label>
+                                <select asp-for="Items[i].WarehouseId" asp-items="Model.Items[i].Warehouses" class="form-select">
+                                    <option value="">Select warehouse</option>
+                                </select>
+                                <span asp-validation-for="Items[i].WarehouseId" class="text-danger small"></span>
+                            </div>
+
+                            <div class="col-md-2">
+                                <label class="form-label">Quantity</label>
+                                <input asp-for="Items[i].Quantity" class="form-control" />
+                                <span asp-validation-for="Items[i].Quantity" class="text-danger small"></span>
+                            </div>
+
+                            <div class="col-md-2">
+                                <label class="form-label">Unit Price</label>
+                                <input asp-for="Items[i].UnitPrice" class="form-control" />
+                                <span asp-validation-for="Items[i].UnitPrice" class="text-danger small"></span>
+                            </div>
+
+                            <div class="col-md-2">
+                                <button type="button" class="btn btn-outline-danger w-100 remove-sale-item">
+                                    Remove
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+
+        <div class="mt-4">
+            <button type="submit" class="btn btn-primary">
+                Update Sale
+            </button>
+
+            <a asp-controller="Sales" asp-action="Index" class="btn btn-outline-secondary">
+                Cancel
+            </a>
+        </div>
+    </form>
+</div>
+
+@section Scripts {
+    <script>
+        let saleItemIndex = @Model.Items.Count;
+
+        document.getElementById("addSaleItemButton").addEventListener("click", function () {
+            const container = document.getElementById("saleItemsContainer");
+            const firstItem = container.querySelector(".erp-line-item");
+            const newItem = firstItem.cloneNode(true);
+
+            newItem.querySelectorAll("select, input").forEach(function (field) {
+                const name = field.getAttribute("name");
+                const id = field.getAttribute("id");
+
+                if (name) {
+                    field.setAttribute("name", name.replace(/\Items\[\d+\]/, "Items[" + saleItemIndex + "]"));
+                }
+
+                if (id) {
+                    field.setAttribute("id", id.replace(/Items_\d+__/, "Items_" + saleItemIndex + "__"));
+                }
+
+                if (field.tagName === "INPUT") {
+                    if (field.type === "hidden") {
+                        field.value = "0";
+                    } else {
+                        field.value = "";
+                    }
+                }
+
+                if (field.tagName === "SELECT") {
+                    field.selectedIndex = 0;
+                }
+            });
+
+            newItem.querySelectorAll("span[data-valmsg-for]").forEach(function (span) {
+                const value = span.getAttribute("data-valmsg-for");
+
+                if (value) {
+                    span.setAttribute("data-valmsg-for", value.replace(/\Items\[\d+\]/, "Items[" + saleItemIndex + "]"));
+                }
+
+                span.innerHTML = "";
+            });
+
+            container.appendChild(newItem);
+            saleItemIndex++;
+        });
+
+        document.addEventListener("click", function (event) {
+            if (!event.target.classList.contains("remove-sale-item")) {
+                return;
+            }
+
+            const items = document.querySelectorAll(".erp-line-item");
+
+            if (items.length === 1) {
+                return;
+            }
+
+            event.target.closest(".erp-line-item").remove();
+        });
+    </script>
+}

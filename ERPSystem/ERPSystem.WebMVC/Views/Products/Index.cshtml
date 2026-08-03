@@ -1,357 +1,520 @@
-﻿@model List<ERPSystem.WebMVC.ViewModels.Products.ProductViewModel>
+﻿@model ERPSystem.WebMVC.ViewModels.Products.ProductIndexPageViewModel
 
 @{
-    Layout = null;
+    Layout = "~/Views/Shared/_Layout.cshtml";
     ViewData["Title"] = "Products";
 
-    var categories = Model
-        .Where(product => !string.IsNullOrWhiteSpace(product.CategoryName))
-        .Select(product => product.CategoryName)
-        .Distinct()
-        .OrderBy(category => category)
-        .ToList();
+    var canCreate = Model.CanCreate;
+    var canUpdate = Model.CanUpdateOwn || Model.CanUpdateAll;
+    var canDelete = Model.CanDeleteOwn || Model.CanDeleteAll;
+
+    var activeTab = ViewBag.ActiveTab as string;
+    var productsTabClass = activeTab == "permissions" ? "" : "is-active";
+    var permissionsTabClass = activeTab == "permissions" ? "is-active" : "";
+
+    var productCategoryOptionsJson = System.Text.Json.JsonSerializer.Serialize(
+        Model.Categories.Select(category => new
+        {
+            value = category.Text,
+            text = category.Text
+        })
+    );
 }
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="utf-8" />
-    <title>Products - ERP Workspace</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <link href="~/lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
+<link rel="stylesheet" href="~/css/erp-advanced-filter.css" />
 
-    <style>
-            body {
-                background: #f5f6f8;
-                color: #1f2937;
-            }
+<div class="erp-page">
+    <div class="erp-page-header">
+        <div>
+            <a asp-controller="Workspace" asp-action="Index" class="btn btn-outline-secondary mb-3">
+                Apps
+            </a>
 
-            .workspace-topbar {
-                height: 58px;
-                background: #2f3a45;
-                color: #fff;
-                display: flex;
-                align-items: center;
-                justify-content: space-between;
-                padding: 0 22px;
-            }
-
-            .module-page {
-                padding: 24px 32px;
-            }
-
-            .toolbar {
-                background: #fff;
-                border: 1px solid #e5e7eb;
-                padding: 12px;
-                margin-bottom: 18px;
-                display: flex;
-                justify-content: space-between;
-                align-items: center;
-                gap: 12px;
-                flex-wrap: wrap;
-            }
-
-            .search-box {
-                max-width: 480px;
-                flex: 1;
-            }
-
-            .view-button {
-                width: 38px;
-                height: 38px;
-                border: 1px solid #d1d5db;
-                background: #fff;
-                font-weight: 700;
-            }
-
-                .view-button.active {
-                    background: #111827;
-                    color: #fff;
-                    border-color: #111827;
-                }
-
-            .product-card {
-                background: #fff;
-                border: 1px solid #e5e7eb;
-                min-height: 210px;
-                transition: box-shadow .15s ease, transform .15s ease;
-                position: relative;
-            }
-
-                .product-card:hover {
-                    transform: translateY(-2px);
-                    box-shadow: 0 10px 24px rgba(15,23,42,.08);
-                }
-
-            .product-image {
-                width: 96px;
-                height: 96px;
-                object-fit: cover;
-                background: #f3f4f6;
-                border: 1px solid #e5e7eb;
-            }
-
-            .product-placeholder {
-                width: 96px;
-                height: 96px;
-                background: #f3f4f6;
-                border: 1px solid #e5e7eb;
-                color: #9ca3af;
-                font-size: 13px;
-            }
-
-            .metric-label {
-                color: #6b7280;
-                font-size: 12px;
-            }
-
-            .metric-value {
-                font-weight: 700;
-                color: #111827;
-            }
-
-            .product-actions {
-                position: absolute;
-                top: 12px;
-                right: 12px;
-            }
-
-            .action-menu-button {
-                width: 34px;
-                height: 34px;
-                border: 1px solid #d1d5db;
-                background: #fff;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-            }
-
-            .list-view .product-item {
-                width: 100%;
-            }
-
-            .list-view .product-card {
-                min-height: auto;
-            }
-
-            .list-view .product-content {
-                align-items: center;
-            }
-
-            .list-view .product-description {
-                display: none;
-            }
-
-            .empty-state {
-                background: #fff;
-                border: 1px solid #e5e7eb;
-                padding: 40px;
-                text-align: center;
-            }
-
-            .date-line {
-                color: #6b7280;
-                font-size: 12px;
-            }
-    </style>
-</head>
-<body>
-    <header class="workspace-topbar">
-        <div class="d-flex align-items-center gap-3">
-            <a asp-controller="Workspace" asp-action="Index" class="btn btn-sm btn-outline-light">Apps</a>
-            <strong>ERP System / Inventory</strong>
-        </div>
-
-        <div class="d-flex align-items-center gap-2">
-            <a asp-controller="Products" asp-action="Create" class="btn btn-primary">New Product</a>
-            <a asp-controller="Auth" asp-action="Logout" class="btn btn-sm btn-outline-light">Logout</a>
-        </div>
-    </header>
-
-    <main class="module-page">
-        <div class="mb-4">
-            <div class="text-muted small">Workspace / Inventory</div>
-            <h1 class="mb-0">Products</h1>
-        </div>
-
-        <div class="toolbar">
-            <div class="input-group search-box">
-                <span class="input-group-text bg-white">Search</span>
-                <input id="productSearch" type="text" class="form-control" placeholder="Search products, date, SKU, category, price or stock" />
+            <div class="erp-breadcrumb">
+                ERP System / Inventory
             </div>
 
-            <div class="d-flex align-items-center gap-2">
-                <select id="categoryFilter" class="form-select" style="width:220px;">
-                    <option value="">All Categories</option>
-                    @foreach (var category in categories)
-                    {
-                        <option value="@category">@category</option>
-                    }
-                </select>
+            <h1>Products</h1>
+            <p>Manage product records, pricing and inventory information.</p>
+        </div>
 
-                <button id="kanbanButton" type="button" class="view-button active" title="Kanban view">▦</button>
-                <button id="listButton" type="button" class="view-button" title="List view">☰</button>
+        @if (canCreate)
+        {
+            <a asp-controller="Products" asp-action="Create" class="btn btn-primary">
+                New Product
+            </a>
+        }
+    </div>
+
+    <div class="module-tabs">
+        <button type="button" class="module-tab @productsTabClass" data-tab-target="productsTab">
+            Products
+        </button>
+
+        @if (Model.CanViewAccessPermissions)
+        {
+            <button type="button" class="module-tab @permissionsTabClass" data-tab-target="permissionsTab">
+                Access Permissions
+            </button>
+        }
+    </div>
+
+    <div id="productsTab" class="module-tab-panel @productsTabClass">
+        <div class="erp-search-shell">
+            <div class="erp-search-row">
+                <div class="erp-search-input-wrap">
+                    <div id="activeFilterChip" class="erp-filter-chip d-none">
+                        <span id="activeFilterName"></span>
+                        <button type="button" id="clearActiveFilter" title="Clear filter" aria-label="Clear filter">
+                            x
+                        </button>
+                    </div>
+
+                    <input id="quickSearch"
+                           class="erp-search-input"
+                           type="text"
+                           autocomplete="off"
+                           placeholder="Search product name, SKU, category, price or date" />
+                </div>
+
+                <button type="button" class="erp-view-button is-active" data-view="grid" title="Grid view" aria-label="Grid view">
+                    &#9638;
+                </button>
+
+                <button type="button" class="erp-view-button" data-view="list" title="List view" aria-label="List view">
+                    &#9776;
+                </button>
+            </div>
+
+            <div id="advancedFilterPopup" class="advanced-filter-popup">
+                <div class="advanced-filter-sidebar">
+                    <h6>Saved filters</h6>
+
+                    <div id="savedFiltersList" class="saved-filter-list"></div>
+
+                    <div id="saveFilterBox" class="save-filter-box d-none">
+                        <label>Filter name</label>
+                        <input id="saveFilterNameInput" type="text" />
+
+                        <div class="save-filter-actions">
+                            <button id="confirmSaveFilterButton" type="button">
+                                Save
+                            </button>
+
+                            <button id="cancelSaveFilterButton" type="button">
+                                Cancel
+                            </button>
+                        </div>
+                    </div>
+
+                    <button id="saveFilterButton" type="button" class="save-filter-button">
+                        + Save filter
+                    </button>
+                </div>
+
+                <div class="advanced-filter-body">
+                    <div id="filterFields" class="filter-fields"></div>
+
+                    <div class="add-field-wrap">
+                        <button id="addFieldButton" type="button" class="add-field-button">
+                            Add field
+                        </button>
+
+                        <button id="restoreDefaultFields" type="button" class="restore-fields-button">
+                            Restore default fields
+                        </button>
+                    </div>
+
+                    <div class="advanced-filter-actions">
+                        <button id="applyAdvancedFilter" type="button" class="btn btn-primary">
+                            Search
+                        </button>
+
+                        <button id="resetAdvancedFilter" type="button" class="btn btn-link">
+                            Reset
+                        </button>
+                    </div>
+                </div>
             </div>
         </div>
 
-        @if (!Model.Any())
+        @if (!Model.CanView)
         {
             <div class="empty-state">
-                <h4>No products found</h4>
-                <p class="text-muted mb-3">Create your first product to start inventory management.</p>
-                <a asp-controller="Products" asp-action="Create" class="btn btn-primary">New Product</a>
+                <h3>No access</h3>
+                <p>You do not have permission to view product records.</p>
+            </div>
+        }
+        else if (!Model.Products.Any())
+        {
+            <div class="empty-state">
+                <h3>No products found</h3>
+                <p>Create your first product to start managing inventory.</p>
             </div>
         }
         else
         {
-            <div id="productsGrid" class="row g-3">
-                @foreach (var product in Model)
+            <div id="productsGrid" class="product-grid">
+                @foreach (var product in Model.Products)
                 {
-                    var createdText = product.CreatedDate.ToString("dd MMM yyyy HH:mm");
-                    var updatedText = product.UpdatedDate?.ToString("dd MMM yyyy HH:mm") ?? "";
+                    var createdDate = product.CreatedDate.ToString("yyyy-MM-dd");
+                    var updatedDate = product.UpdatedDate?.ToString("yyyy-MM-dd") ?? "";
 
-                    <div class="col-md-6 col-xl-4 product-item"
+                    <div class="product-item"
+                         data-name="@product.Name"
+                         data-sku="@product.SKU"
+                         data-description="@product.Description"
                          data-category="@product.CategoryName"
-                         data-search="@($"{product.Name} {product.SKU} {product.Description} {product.CategoryName} {product.PurchasePrice} {product.SalePrice} {product.StockQuantity} {createdText} {updatedText}")">
-                        <div class="product-card p-3">
-                            <div class="dropdown product-actions">
-                                <button class="action-menu-button" type="button" data-bs-toggle="dropdown">☰</button>
+                         data-purchaseprice="@product.PurchasePrice"
+                         data-saleprice="@product.SalePrice"
+                         data-created="@createdDate"
+                         data-updated="@updatedDate">
 
-                                <ul class="dropdown-menu dropdown-menu-end">
-                                    <li>
-                                        <a class="dropdown-item" asp-controller="Products" asp-action="Edit" asp-route-id="@product.Id">Edit</a>
-                                    </li>
-                                    <li>
-                                        <form asp-controller="Products" asp-action="Delete" asp-route-id="@product.Id" method="post"
-                                              onsubmit="return confirm('Are you sure you want to delete this product?');">
-                                            <button type="submit" class="dropdown-item text-danger">Delete</button>
-                                        </form>
-                                    </li>
-                                </ul>
-                            </div>
-
-                            <div class="product-content d-flex gap-3 pe-4">
+                        <div class="product-card">
+                            <div class="product-image">
                                 @if (!string.IsNullOrWhiteSpace(product.ImageUrl))
                                 {
-                                    <img src="@product.ImageUrl" alt="@product.Name" class="product-image" />
+                                    <img src="@product.ImageUrl" alt="@product.Name" />
                                 }
                                 else
                                 {
-                                    <div class="product-placeholder d-flex align-items-center justify-content-center">No image</div>
+                                    <span>@product.Name.Substring(0, 1).ToUpper()</span>
+                                }
+                            </div>
+
+                            <div class="product-info">
+                                <div class="product-title-row">
+                                    <h3>@product.Name</h3>
+
+                                    @if (!string.IsNullOrWhiteSpace(product.CategoryName))
+                                    {
+                                        <span class="product-category">@product.CategoryName</span>
+                                    }
+                                </div>
+
+                                <div class="product-sku">@product.SKU</div>
+
+                                @if (!string.IsNullOrWhiteSpace(product.Description))
+                                {
+                                    <p class="product-description">@product.Description</p>
                                 }
 
-                                <div class="flex-grow-1">
-                                    <div class="d-flex justify-content-between align-items-start gap-2 mb-1">
-                                        <div>
-                                            <h5 class="mb-1">@product.Name</h5>
-                                            <div class="text-muted small">@product.SKU</div>
-                                        </div>
-
-                                        @if (!string.IsNullOrWhiteSpace(product.CategoryName))
-                                        {
-                                            <span class="badge bg-secondary">@product.CategoryName</span>
-                                        }
+                                <div class="product-prices">
+                                    <div>
+                                        <span>Purchase</span>
+                                        <strong>@product.PurchasePrice.ToString("0.00")</strong>
                                     </div>
 
-                                    <p class="product-description text-muted small mt-2 mb-3">@product.Description</p>
-
-                                    <div class="row g-2 mb-2">
-                                        <div class="col-4">
-                                            <div class="metric-label">Cost</div>
-                                            <div class="metric-value">@product.PurchasePrice.ToString("0.00")</div>
-                                        </div>
-
-                                        <div class="col-4">
-                                            <div class="metric-label">Sale</div>
-                                            <div class="metric-value">@product.SalePrice.ToString("0.00")</div>
-                                        </div>
-
-                                        <div class="col-4">
-                                            <div class="metric-label">Stock</div>
-                                            @if (product.StockQuantity <= 0)
-                                            {
-                                                <span class="badge bg-danger">Out</span>
-                                            }
-                                            else if (product.StockQuantity <= 5)
-                                            {
-                                                <span class="badge bg-warning text-dark">@product.StockQuantity Low</span>
-                                            }
-                                            else
-                                            {
-                                                <span class="badge bg-success">@product.StockQuantity In Stock</span>
-                                            }
-                                        </div>
+                                    <div>
+                                        <span>Sale</span>
+                                        <strong>@product.SalePrice.ToString("0.00")</strong>
                                     </div>
+                                </div>
 
-                                    <div class="date-line">Created: @createdText</div>
-
-                                    @if (product.UpdatedDate is not null)
+                                <div class="product-dates">
+                                    Created: @createdDate
+                                    @if (!string.IsNullOrWhiteSpace(updatedDate))
                                     {
-                                        <div class="date-line">Updated: @updatedText</div>
+                                        <span> / Updated: @updatedDate</span>
                                     }
                                 </div>
                             </div>
+
+                            @if (canUpdate || canDelete)
+                            {
+                                <div class="product-menu">
+                                    <button type="button" class="product-menu-button" title="Actions" aria-label="Actions">
+                                        &#9776;
+                                    </button>
+
+                                    <div class="product-menu-dropdown">
+                                        @if (canUpdate)
+                                        {
+                                            <a asp-controller="Products"
+                                               asp-action="Edit"
+                                               asp-route-id="@product.Id">
+                                                Edit
+                                            </a>
+                                        }
+
+                                        @if (canDelete)
+                                        {
+                                            <form asp-controller="Products"
+                                                  asp-action="Delete"
+                                                  asp-route-id="@product.Id"
+                                                  method="post">
+                                                <button type="submit">
+                                                    Delete
+                                                </button>
+                                            </form>
+                                        }
+                                    </div>
+                                </div>
+                            }
                         </div>
                     </div>
                 }
             </div>
         }
-    </main>
+    </div>
 
-    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    @if (Model.CanViewAccessPermissions)
+    {
+        <div id="permissionsTab" class="module-tab-panel @permissionsTabClass">
+            <div class="permission-panel">
+                <div class="permission-header">
+                    <h2>Access Permissions</h2>
+                    <p>Manage who can view, create, update and delete product records.</p>
+                </div>
+
+                @if (TempData["PermissionSuccess"] is not null)
+                {
+                    <div class="alert alert-success">
+                        @TempData["PermissionSuccess"]
+                    </div>
+                }
+
+                @if (TempData["PermissionError"] is not null)
+                {
+                    <div class="alert alert-danger">
+                        @TempData["PermissionError"]
+                    </div>
+                }
+
+                <form asp-controller="Products" asp-action="Index" method="get" class="permission-user-form">
+                    <input type="hidden" name="activeTab" value="permissions" />
+
+                    <div class="permission-user-picker">
+                        <label>Select employee/user</label>
+
+                        <button type="button" class="permission-user-trigger" id="permissionUserTrigger">
+                            <span id="selectedUserText">
+                                @{
+                                    var selectedUser = Model.PermissionPage.Users
+                                        .FirstOrDefault(user => user.Id == Model.PermissionPage.SelectedUserId);
+                                }
+
+                                @if (selectedUser is not null)
+                                {
+                                    @($"{selectedUser.FullName} ({selectedUser.UserName})")
+                                }
+                                else
+                                {
+                                    @("Select user")
+                                }
+                            </span>
+
+                            <span>v</span>
+                        </button>
+
+                        <div class="permission-user-dropdown" id="permissionUserDropdown">
+                            <input type="text"
+                                   id="permissionUserSearch"
+                                   class="form-control permission-user-search"
+                                   placeholder="search" />
+
+                            <div class="permission-user-list">
+                                @foreach (var user in Model.PermissionPage.Users)
+                                {
+                                    var initial = string.IsNullOrWhiteSpace(user.FullName)
+                                        ? "U"
+                                        : user.FullName.Substring(0, 1).ToUpper();
+
+                                    <button type="submit"
+                                            name="selectedUserId"
+                                            value="@user.Id"
+                                            class="permission-user-option"
+                                            data-user-search="@($"{user.FullName} {user.UserName} {user.Email}")">
+                                        <span class="permission-user-avatar">@initial</span>
+
+                                        <span>
+                                            <span class="permission-user-name">@user.FullName</span>
+                                            <span class="permission-user-meta">@user.UserName - @user.Email</span>
+                                        </span>
+                                    </button>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                </form>
+
+                @if (!string.IsNullOrWhiteSpace(Model.PermissionPage.SelectedUserId))
+                {
+                    <form asp-controller="Products" asp-action="SavePermissions" method="post">
+                        <input type="hidden" name="UserId" value="@Model.PermissionPage.SelectedUserId" />
+
+                        <table class="table table-hover bg-white align-middle permission-table">
+                            <thead>
+                                <tr>
+                                    <th>Action</th>
+                                    <th>Access Level</th>
+                                    <th>Description</th>
+                                </tr>
+                            </thead>
+
+                            <tbody>
+                                @foreach (var permission in Model.PermissionPage.Permissions)
+                                {
+                                    <tr>
+                                        <td>
+                                            <strong>@permission.ActionName</strong>
+                                            <input type="hidden" name="Permissions.Index" value="@permission.ActionName" />
+                                            <input type="hidden" name="Permissions[@permission.ActionName].ActionName" value="@permission.ActionName" />
+                                        </td>
+
+                                        <td>
+                                            <select name="Permissions[@permission.ActionName].AccessLevel" class="form-select">
+                                                <option value="0" selected="@(permission.AccessLevel == 0)">None</option>
+                                                <option value="1" selected="@(permission.AccessLevel == 1)">Own records</option>
+                                                <option value="2" selected="@(permission.AccessLevel == 2)">All records</option>
+                                            </select>
+                                        </td>
+
+                                        <td class="text-muted">
+                                            @GetPermissionDescription(permission.ActionName)
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+
+                        <button type="submit" class="btn btn-primary">
+                            Save Permissions
+                        </button>
+                    </form>
+                }
+            </div>
+        </div>
+    }
+</div>
+
+@functions {
+    private string GetPermissionDescription(string actionName)
+    {
+        return actionName switch
+        {
+            "View" => "Controls whether the user can see product records.",
+            "Create" => "Controls whether the user can create new product records.",
+            "Update" => "Controls whether the user can edit own or all product records.",
+            "Delete" => "Controls whether the user can delete own or all product records.",
+            _ => "Controls product module access."
+        };
+    }
+}
+
+@section Scripts {
+    <script src="~/js/erp-advanced-filter.js"></script>
 
     <script>
-        const searchInput = document.getElementById("productSearch");
-        const categoryFilter = document.getElementById("categoryFilter");
-        const productItems = document.querySelectorAll(".product-item");
-        const productsGrid = document.getElementById("productsGrid");
-        const kanbanButton = document.getElementById("kanbanButton");
-        const listButton = document.getElementById("listButton");
+        document.addEventListener("DOMContentLoaded", function () {
+        const productCategories = @Html.Raw(productCategoryOptionsJson);
 
-        function filterProducts() {
-        const searchValue = searchInput.value.toLowerCase().trim();
-        const categoryValue = categoryFilter.value.toLowerCase();
-
-        productItems.forEach(item => {
-        const searchableText = (item.dataset.search || "").toLowerCase();
-        const category = (item.dataset.category || "").toLowerCase();
-
-        const matchesSearch = searchableText.includes(searchValue);
-        const matchesCategory = !categoryValue || category === categoryValue;
-
-        item.style.display = matchesSearch && matchesCategory ? "" : "none";
-        });
-        }
-
-        function setKanbanView() {
-        productsGrid.classList.remove("list-view");
-
-        productItems.forEach(item => {
-        item.classList.remove("col-12");
-        item.classList.add("col-md-6", "col-xl-4");
-        });
-
-        kanbanButton.classList.add("active");
-        listButton.classList.remove("active");
-        }
-
-        function setListView() {
-        productsGrid.classList.add("list-view");
-
-        productItems.forEach(item => {
-        item.classList.remove("col-md-6", "col-xl-4");
-        item.classList.add("col-12");
+        initializeAdvancedFilter({
+        storageKey: "erp_products_saved_filters",
+        pinnedStorageKey: "erp_products_pinned_filter",
+        quickSearchInputId: "quickSearch",
+        advancedFilterPopupId: "advancedFilterPopup",
+        filterFieldsId: "filterFields",
+        addFieldButtonId: "addFieldButton",
+        restoreDefaultFieldsId: "restoreDefaultFields",
+        applyButtonId: "applyAdvancedFilter",
+        resetButtonId: "resetAdvancedFilter",
+        saveFilterButtonId: "saveFilterButton",
+        savedFiltersListId: "savedFiltersList",
+        activeFilterChipId: "activeFilterChip",
+        activeFilterNameId: "activeFilterName",
+        clearActiveFilterId: "clearActiveFilter",
+        itemSelector: ".product-item",
+        defaultFields: ["name", "sku"],
+        availableFields: [
+        { key: "name", label: "Product Name", type: "text" },
+        { key: "sku", label: "SKU", type: "text" },
+        { key: "description", label: "Description", type: "text" },
+        { key: "category", label: "Category", type: "select", options: productCategories },
+        { key: "purchaseprice", label: "Purchase Price", type: "text" },
+        { key: "saleprice", label: "Sale Price", type: "text" },
+        { key: "created", label: "Created Date", type: "date" },
+        { key: "updated", label: "Updated Date", type: "date" }
+        ],
+        defaultFilterName: "All products",
+        fieldSettingsGroupName: "Product"
         });
 
-        listButton.classList.add("active");
-        kanbanButton.classList.remove("active");
+        document.querySelectorAll(".module-tab").forEach(function (button) {
+        button.addEventListener("click", function () {
+        document.querySelectorAll(".module-tab").forEach(x => x.classList.remove("is-active"));
+        document.querySelectorAll(".module-tab-panel").forEach(x => x.classList.remove("is-active"));
+
+        button.classList.add("is-active");
+        document.getElementById(button.dataset.tabTarget).classList.add("is-active");
+        });
+        });
+
+        document.querySelectorAll(".erp-view-button").forEach(function (button) {
+        button.addEventListener("click", function () {
+        document.querySelectorAll(".erp-view-button").forEach(x => x.classList.remove("is-active"));
+        button.classList.add("is-active");
+
+        const grid = document.getElementById("productsGrid");
+
+        if (!grid) {
+        return;
         }
 
-        searchInput.addEventListener("input", filterProducts);
-        categoryFilter.addEventListener("change", filterProducts);
-        kanbanButton.addEventListener("click", setKanbanView);
-        listButton.addEventListener("click", setListView);
+        if (button.dataset.view === "list") {
+        grid.classList.add("is-list-view");
+        } else {
+        grid.classList.remove("is-list-view");
+        }
+        });
+        });
+
+        document.querySelectorAll(".product-menu-button").forEach(function (button) {
+        button.addEventListener("click", function (event) {
+        event.stopPropagation();
+
+        document.querySelectorAll(".product-menu-dropdown").forEach(function (menu) {
+        if (menu !== button.nextElementSibling) {
+        menu.classList.remove("is-open");
+        }
+        });
+
+        button.nextElementSibling.classList.toggle("is-open");
+        });
+        });
+
+        document.addEventListener("click", function () {
+        document.querySelectorAll(".product-menu-dropdown").forEach(function (menu) {
+        menu.classList.remove("is-open");
+        });
+        });
+
+        const permissionUserTrigger = document.getElementById("permissionUserTrigger");
+        const permissionUserDropdown = document.getElementById("permissionUserDropdown");
+        const permissionUserSearch = document.getElementById("permissionUserSearch");
+
+        permissionUserTrigger?.addEventListener("click", function (event) {
+        event.stopPropagation();
+        permissionUserDropdown?.classList.toggle("is-open");
+        permissionUserSearch?.focus();
+        });
+
+        permissionUserDropdown?.addEventListener("click", function (event) {
+        event.stopPropagation();
+        });
+
+        document.addEventListener("click", function () {
+        permissionUserDropdown?.classList.remove("is-open");
+        });
+
+        permissionUserSearch?.addEventListener("input", function () {
+        const searchValue = permissionUserSearch.value.toLowerCase();
+
+        document.querySelectorAll(".permission-user-option").forEach(function (button) {
+        const data = button.dataset.userSearch?.toLowerCase() || "";
+        button.style.display = data.includes(searchValue) ? "flex" : "none";
+        });
+        });
+        });
     </script>
-</body>
-</html>
+}

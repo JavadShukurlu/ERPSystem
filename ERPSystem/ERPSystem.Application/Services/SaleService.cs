@@ -4,32 +4,56 @@ using ERPSystem.Application.Interfaces;
 using ERPSystem.Application.Interfaces.Services;
 using ERPSystem.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ERPSystem.Application.Services
 {
     public class SaleService : ISaleService
     {
-        private readonly IUnitOfWork _unitOfWork;
+        private const string ModuleName = "Sales";
 
-        public SaleService(IUnitOfWork unitOfWork)
+        private readonly IUnitOfWork _unitOfWork;
+        private readonly IModulePermissionService _modulePermissionService;
+        private readonly ICurrentUserService _currentUserService;
+
+        public SaleService(
+            IUnitOfWork unitOfWork,
+            IModulePermissionService modulePermissionService,
+            ICurrentUserService currentUserService)
         {
             _unitOfWork = unitOfWork;
+            _modulePermissionService = modulePermissionService;
+            _currentUserService = currentUserService;
         }
 
         public async Task<ResultDto<List<SaleDto>>> GetAllAsync()
         {
-            var sales = await _unitOfWork.Sales
+            var salesQuery = _unitOfWork.Sales
                 .GetQueryable()
                 .Include(sale => sale.Customer)
                 .Include(sale => sale.SaleItems)
                     .ThenInclude(item => item.Product)
                 .Include(sale => sale.SaleItems)
                     .ThenInclude(item => item.Warehouse)
+                .AsQueryable();
+
+            if (!IsAdmin())
+            {
+                var accessLevel = await GetAccessLevelAsync("View");
+
+                if (accessLevel == 0)
+                {
+                    return ResultDto<List<SaleDto>>.Success(new List<SaleDto>());
+                }
+
+                if (accessLevel == 1)
+                {
+                    salesQuery = salesQuery.Where(sale =>
+                        sale.CreatedByUserId == _currentUserService.UserId);
+                }
+            }
+
+            var sales = await salesQuery
+                .OrderByDescending(sale => sale.SaleDate)
                 .Select(sale => new SaleDto
                 {
                     Id = sale.Id,
@@ -58,16 +82,26 @@ namespace ERPSystem.Application.Services
         {
             var sale = await _unitOfWork.Sales
                 .GetQueryable()
-                .Include(s => s.Customer)
-                .Include(s => s.SaleItems)
-                    .ThenInclude(i => i.Product)
-                .Include(s => s.SaleItems)
-                    .ThenInclude(i => i.Warehouse)
-                .FirstOrDefaultAsync(s => s.Id == id);
+                .Include(sale => sale.Customer)
+                .Include(sale => sale.SaleItems)
+                    .ThenInclude(item => item.Product)
+                .Include(sale => sale.SaleItems)
+                    .ThenInclude(item => item.Warehouse)
+                .FirstOrDefaultAsync(sale => sale.Id == id);
 
             if (sale is null)
             {
                 return ResultDto<SaleDto>.Failure("Sale not found.");
+            }
+
+            if (!IsAdmin())
+            {
+                var hasPermission = await HasPermissionAsync("View", sale);
+
+                if (!hasPermission)
+                {
+                    return ResultDto<SaleDto>.Failure("You do not have permission to view this sale.");
+                }
             }
 
             return ResultDto<SaleDto>.Success(MapToDto(sale));
@@ -75,6 +109,16 @@ namespace ERPSystem.Application.Services
 
         public async Task<ResultDto<SaleDto>> CreateAsync(CreateSaleDto dto)
         {
+            if (!IsAdmin())
+            {
+                var hasPermission = await HasPermissionAsync("Create");
+
+                if (!hasPermission)
+                {
+                    return ResultDto<SaleDto>.Failure("You do not have permission to create sale records.");
+                }
+            }
+
             if (dto.Items.Count == 0)
             {
                 return ResultDto<SaleDto>.Failure("Sale must contain at least one item.");
@@ -91,7 +135,8 @@ namespace ERPSystem.Application.Services
             {
                 CustomerId = dto.CustomerId,
                 SaleDate = dto.SaleDate,
-                TotalAmount = 0
+                TotalAmount = 0,
+                CreatedByUserId = _currentUserService.UserId
             };
 
             foreach (var itemDto in dto.Items)
@@ -120,34 +165,31 @@ namespace ERPSystem.Application.Services
                     return ResultDto<SaleDto>.Failure($"Warehouse with id {itemDto.WarehouseId} not found.");
                 }
 
-                var stock = await _unitOfWork.Stocks.GetAsync(s =>
-                    s.ProductId == itemDto.ProductId &&
-                    s.WarehouseId == itemDto.WarehouseId);
+                var stock = await _unitOfWork.Stocks.GetAsync(stock =>
+                    stock.ProductId == itemDto.ProductId &&
+                    stock.WarehouseId == itemDto.WarehouseId);
 
                 if (stock is null)
                 {
-                    return ResultDto<SaleDto>.Failure(
-                        $"No stock found for product id {itemDto.ProductId} in warehouse id {itemDto.WarehouseId}.");
+                    return ResultDto<SaleDto>.Failure($"No stock found for product id {itemDto.ProductId} in warehouse id {itemDto.WarehouseId}.");
                 }
 
                 if (stock.Quantity < itemDto.Quantity)
                 {
-                    return ResultDto<SaleDto>.Failure(
-                        $"Insufficient stock for product id {itemDto.ProductId}. Available quantity: {stock.Quantity}.");
+                    return ResultDto<SaleDto>.Failure($"Insufficient stock for product id {itemDto.ProductId}. Available quantity: {stock.Quantity}.");
                 }
 
                 var totalPrice = itemDto.Quantity * itemDto.UnitPrice;
 
-                var saleItem = new SaleItem
+                sale.SaleItems.Add(new SaleItem
                 {
                     ProductId = itemDto.ProductId,
                     WarehouseId = itemDto.WarehouseId,
                     Quantity = itemDto.Quantity,
                     UnitPrice = itemDto.UnitPrice,
                     TotalPrice = totalPrice
-                };
+                });
 
-                sale.SaleItems.Add(saleItem);
                 sale.TotalAmount += totalPrice;
 
                 stock.Quantity -= itemDto.Quantity;
@@ -159,16 +201,14 @@ namespace ERPSystem.Application.Services
 
             var createdSale = await _unitOfWork.Sales
                 .GetQueryable()
-                .Include(s => s.Customer)
-                .Include(s => s.SaleItems)
-                    .ThenInclude(i => i.Product)
-                .Include(s => s.SaleItems)
-                    .ThenInclude(i => i.Warehouse)
-                .FirstAsync(s => s.Id == sale.Id);
+                .Include(sale => sale.Customer)
+                .Include(sale => sale.SaleItems)
+                    .ThenInclude(item => item.Product)
+                .Include(sale => sale.SaleItems)
+                    .ThenInclude(item => item.Warehouse)
+                .FirstAsync(sale => sale.Id == sale.Id);
 
-            return ResultDto<SaleDto>.Success(
-                MapToDto(createdSale),
-                "Sale created successfully and stock decreased.");
+            return ResultDto<SaleDto>.Success(MapToDto(createdSale), "Sale created successfully and stock decreased.");
         }
 
         public async Task<ResultDto<bool>> DeleteAsync(int id)
@@ -180,10 +220,56 @@ namespace ERPSystem.Application.Services
                 return ResultDto<bool>.Failure("Sale not found.");
             }
 
+            if (!IsAdmin())
+            {
+                var hasPermission = await HasPermissionAsync("Delete", sale);
+
+                if (!hasPermission)
+                {
+                    return ResultDto<bool>.Failure("You do not have permission to delete this sale.");
+                }
+            }
+
             _unitOfWork.Sales.Delete(sale);
             await _unitOfWork.SaveChangesAsync();
 
             return ResultDto<bool>.Success(true, "Sale deleted successfully.");
+        }
+
+        private async Task<int> GetAccessLevelAsync(string actionName)
+        {
+            if (string.IsNullOrWhiteSpace(_currentUserService.UserId))
+            {
+                return 0;
+            }
+
+            var permissions = await _modulePermissionService.GetUserModulePermissionsAsync(
+                _currentUserService.UserId,
+                ModuleName);
+
+            var permission = permissions.Data?
+                .FirstOrDefault(permission => permission.ActionName == actionName);
+
+            return permission is null ? 0 : (int)permission.AccessLevel;
+        }
+
+        private async Task<bool> HasPermissionAsync(string actionName, Sale? sale = null)
+        {
+            if (string.IsNullOrWhiteSpace(_currentUserService.UserId))
+            {
+                return false;
+            }
+
+            return await _modulePermissionService.HasPermissionAsync(
+                _currentUserService.UserId,
+                ModuleName,
+                actionName,
+                sale);
+        }
+
+        private bool IsAdmin()
+        {
+            return string.Equals(_currentUserService.UserName, "admin", StringComparison.OrdinalIgnoreCase);
         }
 
         private static SaleDto MapToDto(Sale sale)

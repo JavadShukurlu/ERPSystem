@@ -697,6 +697,27 @@
   },
   {
     "ContainingType": "ERPSystem.WebAPI.Controllers.PurchasesController",
+    "Method": "Update",
+    "RelativePath": "api/Purchases/{id}",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "dto",
+        "Type": "ERPSystem.Application.DTOs.Purchases.UpdatePurchaseDto",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "ERPSystem.WebAPI.Controllers.PurchasesController",
     "Method": "Delete",
     "RelativePath": "api/Purchases/{id}",
     "HttpMethod": "DELETE",

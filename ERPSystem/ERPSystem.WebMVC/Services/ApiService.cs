@@ -28,6 +28,11 @@ namespace ERPSystem.WebMVC.Services
 
             var json = await response.Content.ReadAsStringAsync();
 
+            if (string.IsNullOrWhiteSpace(json))
+            {
+                return default;
+            }
+
             return JsonSerializer.Deserialize<T>(json, GetJsonOptions());
         }
 
@@ -85,6 +90,24 @@ namespace ERPSystem.WebMVC.Services
             return JsonSerializer.Deserialize<TResponse>(json, GetJsonOptions());
         }
 
+        public async Task<ApiRawResponse> PutRawAsync<TRequest>(string endpoint, TRequest data)
+        {
+            var client = CreateClient();
+
+            var jsonData = JsonSerializer.Serialize(data);
+            var content = new StringContent(jsonData, Encoding.UTF8, "application/json");
+
+            var response = await client.PutAsync(endpoint, content);
+            var responseText = await response.Content.ReadAsStringAsync();
+
+            return new ApiRawResponse
+            {
+                IsSuccessStatusCode = response.IsSuccessStatusCode,
+                StatusCode = (int)response.StatusCode,
+                Content = responseText
+            };
+        }
+
         public async Task<T?> DeleteAsync<T>(string endpoint)
         {
             var client = CreateClient();
@@ -95,6 +118,15 @@ namespace ERPSystem.WebMVC.Services
 
             return JsonSerializer.Deserialize<T>(json, GetJsonOptions());
         }
+    }
+
+    public class ApiRawResponse
+    {
+        public bool IsSuccessStatusCode { get; set; }
+
+        public int StatusCode { get; set; }
+
+        public string? Content { get; set; }
     }
 
 

@@ -15,5 +15,13 @@
         public string? Address { get; set; }
 
         public string? LogoUrl { get; set; }
+
+        public DateTime CreatedDate { get; set; }
+
+        public DateTime? UpdatedDate { get; set; }
+
+        public string? CreatedByUserId { get; set; }
+
+        public string? UpdatedByUserId { get; set; }
     }
 }

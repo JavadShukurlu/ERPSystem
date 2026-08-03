@@ -29,8 +29,48 @@ namespace ERPSystem.WebAPI.Controllers
 
         [HttpPut]
         [Authorize(Roles = "Admin")]
-        public async Task<IActionResult> UpdateUserModulePermissions(UpdateModulePermissionsDto dto)
+        public async Task<IActionResult> UpdateUserModulePermissions([FromBody] UpdateModulePermissionsDto dto)
         {
+            if (dto is null)
+            {
+                return BadRequest(new
+                {
+                    isSuccess = false,
+                    message = "Permission request body is empty.",
+                    data = false
+                });
+            }
+
+            if (string.IsNullOrWhiteSpace(dto.UserId))
+            {
+                return BadRequest(new
+                {
+                    isSuccess = false,
+                    message = "UserId is required.",
+                    data = false
+                });
+            }
+
+            if (string.IsNullOrWhiteSpace(dto.ModuleName))
+            {
+                return BadRequest(new
+                {
+                    isSuccess = false,
+                    message = "ModuleName is required.",
+                    data = false
+                });
+            }
+
+            if (dto.Permissions is null || !dto.Permissions.Any())
+            {
+                return BadRequest(new
+                {
+                    isSuccess = false,
+                    message = "At least one permission is required.",
+                    data = false
+                });
+            }
+
             var result = await _modulePermissionService.UpdateUserModulePermissionsAsync(dto);
 
             if (!result.IsSuccess)

@@ -1,36 +1,558 @@
-﻿@model List<ERPSystem.WebMVC.ViewModels.Sales.SaleViewModel>
+﻿@model ERPSystem.WebMVC.ViewModels.Sales.SaleIndexPageViewModel
 
 @{
+    Layout = "~/Views/Shared/_Layout.cshtml";
     ViewData["Title"] = "Sales";
+
+    var activeTab = ViewBag.ActiveTab as string ?? "salesTab";
+
+    string GetPermissionDescription(string actionName)
+    {
+        return actionName switch
+        {
+            "View" => "Controls whether the user can see sale records.",
+            "Create" => "Controls whether the user can create new sale records.",
+            "Update" => "Controls whether the user can edit own or all sale records.",
+            "Delete" => "Controls whether the user can delete own or all sale records.",
+            _ => "Controls module access."
+        };
+    }
+
+    string GetSelectedText()
+    {
+        var selectedUser = Model.PermissionPage.Users
+            .FirstOrDefault(user => user.Id == Model.PermissionPage.SelectedUserId);
+
+        if (selectedUser is null)
+        {
+            return "Select employee/user";
+        }
+
+        return $"{selectedUser.FullName} ({selectedUser.UserName})";
+    }
 }
 
-<h3 class="mb-3">Sales</h3>
+<div class="erp-page">
+    <div class="erp-page-header">
+        <div>
+            <a asp-controller="Workspace" asp-action="Index" class="btn btn-outline-secondary erp-apps-btn">
+                Apps
+            </a>
 
-@if (!Model.Any())
-{
-    <div class="alert alert-info">No records found.</div>
-}
-else
-{
-    <table class="table table-hover bg-white">
-        <thead>
-            <tr>
-                <th>Sale Date</th>
-                <th>Customer</th>
-                <th>Total Amount</th>
-                <th>Items</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var sale in Model)
+            <div class="erp-breadcrumb">
+                ERP System / Sales
+            </div>
+
+            <h1>Sales</h1>
+            <p>Manage sales orders, customers and sales revenue.</p>
+        </div>
+
+        @if (Model.CanCreate)
+        {
+            <a asp-controller="Sales" asp-action="Create" class="btn btn-primary">
+                New Sale
+            </a>
+        }
+    </div>
+
+    <div class="erp-module-tabs">
+        <button type="button"
+                class="erp-module-tab @(activeTab == "salesTab" ? "active" : "")"
+                data-tab-target="salesTab">
+            Sales Orders
+        </button>
+
+        <a asp-controller="Customers"
+           asp-action="Index"
+           class="erp-module-tab text-decoration-none">
+            Customers
+        </a>
+
+        <button type="button"
+                class="erp-module-tab @(activeTab == "salesReportsTab" ? "active" : "")"
+                data-tab-target="salesReportsTab">
+            Sales Reports
+        </button>
+
+        @if (Model.CanViewAccessPermissions)
+        {
+            <button type="button"
+                    class="erp-module-tab @(activeTab == "permissionsTab" ? "active" : "")"
+                    data-tab-target="permissionsTab">
+                Access Permissions
+            </button>
+        }
+    </div>
+
+    <div id="salesTab" class="erp-tab-panel">
+        @if (!Model.CanView)
+        {
+            <div class="erp-empty-state">
+                <h3>No access</h3>
+                <p>You do not have permission to view sale records.</p>
+            </div>
+        }
+        else
+        {
+            <div class="erp-filter-panel">
+                <div class="erp-filter-bar">
+                    <div class="erp-filter-search-shell">
+                        <span id="saleActiveFilterChip" class="erp-filter-chip d-none">
+                            <span id="saleActiveFilterName"></span>
+                            <button type="button" id="saleClearPinnedFilter">x</button>
+                        </span>
+
+                        <input id="saleQuickSearch"
+                               class="erp-filter-search-input"
+                               type="text"
+                               placeholder="Search customer, date, amount, product or warehouse"
+                               autocomplete="off" />
+                    </div>
+
+                    <div class="erp-view-toggle">
+                        <button type="button" class="erp-view-button active" data-view="grid" title="Grid view">
+                            ▦
+                        </button>
+
+                        <button type="button" class="erp-view-button" data-view="list" title="List view">
+                            ☰
+                        </button>
+                    </div>
+                </div>
+
+                <div id="saleFilterPopup" class="erp-advanced-filter-popup d-none">
+                    <div class="erp-filter-sidebar">
+                        <h4>Saved filters</h4>
+
+                        <div id="saleSavedFilters" class="erp-saved-filters"></div>
+
+                        <button type="button" id="saleSaveFilterToggle" class="erp-save-filter-link">
+                            + Save filter
+                        </button>
+
+                        <div id="saleSaveFilterBox" class="erp-save-filter-box d-none">
+                            <label>Filter name</label>
+                            <input id="saleSaveFilterName" type="text" class="form-control" />
+
+                            <div class="d-flex gap-2 mt-2">
+                                <button type="button" id="saleSaveFilterConfirm" class="btn btn-primary btn-sm">
+                                    Save
+                                </button>
+
+                                <button type="button" id="saleSaveFilterCancel" class="btn btn-outline-secondary btn-sm">
+                                    Cancel
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="erp-filter-content">
+                        <div id="saleFilterFields"></div>
+
+                        <div class="erp-filter-actions">
+                            <button type="button" id="saleAddFieldButton" class="erp-link-button">
+                                Add field
+                            </button>
+
+                            <button type="button" id="saleRestoreFieldsButton" class="erp-link-button muted">
+                                Restore default fields
+                            </button>
+
+                            <button type="button" id="saleApplyFilterButton" class="btn btn-primary">
+                                Search
+                            </button>
+
+                            <button type="button" id="saleResetFilterButton" class="erp-link-button">
+                                Reset
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            @if (Model.Sales is null || !Model.Sales.Any())
             {
-                <tr>
-                    <td>@sale.SaleDate.ToString("yyyy-MM-dd")</td>
-                    <td>@sale.CustomerName</td>
-                    <td>@sale.TotalAmount</td>
-                    <td>@sale.Items.Count</td>
-                </tr>
+                <div class="erp-empty-state">
+                    <h3>No sales found</h3>
+                    <p>Sale records will appear here after they are created.</p>
+                </div>
             }
-        </tbody>
-    </table>
+            else
+            {
+                <div id="saleRecords" class="erp-card-grid">
+                    @foreach (var sale in Model.Sales)
+                    {
+                        var productNames = string.Join(" ", sale.Items.Select(item => item.ProductName));
+                        var warehouseNames = string.Join(" ", sale.Items.Select(item => item.WarehouseName));
+
+                        <div class="erp-record-card sale-record"
+                             data-name="Sale #@sale.Id"
+                             data-customer="@sale.CustomerName"
+                             data-date="@sale.SaleDate.ToString("yyyy-MM-dd")"
+                             data-amount="@sale.TotalAmount.ToString("0.00")"
+                             data-product="@productNames"
+                             data-warehouse="@warehouseNames">
+
+                            <div class="erp-record-icon erp-sale-icon">
+                                SO
+                            </div>
+
+                            <div class="erp-record-main">
+                                <h3>Sale #@sale.Id</h3>
+                                <p>@sale.CustomerName</p>
+
+                                <div class="erp-record-stats">
+                                    <div>
+                                        <span>Date</span>
+                                        <strong>@sale.SaleDate.ToString("yyyy-MM-dd")</strong>
+                                    </div>
+
+                                    <div>
+                                        <span>Items</span>
+                                        <strong>@sale.Items.Count</strong>
+                                    </div>
+
+                                    <div>
+                                        <span>Total</span>
+                                        <strong>@sale.TotalAmount.ToString("0.00")</strong>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="erp-card-menu">
+                                <button type="button" class="erp-menu-button">☰</button>
+
+                                <div class="erp-menu-dropdown">
+                                    @if (Model.CanUpdateAll || Model.CanUpdateOwn)
+                                    {
+                                        <a asp-controller="Sales" asp-action="Edit" asp-route-id="@sale.Id">
+                                            Edit
+                                        </a>
+                                    }
+
+                                    @if (Model.CanDeleteAll || Model.CanDeleteOwn)
+                                    {
+                                        <form asp-controller="Sales" asp-action="Delete" asp-route-id="@sale.Id" method="post">
+                                            <button type="submit">Delete</button>
+                                        </form>
+                                    }
+                                </div>
+                            </div>
+                        </div>
+                    }
+                </div>
+            }
+        }
+    </div>
+
+    <div id="salesReportsTab" class="erp-tab-panel @(activeTab == "salesReportsTab" ? "" : "d-none")">
+        <div class="erp-section">
+            <div class="erp-section-header">
+                <div>
+                    <h2>Sales Reports</h2>
+                    <p>Track sales revenue, customers and product performance.</p>
+                </div>
+            </div>
+
+            <div class="erp-empty-state">
+                <h3>Reports will be added here</h3>
+                <p>This section can later show revenue charts, top customers and best-selling products.</p>
+            </div>
+        </div>
+    </div>
+
+    @if (Model.CanViewAccessPermissions)
+    {
+        <div id="permissionsTab" class="erp-tab-panel @(activeTab == "permissionsTab" ? "" : "d-none")">
+            <div class="erp-section">
+                <div class="erp-section-header">
+                    <div>
+                        <h2>Access Permissions</h2>
+                        <p>Manage who can view, create, update and delete sale records.</p>
+                    </div>
+                </div>
+
+                @if (TempData["Success"] is not null)
+                {
+                    <div class="alert alert-success">
+                        @TempData["Success"]
+                    </div>
+                }
+
+                @if (TempData["Error"] is not null)
+                {
+                    <div class="alert alert-danger">
+                        @TempData["Error"]
+                    </div>
+                }
+
+                <form id="saleUserForm" asp-controller="Sales" asp-action="Index" method="get" class="mb-4">
+                    <input type="hidden" name="activeTab" value="permissionsTab" />
+
+                    <label class="form-label">Select employee/user</label>
+
+                    <input type="hidden"
+                           id="saleSelectedUserId"
+                           name="selectedUserId"
+                           value="@Model.PermissionPage.SelectedUserId" />
+
+                    <div class="erp-user-picker" id="saleUserPicker">
+                        <button type="button" class="erp-user-picker-button" id="saleUserPickerButton">
+                            <span id="saleSelectedUserText">@GetSelectedText()</span>
+                            <span>∨</span>
+                        </button>
+
+                        <div class="erp-user-picker-menu d-none" id="saleUserPickerMenu">
+                            <input type="text"
+                                   class="erp-user-picker-search"
+                                   id="saleUserSearch"
+                                   placeholder="search" />
+
+                            <div class="erp-user-picker-list">
+                                @foreach (var user in Model.PermissionPage.Users)
+                                {
+                                    var initial = string.IsNullOrWhiteSpace(user.FullName)
+                                        ? "U"
+                                        : user.FullName.Substring(0, 1).ToUpper();
+
+                                    <button type="button"
+                                            class="erp-user-picker-item"
+                                            data-user-id="@user.Id"
+                                            data-user-text="@($"{user.FullName} ({user.UserName})")"
+                                            data-search="@($"{user.FullName} {user.UserName} {user.Email}")">
+                                        <span class="erp-user-avatar">@initial</span>
+
+                                        <span>
+                                            <strong>@user.FullName</strong>
+                                            <small>@user.UserName - @user.Email</small>
+                                        </span>
+                                    </button>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                </form>
+
+                @if (!string.IsNullOrWhiteSpace(Model.PermissionPage.SelectedUserId))
+                {
+                    <form asp-controller="Sales" asp-action="SavePermissions" method="post">
+                        <input type="hidden" name="UserId" value="@Model.PermissionPage.SelectedUserId" />
+
+                        <table class="table table-hover bg-white align-middle">
+                            <thead>
+                                <tr>
+                                    <th>Action</th>
+                                    <th>Access Level</th>
+                                    <th>Description</th>
+                                </tr>
+                            </thead>
+
+                            <tbody>
+                                @for (var i = 0; i < Model.PermissionPage.Permissions.Count; i++)
+                                {
+                                    var permission = Model.PermissionPage.Permissions[i];
+
+                                    <tr>
+                                        <td>
+                                            <strong>@permission.ActionName</strong>
+                                            <input type="hidden"
+                                                   name="Permissions[@i].ActionName"
+                                                   value="@permission.ActionName" />
+                                        </td>
+
+                                        <td style="max-width: 320px;">
+                                            <select name="Permissions[@i].AccessLevel" class="form-select">
+                                                @if (permission.ActionName == "Create")
+                                                {
+                                                    <option value="0" selected="@(permission.AccessLevel == 0)">None</option>
+                                                    <option value="2" selected="@(permission.AccessLevel == 2)">Allowed</option>
+                                                }
+                                                else
+                                                {
+                                                    <option value="0" selected="@(permission.AccessLevel == 0)">None</option>
+                                                    <option value="1" selected="@(permission.AccessLevel == 1)">Own records</option>
+                                                    <option value="2" selected="@(permission.AccessLevel == 2)">All records</option>
+                                                }
+                                            </select>
+                                        </td>
+
+                                        <td class="text-muted">
+                                            @GetPermissionDescription(permission.ActionName)
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+
+                        <button type="submit" class="btn btn-primary">
+                            Save Permissions
+                        </button>
+                    </form>
+                }
+            </div>
+        </div>
+    }
+</div>
+
+@section Scripts {
+    <script>
+        document.querySelectorAll(".erp-module-tab[data-tab-target]").forEach(function (tab) {
+            tab.addEventListener("click", function () {
+                document.querySelectorAll(".erp-module-tab[data-tab-target]").forEach(function (item) {
+                    item.classList.remove("active");
+                });
+
+                document.querySelectorAll(".erp-tab-panel").forEach(function (panel) {
+                    panel.classList.add("d-none");
+                });
+
+                tab.classList.add("active");
+
+                var targetId = tab.getAttribute("data-tab-target");
+                var target = document.getElementById(targetId);
+
+                if (target) {
+                    target.classList.remove("d-none");
+                }
+            });
+        });
+
+        document.querySelectorAll(".erp-view-button").forEach(function (button) {
+            button.addEventListener("click", function () {
+                document.querySelectorAll(".erp-view-button").forEach(function (item) {
+                    item.classList.remove("active");
+                });
+
+                button.classList.add("active");
+
+                var records = document.getElementById("saleRecords");
+
+                if (!records) {
+                    return;
+                }
+
+                if (button.getAttribute("data-view") === "list") {
+                    records.classList.remove("erp-card-grid");
+                    records.classList.add("erp-list-view");
+                } else {
+                    records.classList.remove("erp-list-view");
+                    records.classList.add("erp-card-grid");
+                }
+            });
+        });
+
+        document.addEventListener("click", function (event) {
+            document.querySelectorAll(".erp-card-menu").forEach(function (menu) {
+                if (!menu.contains(event.target)) {
+                    menu.classList.remove("open");
+                }
+            });
+        });
+
+        document.querySelectorAll(".erp-menu-button").forEach(function (button) {
+            button.addEventListener("click", function (event) {
+                event.stopPropagation();
+
+                var menu = button.closest(".erp-card-menu");
+
+                document.querySelectorAll(".erp-card-menu").forEach(function (item) {
+                    if (item !== menu) {
+                        item.classList.remove("open");
+                    }
+                });
+
+                menu.classList.toggle("open");
+            });
+        });
+
+        var saleUserPickerButton = document.getElementById("saleUserPickerButton");
+        var saleUserPickerMenu = document.getElementById("saleUserPickerMenu");
+        var saleUserSearch = document.getElementById("saleUserSearch");
+        var saleSelectedUserId = document.getElementById("saleSelectedUserId");
+        var saleUserForm = document.getElementById("saleUserForm");
+
+        if (saleUserPickerButton && saleUserPickerMenu) {
+            saleUserPickerButton.addEventListener("click", function () {
+                saleUserPickerMenu.classList.toggle("d-none");
+
+                if (!saleUserPickerMenu.classList.contains("d-none") && saleUserSearch) {
+                    saleUserSearch.focus();
+                }
+            });
+        }
+
+        if (saleUserSearch) {
+            saleUserSearch.addEventListener("input", function () {
+                var searchValue = saleUserSearch.value.toLowerCase();
+
+                document.querySelectorAll(".erp-user-picker-item").forEach(function (item) {
+                    var text = item.getAttribute("data-search").toLowerCase();
+
+                    if (text.includes(searchValue)) {
+                        item.classList.remove("d-none");
+                    } else {
+                        item.classList.add("d-none");
+                    }
+                });
+            });
+        }
+
+        document.querySelectorAll(".erp-user-picker-item").forEach(function (item) {
+            item.addEventListener("click", function () {
+                saleSelectedUserId.value = item.getAttribute("data-user-id");
+                saleUserForm.submit();
+            });
+        });
+
+        document.addEventListener("click", function (event) {
+            var picker = document.getElementById("saleUserPicker");
+
+            if (picker && !picker.contains(event.target)) {
+                saleUserPickerMenu?.classList.add("d-none");
+            }
+        });
+
+        if (typeof initializeAdvancedFilter === "function") {
+            initializeAdvancedFilter({
+                storageKey: "erp_sales_filter",
+                pinnedStorageKey: "erp_sales_filter_pinned",
+
+                quickSearchInputId: "saleQuickSearch",
+                advancedFilterPopupId: "saleFilterPopup",
+                filterFieldsId: "saleFilterFields",
+
+                addFieldButtonId: "saleAddFieldButton",
+                restoreDefaultFieldsId: "saleRestoreFieldsButton",
+                applyButtonId: "saleApplyFilterButton",
+                resetButtonId: "saleResetFilterButton",
+
+                saveFilterButtonId: "saleSaveFilterToggle",
+                saveFilterBoxId: "saleSaveFilterBox",
+                saveFilterNameId: "saleSaveFilterName",
+                saveFilterConfirmId: "saleSaveFilterConfirm",
+                saveFilterCancelId: "saleSaveFilterCancel",
+
+                savedFiltersListId: "saleSavedFilters",
+                activeFilterChipId: "saleActiveFilterChip",
+                activeFilterNameId: "saleActiveFilterName",
+                clearActiveFilterId: "saleClearPinnedFilter",
+
+                itemSelector: ".sale-record",
+
+                defaultFields: ["customer", "date", "amount", "product"],
+
+                availableFields: [
+                    { key: "name", label: "Sale Number", type: "text" },
+                    { key: "customer", label: "Customer", type: "text" },
+                    { key: "date", label: "Sale Date", type: "date" },
+                    { key: "amount", label: "Total Amount", type: "text" },
+                    { key: "product", label: "Product", type: "text" },
+                    { key: "warehouse", label: "Warehouse", type: "text" }
+                ],
+
+                defaultFilterName: "All sales",
+                fieldSettingsGroupName: "Sale"
+            });
+        }
+    </script>
 }

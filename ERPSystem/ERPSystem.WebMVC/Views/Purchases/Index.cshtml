@@ -1,36 +1,612 @@
-﻿@model List<ERPSystem.WebMVC.ViewModels.Purchases.PurchaseViewModel>
+﻿@model ERPSystem.WebMVC.ViewModels.Purchases.PurchaseIndexPageViewModel
 
 @{
+    Layout = "~/Views/Shared/_Layout.cshtml";
     ViewData["Title"] = "Purchases";
+    var activeTab = ViewBag.ActiveTab as string ?? "purchasesTab";
 }
 
-<h3 class="mb-3">Purchases</h3>
-
-@if (!Model.Any())
-{
-    <div class="alert alert-info">No records found.</div>
+@functions {
+    string GetPermissionDescription(string actionName)
+    {
+        return actionName switch
+        {
+            "View" => "Controls whether the user can see purchase records.",
+            "Create" => "Controls whether the user can create new purchase records.",
+            "Update" => "Controls whether the user can edit own or all purchase records.",
+            "Delete" => "Controls whether the user can delete own or all purchase records.",
+            _ => "Controls module access."
+        };
+    }
 }
-else
-{
-    <table class="table table-hover bg-white">
-        <thead>
-            <tr>
-                <th>Purchase Date</th>
-                <th>Supplier</th>
-                <th>Total Amount</th>
-                <th>Items</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var purchase in Model)
+
+<div class="erp-page">
+    <div class="erp-page-header">
+        <div>
+            <a asp-controller="Workspace" asp-action="Index" class="btn btn-outline-secondary erp-apps-btn">
+                Apps
+            </a>
+
+            <div class="erp-breadcrumb">
+                ERP System / Purchases
+            </div>
+
+            <h1>Purchases</h1>
+            <p>Manage purchase orders, suppliers and purchasing costs.</p>
+        </div>
+
+        @if (Model.CanCreate)
+        {
+            <a asp-controller="Purchases" asp-action="Create" class="btn btn-primary erp-primary-action">
+                New Purchase
+            </a>
+        }
+    </div>
+
+    <div class="erp-module-tabs">
+        <button type="button"
+                class="erp-module-tab @(activeTab == "purchasesTab" ? "active" : "")"
+                data-tab-target="purchasesTab">
+            Purchase Orders
+        </button>
+
+        <a asp-controller="Suppliers"
+           asp-action="Index"
+           class="erp-module-tab text-decoration-none">
+            Suppliers
+        </a>
+
+        <button type="button"
+                class="erp-module-tab @(activeTab == "purchaseReportsTab" ? "active" : "")"
+                data-tab-target="purchaseReportsTab">
+            Purchase Reports
+        </button>
+
+        @if (Model.CanViewAccessPermissions)
+        {
+            <button type="button"
+                    class="erp-module-tab @(activeTab == "permissionsTab" ? "active" : "")"
+                    data-tab-target="permissionsTab">
+                Access Permissions
+            </button>
+        }
+    </div>
+
+    <div id="purchasesTab" class="erp-tab-panel @(activeTab == "purchasesTab" ? "active" : "d-none")">
+        @if (!Model.CanView)
+        {
+            <div class="erp-empty-state">
+                <h3>No access</h3>
+                <p>You do not have permission to view purchase records.</p>
+            </div>
+        }
+        else
+        {
+            <div class="erp-filter-panel">
+                <div class="erp-filter-bar">
+                    <div class="erp-filter-search-shell">
+                        <span id="purchaseActiveFilterChip" class="erp-filter-chip d-none">
+                            <span id="purchaseActiveFilterName"></span>
+                            <button type="button" id="purchaseClearPinnedFilter">x</button>
+                        </span>
+
+                        <input id="purchaseQuickSearch"
+                               class="erp-filter-search-input"
+                               type="text"
+                               placeholder="Search supplier, date, amount, product or warehouse"
+                               autocomplete="off" />
+                    </div>
+
+                    <div class="erp-view-toggle">
+                        <button type="button" class="erp-view-button active" data-view="grid" title="Grid view">
+                            &#9638;
+                        </button>
+
+                        <button type="button" class="erp-view-button" data-view="list" title="List view">
+                            &#9776;
+                        </button>
+                    </div>
+                </div>
+
+                <div id="purchaseFilterPopup" class="erp-advanced-filter-popup d-none">
+                    <aside class="erp-filter-sidebar">
+                        <h4>Saved filters</h4>
+
+                        <div id="purchaseSavedFilters" class="erp-saved-filters"></div>
+
+                        <div id="purchaseSaveFilterBox" class="erp-save-filter-box d-none">
+                            <label>Filter name</label>
+                            <input id="purchaseSaveFilterName"
+                                   type="text"
+                                   class="form-control"
+                                   placeholder="Filter name" />
+
+                            <div class="erp-save-filter-actions">
+                                <button type="button" id="purchaseSaveFilterConfirm" class="btn btn-primary btn-sm">
+                                    Save
+                                </button>
+
+                                <button type="button" id="purchaseSaveFilterCancel" class="btn btn-outline-secondary btn-sm">
+                                    Cancel
+                                </button>
+                            </div>
+                        </div>
+
+                        <button type="button" id="purchaseSaveFilterToggle" class="erp-save-filter-button">
+                            + Save filter
+                        </button>
+                    </aside>
+
+                    <section class="erp-filter-body">
+                        <div id="purchaseFilterFields"></div>
+
+                        <div class="erp-filter-footer">
+                            <button type="button" id="purchaseAddFieldButton" class="erp-link-button">
+                                Add field
+                            </button>
+
+                            <button type="button" id="purchaseRestoreFieldsButton" class="erp-link-button text-muted">
+                                Restore default fields
+                            </button>
+
+                            <div class="erp-filter-actions">
+                                <button type="button" id="purchaseApplyFilterButton" class="btn btn-primary">
+                                    Search
+                                </button>
+
+                                <button type="button" id="purchaseResetFilterButton" class="btn btn-link">
+                                    Reset
+                                </button>
+                            </div>
+                        </div>
+                    </section>
+                </div>
+            </div>
+
+            @if (Model.Purchases is null || !Model.Purchases.Any())
             {
-                <tr>
-                    <td>@purchase.PurchaseDate.ToString("yyyy-MM-dd")</td>
-                    <td>@purchase.SupplierName</td>
-                    <td>@purchase.TotalAmount</td>
-                    <td>@purchase.Items.Count</td>
-                </tr>
+                <div class="erp-empty-state">
+                    <h3>No purchase orders found</h3>
+                    <p>Purchase orders will appear here after they are created.</p>
+                </div>
             }
-        </tbody>
-    </table>
+            else
+            {
+                <div id="purchaseRecords" class="erp-card-grid">
+                    @foreach (var purchase in Model.Purchases)
+                    {
+                        var canUpdate = Model.CanUpdateAll ||
+                            (Model.CanUpdateOwn && purchase.CreatedByUserId == Model.CurrentUserId);
+
+                        var canDelete = Model.CanDeleteAll ||
+                            (Model.CanDeleteOwn && purchase.CreatedByUserId == Model.CurrentUserId);
+
+                        var productNames = string.Join(" ", purchase.Items.Select(item => item.ProductName));
+                        var warehouseNames = string.Join(" ", purchase.Items.Select(item => item.WarehouseName));
+
+                        <div class="erp-record-card purchase-record"
+                             data-name="Purchase #@purchase.Id"
+                             data-supplier="@purchase.SupplierName"
+                             data-date="@purchase.PurchaseDate.ToString("yyyy-MM-dd")"
+                             data-amount="@purchase.TotalAmount.ToString("0.00")"
+                             data-product="@productNames"
+                             data-warehouse="@warehouseNames"
+                             data-created="@purchase.CreatedDate.ToString("yyyy-MM-dd")"
+                             data-updated="@(purchase.UpdatedDate?.ToString("yyyy-MM-dd") ?? "")">
+
+                            <div class="erp-record-avatar erp-purchase-avatar">
+                                PO
+                            </div>
+
+                            <div class="erp-record-main">
+                                <h3>Purchase #@purchase.Id</h3>
+                                <p>@purchase.SupplierName</p>
+
+                                <div class="erp-record-columns">
+                                    <div>
+                                        <span>Date</span>
+                                        <strong>@purchase.PurchaseDate.ToString("yyyy-MM-dd")</strong>
+                                    </div>
+
+                                    <div>
+                                        <span>Items</span>
+                                        <strong>@purchase.Items.Count</strong>
+                                    </div>
+
+                                    <div>
+                                        <span>Total</span>
+                                        <strong>@purchase.TotalAmount.ToString("0.00")</strong>
+                                    </div>
+                                </div>
+
+                                <small>
+                                    Created: @purchase.CreatedDate.ToString("yyyy-MM-dd")
+                                    @if (purchase.UpdatedDate is not null)
+                                    {
+                                        <span>/ Updated: @purchase.UpdatedDate.Value.ToString("yyyy-MM-dd")</span>
+                                    }
+                                </small>
+                            </div>
+
+                            @if (canUpdate || canDelete)
+                            {
+                                <div class="erp-card-menu">
+                                    <button type="button" class="erp-menu-button" title="Actions">
+                                        &#9776;
+                                    </button>
+
+                                    <div class="erp-menu-dropdown">
+                                        @if (canUpdate)
+                                        {
+                                            <a asp-controller="Purchases"
+                                               asp-action="Edit"
+                                               asp-route-id="@purchase.Id">
+                                                Edit
+                                            </a>
+                                        }
+
+                                        @if (canDelete)
+                                        {
+                                            <form asp-controller="Purchases"
+                                                  asp-action="Delete"
+                                                  asp-route-id="@purchase.Id"
+                                                  method="post">
+                                                <button type="submit">
+                                                    Delete
+                                                </button>
+                                            </form>
+                                        }
+                                    </div>
+                                </div>
+                            }
+                        </div>
+                    }
+                </div>
+            }
+        }
+    </div>
+
+    <div id="purchaseReportsTab" class="erp-tab-panel @(activeTab == "purchaseReportsTab" ? "active" : "d-none")">
+        <div class="erp-permission-panel">
+            <h2>Purchase Reports</h2>
+            <p>Track supplier costs, purchase totals and order volume.</p>
+
+            <div class="row g-3 mt-3">
+                <div class="col-md-4">
+                    <div class="bg-white border p-4 h-100">
+                        <span class="text-muted">Total Purchases</span>
+                        <h3 class="mt-2">
+                            @Model.Purchases.Sum(purchase => purchase.TotalAmount).ToString("0.00")
+                        </h3>
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <div class="bg-white border p-4 h-100">
+                        <span class="text-muted">Purchase Orders</span>
+                        <h3 class="mt-2">
+                            @Model.Purchases.Count
+                        </h3>
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <div class="bg-white border p-4 h-100">
+                        <span class="text-muted">Purchased Items</span>
+                        <h3 class="mt-2">
+                            @Model.Purchases.Sum(purchase => purchase.Items.Count)
+                        </h3>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    @if (Model.CanViewAccessPermissions)
+    {
+        <div id="permissionsTab" class="erp-tab-panel @(activeTab == "permissionsTab" ? "active" : "d-none")">
+            <div class="erp-permission-panel">
+                <h2>Access Permissions</h2>
+                <p>Manage who can view, create, update and delete purchase records.</p>
+
+                @if (TempData["Success"] is not null)
+                {
+                    <div class="alert alert-success mt-3">
+                        @TempData["Success"]
+                    </div>
+                }
+
+                @if (TempData["Error"] is not null)
+                {
+                    <div class="alert alert-danger mt-3">
+                        @TempData["Error"]
+                    </div>
+                }
+
+                <form id="purchaseUserForm" asp-controller="Purchases" asp-action="Index" method="get" class="mb-4">
+                    <label class="form-label">Select employee/user</label>
+
+                    <input type="hidden"
+                           id="purchaseSelectedUserId"
+                           name="selectedUserId"
+                           value="@Model.PermissionPage.SelectedUserId" />
+
+                    <input type="hidden"
+                           name="activeTab"
+                           value="permissionsTab" />
+
+                    @{
+                        var selectedUser = Model.PermissionPage.Users
+                            .FirstOrDefault(user => user.Id == Model.PermissionPage.SelectedUserId);
+                    }
+
+                    <div class="erp-user-combobox">
+                        <button type="button" id="purchaseUserPickerButton" class="erp-user-picker-button">
+                            <span id="purchaseSelectedUserText">
+                                @(selectedUser is null ? "Select employee/user" : $"{selectedUser.FullName} ({selectedUser.UserName})")
+                            </span>
+                            <span>v</span>
+                        </button>
+
+                        <div id="purchaseUserPickerDropdown" class="erp-user-picker-dropdown d-none">
+                            <input id="purchaseUserSearch"
+                                   type="text"
+                                   class="form-control"
+                                   placeholder="search" />
+
+                            <div class="erp-user-picker-list">
+                                @foreach (var user in Model.PermissionPage.Users)
+                                {
+                                    <button type="button"
+                                            class="erp-user-picker-item"
+                                            data-user-id="@user.Id"
+                                            data-user-text="@user.FullName (@user.UserName)"
+                                            data-search="@($"{user.FullName} {user.UserName} {user.Email}")">
+                                        <span class="erp-user-avatar">
+                                            @user.FullName.Substring(0, 1).ToUpper()
+                                        </span>
+
+                                        <span>
+                                            <strong>@user.FullName</strong>
+                                            <small>@user.UserName - @user.Email</small>
+                                        </span>
+                                    </button>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                </form>
+
+                @if (!string.IsNullOrWhiteSpace(Model.PermissionPage.SelectedUserId))
+                {
+                    <form asp-controller="Purchases" asp-action="SavePermissions" method="post">
+                        <input type="hidden" name="UserId" value="@Model.PermissionPage.SelectedUserId" />
+                        <input type="hidden" name="activeTab" value="permissionsTab" />
+
+                        <table class="table table-hover bg-white align-middle erp-permission-table">
+                            <thead>
+                                <tr>
+                                    <th>Action</th>
+                                    <th>Access Level</th>
+                                    <th>Description</th>
+                                </tr>
+                            </thead>
+
+                            <tbody>
+                                @for (var i = 0; i < Model.PermissionPage.Permissions.Count; i++)
+                                {
+                                    var permission = Model.PermissionPage.Permissions[i];
+
+                                    <tr>
+                                        <td>
+                                            <strong>@permission.ActionName</strong>
+                                            <input type="hidden"
+                                                   name="Permissions[@i].ActionName"
+                                                   value="@permission.ActionName" />
+                                        </td>
+
+                                        <td>
+                                            <select name="Permissions[@i].AccessLevel" class="form-select">
+                                                <option value="0" selected="@(permission.AccessLevel == 0)">None</option>
+
+                                                @if (permission.ActionName == "Create")
+                                                {
+                                                    <option value="2" selected="@(permission.AccessLevel == 2)">Allowed</option>
+                                                }
+                                                else
+                                                {
+                                                    <option value="1" selected="@(permission.AccessLevel == 1)">Own records</option>
+                                                    <option value="2" selected="@(permission.AccessLevel == 2)">All records</option>
+                                                }
+                                            </select>
+                                        </td>
+
+                                        <td class="text-muted">
+                                            @GetPermissionDescription(permission.ActionName)
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+
+                        <button type="submit" class="btn btn-primary">
+                            Save Permissions
+                        </button>
+                    </form>
+                }
+            </div>
+        </div>
+    }
+</div>
+
+@section Scripts {
+    <script>
+        document.querySelectorAll(".erp-module-tab[data-tab-target]").forEach(function (tab) {
+            tab.addEventListener("click", function () {
+                document.querySelectorAll(".erp-module-tab[data-tab-target]").forEach(function (item) {
+                    item.classList.remove("active");
+                });
+
+                document.querySelectorAll(".erp-tab-panel").forEach(function (panel) {
+                    panel.classList.remove("active");
+                    panel.classList.add("d-none");
+                });
+
+                tab.classList.add("active");
+
+                var targetId = tab.getAttribute("data-tab-target");
+                var target = document.getElementById(targetId);
+
+                if (target) {
+                    target.classList.remove("d-none");
+                    target.classList.add("active");
+                }
+            });
+        });
+
+        document.querySelectorAll(".erp-view-button").forEach(function (button) {
+            button.addEventListener("click", function () {
+                document.querySelectorAll(".erp-view-button").forEach(function (item) {
+                    item.classList.remove("active");
+                });
+
+                button.classList.add("active");
+
+                var records = document.getElementById("purchaseRecords");
+
+                if (!records) {
+                    return;
+                }
+
+                if (button.getAttribute("data-view") === "list") {
+                    records.classList.remove("erp-card-grid");
+                    records.classList.add("erp-list-view");
+                } else {
+                    records.classList.remove("erp-list-view");
+                    records.classList.add("erp-card-grid");
+                }
+            });
+        });
+
+        document.addEventListener("click", function (event) {
+            document.querySelectorAll(".erp-card-menu").forEach(function (menu) {
+                if (!menu.contains(event.target)) {
+                    menu.classList.remove("open");
+                }
+            });
+
+            var picker = document.getElementById("purchaseUserPickerDropdown");
+            var pickerShell = document.querySelector(".erp-user-combobox");
+
+            if (picker && pickerShell && !pickerShell.contains(event.target)) {
+                picker.classList.add("d-none");
+            }
+        });
+
+        document.querySelectorAll(".erp-menu-button").forEach(function (button) {
+            button.addEventListener("click", function (event) {
+                event.stopPropagation();
+
+                var menu = button.closest(".erp-card-menu");
+
+                document.querySelectorAll(".erp-card-menu").forEach(function (item) {
+                    if (item !== menu) {
+                        item.classList.remove("open");
+                    }
+                });
+
+                if (menu) {
+                    menu.classList.toggle("open");
+                }
+            });
+        });
+
+        var userPickerButton = document.getElementById("purchaseUserPickerButton");
+        var userPickerDropdown = document.getElementById("purchaseUserPickerDropdown");
+        var userSearch = document.getElementById("purchaseUserSearch");
+        var selectedUserId = document.getElementById("purchaseSelectedUserId");
+        var selectedUserText = document.getElementById("purchaseSelectedUserText");
+        var userForm = document.getElementById("purchaseUserForm");
+
+        if (userPickerButton && userPickerDropdown) {
+            userPickerButton.addEventListener("click", function (event) {
+                event.stopPropagation();
+                userPickerDropdown.classList.toggle("d-none");
+
+                if (!userPickerDropdown.classList.contains("d-none") && userSearch) {
+                    userSearch.focus();
+                }
+            });
+        }
+
+        document.querySelectorAll(".erp-user-picker-item").forEach(function (item) {
+            item.addEventListener("click", function () {
+                selectedUserId.value = item.getAttribute("data-user-id");
+                selectedUserText.textContent = item.getAttribute("data-user-text");
+                userPickerDropdown.classList.add("d-none");
+                userForm.submit();
+            });
+        });
+
+        if (userSearch) {
+            userSearch.addEventListener("input", function () {
+                var searchValue = userSearch.value.toLowerCase();
+
+                document.querySelectorAll(".erp-user-picker-item").forEach(function (item) {
+                    var text = item.getAttribute("data-search").toLowerCase();
+
+                    if (text.includes(searchValue)) {
+                        item.classList.remove("d-none");
+                    } else {
+                        item.classList.add("d-none");
+                    }
+                });
+            });
+        }
+
+        if (typeof initializeAdvancedFilter === "function") {
+            initializeAdvancedFilter({
+                storageKey: "erp_purchases_filter",
+                pinnedStorageKey: "erp_purchases_filter_pinned",
+
+                quickSearchInputId: "purchaseQuickSearch",
+                advancedFilterPopupId: "purchaseFilterPopup",
+                filterFieldsId: "purchaseFilterFields",
+
+                addFieldButtonId: "purchaseAddFieldButton",
+                restoreDefaultFieldsId: "purchaseRestoreFieldsButton",
+                applyButtonId: "purchaseApplyFilterButton",
+                resetButtonId: "purchaseResetFilterButton",
+
+                saveFilterButtonId: "purchaseSaveFilterToggle",
+                saveFilterBoxId: "purchaseSaveFilterBox",
+                saveFilterNameId: "purchaseSaveFilterName",
+                saveFilterConfirmId: "purchaseSaveFilterConfirm",
+                saveFilterCancelId: "purchaseSaveFilterCancel",
+
+                savedFiltersListId: "purchaseSavedFilters",
+                activeFilterChipId: "purchaseActiveFilterChip",
+                activeFilterNameId: "purchaseActiveFilterName",
+                clearActiveFilterId: "purchaseClearPinnedFilter",
+
+                itemSelector: ".purchase-record",
+
+                defaultFields: ["supplier", "date", "amount", "product"],
+
+                availableFields: [
+                    { key: "name", label: "Purchase Number", type: "text" },
+                    { key: "supplier", label: "Supplier", type: "text" },
+                    { key: "date", label: "Purchase Date", type: "date" },
+                    { key: "amount", label: "Total Amount", type: "text" },
+                    { key: "product", label: "Product", type: "text" },
+                    { key: "warehouse", label: "Warehouse", type: "text" },
+                    { key: "created", label: "Created Date", type: "date" },
+                    { key: "updated", label: "Updated Date", type: "date" }
+                ],
+
+                defaultFilterName: "All purchases",
+                fieldSettingsGroupName: "Purchase"
+            });
+        }
+    </script>
 }

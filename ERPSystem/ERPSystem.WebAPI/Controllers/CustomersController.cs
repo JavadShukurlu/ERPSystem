@@ -24,7 +24,7 @@ namespace ERPSystem.WebAPI.Controllers
 
             if (!result.IsSuccess)
             {
-                return Forbid();
+                return BadRequest(result);
             }
 
             return Ok(result);
@@ -37,7 +37,7 @@ namespace ERPSystem.WebAPI.Controllers
 
             if (!result.IsSuccess)
             {
-                return Forbid();
+                return BadRequest(result);
             }
 
             return Ok(result);

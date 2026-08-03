@@ -1,0 +1,735 @@
+﻿@model ERPSystem.WebMVC.ViewModels.Suppliers.SupplierIndexPageViewModel
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewData["Title"] = "Suppliers";
+
+    var activeTab = ViewBag.ActiveTab as string ?? "suppliers";
+}
+
+<div class="erp-page">
+    <div class="erp-page-header">
+        <div>
+            <a asp-controller="Purchases" asp-action="Index" class="btn btn-outline-secondary erp-apps-btn">
+                Apps
+            </a>
+
+            <div class="erp-breadcrumb">
+                ERP System / Purchases / Suppliers
+            </div>
+
+            <h1>Suppliers</h1>
+            <p>Manage supplier companies, contacts and purchasing partners.</p>
+        </div>
+
+        @if (Model.CanCreate)
+        {
+            <a asp-controller="Suppliers" asp-action="Create" class="btn btn-primary erp-create-btn">
+                New Supplier
+            </a>
+        }
+    </div>
+
+    <div class="erp-module-tabs">
+        <button type="button"
+                class="erp-module-tab @(activeTab == "suppliers" ? "active" : "")"
+                data-tab-target="suppliersTab">
+            Suppliers
+        </button>
+
+        @if (Model.CanViewAccessPermissions)
+        {
+            <button type="button"
+                    class="erp-module-tab @(activeTab == "permissions" ? "active" : "")"
+                    data-tab-target="permissionsTab">
+                Access Permissions
+            </button>
+        }
+    </div>
+
+    <div id="suppliersTab" class="erp-tab-panel @(activeTab == "suppliers" ? "active" : "")">
+        @if (!Model.CanView)
+        {
+            <div class="erp-empty-state">
+                <h3>No access</h3>
+                <p>You do not have permission to view supplier records.</p>
+            </div>
+        }
+        else
+        {
+            <div class="erp-search-panel">
+                <div class="erp-search-box">
+                    <div class="erp-filter-search-shell" id="supplierSearchOpenArea">
+                        <div id="supplierActiveFilterChip" class="erp-active-filter-chip d-none">
+                            <span id="supplierActiveFilterName"></span>
+                            <button type="button" id="supplierClearPinnedFilter">x</button>
+                        </div>
+
+                        <input id="supplierQuickSearch"
+                               type="text"
+                               autocomplete="off"
+                               placeholder="Search supplier company, contact, email, phone, address or date"
+                               class="erp-filter-search-input" />
+                    </div>
+
+                    <div class="erp-view-switcher">
+                        <button type="button"
+                                class="erp-view-button active"
+                                data-view-target="grid"
+                                title="Grid view">
+                            ▦
+                        </button>
+
+                        <button type="button"
+                                class="erp-view-button"
+                                data-view-target="list"
+                                title="List view">
+                            ☰
+                        </button>
+                    </div>
+                </div>
+
+                <div id="supplierFilterPopup" class="erp-filter-popup d-none">
+                    <div class="erp-filter-sidebar">
+                        <h6>Saved filters</h6>
+
+                        <button type="button"
+                                class="erp-saved-filter-item active"
+                                data-default-filter="true">
+                            All suppliers
+                        </button>
+
+                        <div id="supplierSavedFilters"></div>
+
+                        <button type="button" id="supplierSaveFilterToggle" class="erp-save-filter-link">
+                            + Save filter
+                        </button>
+
+                        <div id="supplierSaveFilterBox" class="erp-save-filter-box d-none">
+                            <label>Filter name</label>
+                            <input id="supplierSaveFilterName" type="text" class="form-control" />
+
+                            <div class="erp-save-filter-actions">
+                                <button type="button" id="supplierSaveFilterConfirm" class="btn btn-primary btn-sm">
+                                    Save
+                                </button>
+
+                                <button type="button" id="supplierSaveFilterCancel" class="btn btn-outline-secondary btn-sm">
+                                    Cancel
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="erp-filter-content">
+                        <div id="supplierFilterFields" class="erp-filter-fields"></div>
+
+                        <div class="erp-filter-bottom">
+                            <button type="button" id="supplierAddFieldButton" class="erp-link-button">
+                                Add field
+                            </button>
+
+                            <button type="button" id="supplierRestoreFieldsButton" class="erp-muted-button">
+                                Restore default fields
+                            </button>
+
+                            <div class="erp-filter-actions">
+                                <button type="button" id="supplierApplyFilterButton" class="btn btn-primary">
+                                    Search
+                                </button>
+
+                                <button type="button" id="supplierResetFilterButton" class="btn btn-link">
+                                    Reset
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="supplierFieldSettingsModal" class="erp-field-modal d-none">
+                    <div class="erp-field-modal-backdrop"></div>
+
+                    <div class="erp-field-modal-card">
+                        <div class="erp-field-modal-header">
+                            <h3>Filter field settings</h3>
+
+                            <button type="button" id="supplierCloseFieldSettings" class="erp-icon-button">
+                                x
+                            </button>
+                        </div>
+
+                        <input id="supplierFieldSearchInput"
+                               type="text"
+                               class="form-control"
+                               placeholder="Find field" />
+
+                        <div class="erp-field-settings-title">
+                            Supplier
+                        </div>
+
+                        <div id="supplierFieldSettingsList" class="erp-field-settings-list"></div>
+
+                        <div class="erp-field-modal-footer">
+                            <button type="button" id="supplierSelectAllFields" class="erp-link-button">
+                                select all
+                            </button>
+
+                            <div>
+                                <button type="button" id="supplierApplyFieldSettings" class="btn btn-primary">
+                                    APPLY
+                                </button>
+
+                                <button type="button" id="supplierCancelFieldSettings" class="btn btn-outline-secondary">
+                                    CANCEL
+                                </button>
+                            </div>
+
+                            <button type="button" id="supplierDefaultFieldSettings" class="erp-link-button">
+                                default
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            @if (!Model.Suppliers.Any())
+            {
+                <div class="erp-empty-state">
+                    <h3>No suppliers found</h3>
+                    <p>Supplier records will appear here after they are created.</p>
+                </div>
+            }
+            else
+            {
+                <div id="supplierGridView" class="erp-card-grid">
+                    @foreach (var supplier in Model.Suppliers)
+                    {
+                        var canUpdate = CanUpdateSupplier(supplier.CreatedByUserId);
+                        var canDelete = CanDeleteSupplier(supplier.CreatedByUserId);
+
+                        <div class="erp-record-card supplier-record"
+                             data-supplier-card
+                             data-companyname="@supplier.CompanyName"
+                             data-contactname="@supplier.ContactName"
+                             data-email="@supplier.Email"
+                             data-phone="@supplier.PhoneNumber"
+                             data-address="@supplier.Address"
+                             data-created="@supplier.CreatedDate.ToString("yyyy-MM-dd")"
+                             data-updated="@(supplier.UpdatedDate?.ToString("yyyy-MM-dd") ?? "")">
+
+                            <div class="erp-record-media">
+                                @if (!string.IsNullOrWhiteSpace(supplier.LogoUrl))
+                                {
+                                    <img src="@supplier.LogoUrl" alt="@supplier.CompanyName" />
+                                }
+                                else
+                                {
+                                    <div class="erp-record-placeholder">
+                                        @GetInitial(supplier.CompanyName)
+                                    </div>
+                                }
+                            </div>
+
+                            <div class="erp-record-body">
+                                <div class="erp-record-title-row">
+                                    <h3>@supplier.CompanyName</h3>
+
+                                    @if (canUpdate || canDelete)
+                                    {
+                                        <div class="erp-card-menu">
+                                            <button type="button" class="erp-menu-button" title="Actions">
+                                                ☰
+                                            </button>
+
+                                            <div class="erp-menu-dropdown">
+                                                @if (canUpdate)
+                                                {
+                                                    <a asp-controller="Suppliers"
+                                                       asp-action="Edit"
+                                                       asp-route-id="@supplier.Id">
+                                                        Edit
+                                                    </a>
+                                                }
+
+                                                @if (canDelete)
+                                                {
+                                                    <form asp-controller="Suppliers"
+                                                          asp-action="Delete"
+                                                          asp-route-id="@supplier.Id"
+                                                          method="post">
+                                                        <button type="submit">
+                                                            Delete
+                                                        </button>
+                                                    </form>
+                                                }
+                                            </div>
+                                        </div>
+                                    }
+                                </div>
+
+                                <div class="erp-record-subtitle">
+                                    @supplier.ContactName
+                                </div>
+
+                                <div class="erp-record-meta">
+                                    <span>@supplier.Email</span>
+                                    <span>@supplier.PhoneNumber</span>
+                                    <span>@supplier.Address</span>
+                                </div>
+
+                                <div class="erp-record-date">
+                                    Created: @FormatDate(supplier.CreatedDate)
+                                    @if (supplier.UpdatedDate is not null)
+                                    {
+                                        <span>/ Updated: @FormatDate(supplier.UpdatedDate.Value)</span>
+                                    }
+                                </div>
+                            </div>
+                        </div>
+                    }
+                </div>
+
+                <div id="supplierListView" class="erp-list-view d-none">
+                    @foreach (var supplier in Model.Suppliers)
+                    {
+                        var canUpdate = CanUpdateSupplier(supplier.CreatedByUserId);
+                        var canDelete = CanDeleteSupplier(supplier.CreatedByUserId);
+
+                        <div class="erp-list-row supplier-record"
+                             data-supplier-card
+                             data-companyname="@supplier.CompanyName"
+                             data-contactname="@supplier.ContactName"
+                             data-email="@supplier.Email"
+                             data-phone="@supplier.PhoneNumber"
+                             data-address="@supplier.Address"
+                             data-created="@supplier.CreatedDate.ToString("yyyy-MM-dd")"
+                             data-updated="@(supplier.UpdatedDate?.ToString("yyyy-MM-dd") ?? "")">
+
+                            <div class="erp-list-avatar">
+                                @if (!string.IsNullOrWhiteSpace(supplier.LogoUrl))
+                                {
+                                    <img src="@supplier.LogoUrl" alt="@supplier.CompanyName" />
+                                }
+                                else
+                                {
+                                    <div class="erp-record-placeholder">
+                                        @GetInitial(supplier.CompanyName)
+                                    </div>
+                                }
+                            </div>
+
+                            <div class="erp-list-main">
+                                <h3>@supplier.CompanyName</h3>
+                                <p>@supplier.ContactName</p>
+                                <p>@supplier.Email</p>
+                            </div>
+
+                            <div class="erp-list-info">
+                                <span>@supplier.PhoneNumber</span>
+                                <span>@supplier.Address</span>
+                            </div>
+
+                            <div class="erp-list-date">
+                                <span>Created: @FormatDate(supplier.CreatedDate)</span>
+
+                                @if (supplier.UpdatedDate is not null)
+                                {
+                                    <span>Updated: @FormatDate(supplier.UpdatedDate.Value)</span>
+                                }
+                            </div>
+
+                            @if (canUpdate || canDelete)
+                            {
+                                <div class="erp-card-menu">
+                                    <button type="button" class="erp-menu-button" title="Actions">
+                                        ☰
+                                    </button>
+
+                                    <div class="erp-menu-dropdown">
+                                        @if (canUpdate)
+                                        {
+                                            <a asp-controller="Suppliers"
+                                               asp-action="Edit"
+                                               asp-route-id="@supplier.Id">
+                                                Edit
+                                            </a>
+                                        }
+
+                                        @if (canDelete)
+                                        {
+                                            <form asp-controller="Suppliers"
+                                                  asp-action="Delete"
+                                                  asp-route-id="@supplier.Id"
+                                                  method="post">
+                                                <button type="submit">
+                                                    Delete
+                                                </button>
+                                            </form>
+                                        }
+                                    </div>
+                                </div>
+                            }
+                        </div>
+                    }
+                </div>
+            }
+        }
+    </div>
+
+    @if (Model.CanViewAccessPermissions)
+    {
+        <div id="permissionsTab" class="erp-tab-panel @(activeTab == "permissions" ? "active" : "")">
+            <div class="erp-permission-panel">
+                <h2>Access Permissions</h2>
+                <p>Manage who can view, create, update and delete supplier records.</p>
+
+                @if (TempData["Success"] is not null)
+                {
+                    <div class="alert alert-success">
+                        @TempData["Success"]
+                    </div>
+                }
+
+                @if (TempData["Error"] is not null)
+                {
+                    <div class="alert alert-danger">
+                        @TempData["Error"]
+                    </div>
+                }
+
+                <form asp-controller="Suppliers" asp-action="Index" method="get" class="erp-user-select-form">
+                    <input type="hidden" name="activeTab" value="permissions" />
+
+                    <label>Select employee/user</label>
+
+                    <div class="erp-user-combobox" id="supplierUserCombobox">
+                        <button type="button" class="erp-user-combobox-button">
+                            @{
+                                var selectedUser = Model.PermissionPage.Users
+                                    .FirstOrDefault(user => user.Id == Model.PermissionPage.SelectedUserId);
+                            }
+
+                            @if (selectedUser is not null)
+                            {
+                                <span>@selectedUser.FullName (@selectedUser.UserName)</span>
+                            }
+                            else
+                            {
+                                <span>Select user</span>
+                            }
+
+                            <span>∨</span>
+                        </button>
+
+                        <div class="erp-user-combobox-menu d-none">
+                            <input type="text"
+                                   class="erp-user-search-input"
+                                   placeholder="search" />
+
+                            <div class="erp-user-options">
+                                @foreach (var user in Model.PermissionPage.Users.OrderBy(user => user.FullName))
+                                {
+                                    <button type="submit"
+                                            name="selectedUserId"
+                                            value="@user.Id"
+                                            class="erp-user-option"
+                                            data-user-search="@($"{user.FullName} {user.UserName} {user.Email}")">
+                                        <span class="erp-user-avatar">@GetInitial(user.FullName)</span>
+
+                                        <span>
+                                            <strong>@user.FullName</strong>
+                                            <small>@user.UserName - @user.Email</small>
+                                        </span>
+                                    </button>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                </form>
+
+                @if (!string.IsNullOrWhiteSpace(Model.PermissionPage.SelectedUserId))
+                {
+                    <form asp-controller="Suppliers" asp-action="SavePermissions" method="post">
+                        <input type="hidden" name="UserId" value="@Model.PermissionPage.SelectedUserId" />
+
+                        <table class="table table-hover bg-white align-middle mt-4">
+                            <thead>
+                                <tr>
+                                    <th>Action</th>
+                                    <th>Access Level</th>
+                                    <th>Description</th>
+                                </tr>
+                            </thead>
+
+                            <tbody>
+                                @for (var i = 0; i < Model.PermissionPage.Permissions.Count; i++)
+                                {
+                                    var permission = Model.PermissionPage.Permissions[i];
+
+                                    <tr>
+                                        <td>
+                                            <strong>@permission.ActionName</strong>
+                                            <input type="hidden"
+                                                   name="Permissions[@i].ActionName"
+                                                   value="@permission.ActionName" />
+                                        </td>
+
+                                        <td style="width: 360px;">
+                                            <select name="Permissions[@i].AccessLevel" class="form-select">
+                                                @if (permission.ActionName == "Create")
+                                                {
+                                                    if (permission.AccessLevel == 0)
+                                                    {
+                                                        <option value="0" selected>None</option>
+                                                    }
+                                                    else
+                                                    {
+                                                        <option value="0">None</option>
+                                                    }
+
+                                                    if (permission.AccessLevel == 2)
+                                                    {
+                                                        <option value="2" selected>Allowed</option>
+                                                    }
+                                                    else
+                                                    {
+                                                        <option value="2">Allowed</option>
+                                                    }
+                                                }
+                                                else
+                                                {
+                                                    if (permission.AccessLevel == 0)
+                                                    {
+                                                        <option value="0" selected>None</option>
+                                                    }
+                                                    else
+                                                    {
+                                                        <option value="0">None</option>
+                                                    }
+
+                                                    if (permission.AccessLevel == 1)
+                                                    {
+                                                        <option value="1" selected>Own records</option>
+                                                    }
+                                                    else
+                                                    {
+                                                        <option value="1">Own records</option>
+                                                    }
+
+                                                    if (permission.AccessLevel == 2)
+                                                    {
+                                                        <option value="2" selected>All records</option>
+                                                    }
+                                                    else
+                                                    {
+                                                        <option value="2">All records</option>
+                                                    }
+                                                }
+                                            </select>
+                                        </td>
+
+                                        <td class="text-muted">
+                                            @GetPermissionDescription(permission.ActionName)
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+
+                        <button type="submit" class="btn btn-primary">
+                            Save Permissions
+                        </button>
+                    </form>
+                }
+            </div>
+        </div>
+    }
+</div>
+
+@section Scripts {
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const tabButtons = document.querySelectorAll(".erp-module-tab");
+            const tabPanels = document.querySelectorAll(".erp-tab-panel");
+
+            tabButtons.forEach(button => {
+                button.addEventListener("click", function () {
+                    const target = button.dataset.tabTarget;
+
+                    tabButtons.forEach(item => item.classList.remove("active"));
+                    tabPanels.forEach(panel => panel.classList.remove("active"));
+
+                    button.classList.add("active");
+                    document.getElementById(target).classList.add("active");
+                });
+            });
+
+            const viewButtons = document.querySelectorAll(".erp-view-button");
+            const gridView = document.getElementById("supplierGridView");
+            const listView = document.getElementById("supplierListView");
+
+            viewButtons.forEach(button => {
+                button.addEventListener("click", function () {
+                    viewButtons.forEach(item => item.classList.remove("active"));
+                    button.classList.add("active");
+
+                    if (button.dataset.viewTarget === "grid") {
+                        gridView?.classList.remove("d-none");
+                        listView?.classList.add("d-none");
+                    } else {
+                        gridView?.classList.add("d-none");
+                        listView?.classList.remove("d-none");
+                    }
+                });
+            });
+
+            document.querySelectorAll(".erp-menu-button").forEach(button => {
+                button.addEventListener("click", function (event) {
+                    event.stopPropagation();
+
+                    const menu = button.closest(".erp-card-menu")?.querySelector(".erp-menu-dropdown");
+
+                    document.querySelectorAll(".erp-menu-dropdown").forEach(dropdown => {
+                        if (dropdown !== menu) {
+                            dropdown.classList.remove("show");
+                        }
+                    });
+
+                    menu?.classList.toggle("show");
+                });
+            });
+
+            document.addEventListener("click", function () {
+                document.querySelectorAll(".erp-menu-dropdown").forEach(dropdown => {
+                    dropdown.classList.remove("show");
+                });
+            });
+
+            const userCombobox = document.getElementById("supplierUserCombobox");
+
+            if (userCombobox) {
+                const userButton = userCombobox.querySelector(".erp-user-combobox-button");
+                const userMenu = userCombobox.querySelector(".erp-user-combobox-menu");
+                const userSearchInput = userCombobox.querySelector(".erp-user-search-input");
+                const userOptions = userCombobox.querySelectorAll(".erp-user-option");
+
+                userButton?.addEventListener("click", function () {
+                    userMenu?.classList.toggle("d-none");
+                    userSearchInput?.focus();
+                });
+
+                userSearchInput?.addEventListener("input", function () {
+                    const value = userSearchInput.value.toLowerCase();
+
+                    userOptions.forEach(option => {
+                        const text = option.dataset.userSearch?.toLowerCase() ?? "";
+                        option.style.display = text.includes(value) ? "flex" : "none";
+                    });
+                });
+
+                document.addEventListener("click", function (event) {
+                    if (!userCombobox.contains(event.target)) {
+                        userMenu?.classList.add("d-none");
+                    }
+                });
+            }
+
+                 if (typeof initializeAdvancedFilter === "function") {
+            initializeAdvancedFilter({
+                storageKey: "erp_suppliers_filter",
+                pinnedStorageKey: "erp_suppliers_filter_pinned",
+
+                quickSearchInputId: "supplierQuickSearch",
+                advancedFilterPopupId: "supplierFilterPopup",
+                filterFieldsId: "supplierFilterFields",
+
+                addFieldButtonId: "supplierAddFieldButton",
+                restoreDefaultFieldsId: "supplierRestoreFieldsButton",
+                applyButtonId: "supplierApplyFilterButton",
+                resetButtonId: "supplierResetFilterButton",
+
+                saveFilterButtonId: "supplierSaveFilterToggle",
+                saveFilterBoxId: "supplierSaveFilterBox",
+                saveFilterNameId: "supplierSaveFilterName",
+                saveFilterConfirmId: "supplierSaveFilterConfirm",
+                saveFilterCancelId: "supplierSaveFilterCancel",
+
+                savedFiltersListId: "supplierSavedFilters",
+                activeFilterChipId: "supplierActiveFilterChip",
+                activeFilterNameId: "supplierActiveFilterName",
+                clearActiveFilterId: "supplierClearPinnedFilter",
+
+                itemSelector: ".supplier-record",
+
+                defaultFields: ["companyname", "contactname", "email", "phone"],
+
+                availableFields: [
+                    { key: "companyname", label: "Company Name", type: "text" },
+                    { key: "contactname", label: "Contact Name", type: "text" },
+                    { key: "email", label: "Email", type: "text" },
+                    { key: "phone", label: "Phone", type: "text" },
+                    { key: "address", label: "Address", type: "text" },
+                    { key: "created", label: "Created Date", type: "date" },
+                    { key: "updated", label: "Updated Date", type: "date" }
+                ],
+
+                defaultFilterName: "All suppliers",
+                fieldSettingsGroupName: "Supplier"
+            });
+        }
+        });
+    </script>
+}
+
+@functions {
+    private bool CanUpdateSupplier(string? createdByUserId)
+    {
+        if (Model.CanUpdateAll)
+        {
+            return true;
+        }
+
+        return Model.CanUpdateOwn &&
+               !string.IsNullOrWhiteSpace(createdByUserId) &&
+               createdByUserId == Model.CurrentUserId;
+    }
+
+    private bool CanDeleteSupplier(string? createdByUserId)
+    {
+        if (Model.CanDeleteAll)
+        {
+            return true;
+        }
+
+        return Model.CanDeleteOwn &&
+               !string.IsNullOrWhiteSpace(createdByUserId) &&
+               createdByUserId == Model.CurrentUserId;
+    }
+
+    private static string FormatDate(DateTime date)
+    {
+        return date.ToString("yyyy-MM-dd");
+    }
+
+    private static string GetInitial(string? value)
+    {
+        if (string.IsNullOrWhiteSpace(value))
+        {
+            return "S";
+        }
+
+        return value.Trim()[0].ToString().ToUpper();
+    }
+
+    private static string GetPermissionDescription(string actionName)
+    {
+        return actionName switch
+        {
+            "View" => "Controls whether the user can see supplier records.",
+            "Create" => "Controls whether the user can create new supplier records.",
+            "Update" => "Controls whether the user can edit own or all supplier records.",
+            "Delete" => "Controls whether the user can delete own or all supplier records.",
+            _ => "Controls supplier module access."
+        };
+    }
+}

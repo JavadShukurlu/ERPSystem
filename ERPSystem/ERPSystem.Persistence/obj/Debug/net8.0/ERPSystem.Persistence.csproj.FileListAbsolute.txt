@@ -1,4 +1,5 @@
 C:\Users\cavad\Desktop\FinalProject\ERPSystem\ERPSystem.Persistence\bin\Debug\net8.0\ERPSystem.Persistence.deps.json
+C:\Users\cavad\Desktop\FinalProject\ERPSystem\ERPSystem.Persistence\bin\Debug\net8.0\ERPSystem.Persistence.runtimeconfig.json
 C:\Users\cavad\Desktop\FinalProject\ERPSystem\ERPSystem.Persistence\bin\Debug\net8.0\ERPSystem.Persistence.dll
 C:\Users\cavad\Desktop\FinalProject\ERPSystem\ERPSystem.Persistence\bin\Debug\net8.0\ERPSystem.Persistence.pdb
 C:\Users\cavad\Desktop\FinalProject\ERPSystem\ERPSystem.Persistence\bin\Debug\net8.0\ERPSystem.Application.dll
@@ -10,11 +11,10 @@ C:\Users\cavad\Desktop\FinalProject\ERPSystem\ERPSystem.Persistence\obj\Debug\ne
 C:\Users\cavad\Desktop\FinalProject\ERPSystem\ERPSystem.Persistence\obj\Debug\net8.0\ERPSystem.Persistence.AssemblyInfoInputs.cache
 C:\Users\cavad\Desktop\FinalProject\ERPSystem\ERPSystem.Persistence\obj\Debug\net8.0\ERPSystem.Persistence.AssemblyInfo.cs
 C:\Users\cavad\Desktop\FinalProject\ERPSystem\ERPSystem.Persistence\obj\Debug\net8.0\ERPSystem.Persistence.csproj.CoreCompileInputs.cache
+C:\Users\cavad\Desktop\FinalProject\ERPSystem\ERPSystem.Persistence\obj\Debug\net8.0\ERPSystem.Persistence.sourcelink.json
 C:\Users\cavad\Desktop\FinalProject\ERPSystem\ERPSystem.Persistence\obj\Debug\net8.0\ERPSyste.6E9F8040.Up2Date
 C:\Users\cavad\Desktop\FinalProject\ERPSystem\ERPSystem.Persistence\obj\Debug\net8.0\ERPSystem.Persistence.dll
 C:\Users\cavad\Desktop\FinalProject\ERPSystem\ERPSystem.Persistence\obj\Debug\net8.0\refint\ERPSystem.Persistence.dll
 C:\Users\cavad\Desktop\FinalProject\ERPSystem\ERPSystem.Persistence\obj\Debug\net8.0\ERPSystem.Persistence.pdb
-C:\Users\cavad\Desktop\FinalProject\ERPSystem\ERPSystem.Persistence\obj\Debug\net8.0\ref\ERPSystem.Persistence.dll
-C:\Users\cavad\Desktop\FinalProject\ERPSystem\ERPSystem.Persistence\obj\Debug\net8.0\ERPSystem.Persistence.sourcelink.json
-C:\Users\cavad\Desktop\FinalProject\ERPSystem\ERPSystem.Persistence\bin\Debug\net8.0\ERPSystem.Persistence.runtimeconfig.json
 C:\Users\cavad\Desktop\FinalProject\ERPSystem\ERPSystem.Persistence\obj\Debug\net8.0\ERPSystem.Persistence.genruntimeconfig.cache
+C:\Users\cavad\Desktop\FinalProject\ERPSystem\ERPSystem.Persistence\obj\Debug\net8.0\ref\ERPSystem.Persistence.dll

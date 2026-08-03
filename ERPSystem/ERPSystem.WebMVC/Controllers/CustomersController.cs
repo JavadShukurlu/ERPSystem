@@ -22,7 +22,7 @@ namespace ERPSystem.WebMVC.Controllers
             _webHostEnvironment = webHostEnvironment;
         }
 
-        public async Task<IActionResult> Index(string? selectedUserId = null)
+        public async Task<IActionResult> Index(string? selectedUserId = null, string? activeTab = null)
         {
             var token = HttpContext.Session.GetString("JWToken");
 
@@ -46,7 +46,10 @@ namespace ERPSystem.WebMVC.Controllers
                 var usersResponse = await _apiService.GetAsync<ApiResponse<List<UserViewModel>>>(
                     "api/Users");
 
-                var users = usersResponse?.Data ?? new List<UserViewModel>();
+                var users = (usersResponse?.Data ?? new List<UserViewModel>())
+                    .OrderBy(user => user.FullName)
+                    .ToList();
+
                 var currentSelectedUserId = selectedUserId ?? users.FirstOrDefault()?.Id;
 
                 var selectedPermissions = new List<ModulePermissionViewModel>();
@@ -69,17 +72,21 @@ namespace ERPSystem.WebMVC.Controllers
 
             var model = new CustomerIndexPageViewModel
             {
-                Customers = customersResponse?.Data ?? new List<CustomerViewModel>(),
+                Customers = customersResponse?.IsSuccess == true
+                    ? customersResponse.Data ?? new List<CustomerViewModel>()
+                    : new List<CustomerViewModel>(),
+
                 Permissions = myPermissionsResponse?.Data ?? new List<ModulePermissionViewModel>(),
                 PermissionPage = permissionPage,
                 IsAdmin = isAdmin,
                 CurrentUserId = myPermissionsResponse?.Data?.FirstOrDefault()?.UserId
             };
 
+            ViewBag.ActiveTab = activeTab;
+
             return View(model);
         }
 
-        
         [HttpPost]
         public async Task<IActionResult> SavePermissions(UpdateModulePermissionsViewModel model)
         {
@@ -100,43 +107,30 @@ namespace ERPSystem.WebMVC.Controllers
             if (string.IsNullOrWhiteSpace(model.UserId))
             {
                 TempData["PermissionError"] = "Selected user was not found.";
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction(nameof(Index), new { activeTab = "permissions" });
             }
 
-            model.ModuleName = "Customers";
+            model.ModuleName = ModuleName;
 
-            var actions = new[] { "View", "Create", "Update", "Delete" };
-
-            foreach (var action in actions)
+            foreach (var permission in model.Permissions)
             {
-                var permission = model.Permissions.FirstOrDefault(x => x.ActionName == action);
-
-                if (permission is not null)
-                {
-                    permission.UserId = model.UserId;
-                    permission.ModuleName = "Customers";
-                }
+                permission.UserId = model.UserId;
+                permission.ModuleName = ModuleName;
             }
 
             var response = await _apiService.PutAsync<UpdateModulePermissionsViewModel, ApiResponse<bool>>(
                 "api/ModulePermissions",
                 model);
 
-            if (response is null)
+            if (response is null || !response.IsSuccess)
             {
-                TempData["PermissionError"] = "API response is null. Permissions were not saved.";
-                return RedirectToAction(nameof(Index), new { selectedUserId = model.UserId });
-            }
-
-            if (!response.IsSuccess)
-            {
-                TempData["PermissionError"] = response.Message ?? "Permissions could not be updated.";
-                return RedirectToAction(nameof(Index), new { selectedUserId = model.UserId });
+                TempData["PermissionError"] = response?.Message ?? "Permissions could not be updated.";
+                return RedirectToAction(nameof(Index), new { selectedUserId = model.UserId, activeTab = "permissions" });
             }
 
             TempData["PermissionSuccess"] = "Permissions updated successfully.";
 
-            return RedirectToAction(nameof(Index), new { selectedUserId = model.UserId });
+            return RedirectToAction(nameof(Index), new { selectedUserId = model.UserId, activeTab = "permissions" });
         }
 
         [HttpGet]
@@ -259,6 +253,7 @@ namespace ERPSystem.WebMVC.Controllers
         }
 
         [HttpPost]
+        [HttpPost]
         public async Task<IActionResult> Delete(int id)
         {
             var token = HttpContext.Session.GetString("JWToken");
@@ -268,8 +263,15 @@ namespace ERPSystem.WebMVC.Controllers
                 return RedirectToAction("Login", "Auth");
             }
 
-            await _apiService.DeleteAsync<ApiResponse<bool>>($"api/Customers/{id}");
+            var response = await _apiService.DeleteAsync<ApiResponse<bool>>($"api/Customers/{id}");
 
+            if (response is null || !response.IsSuccess)
+            {
+                TempData["Error"] = response?.Message ?? "Customer could not be deleted.";
+                return RedirectToAction(nameof(Index));
+            }
+
+            TempData["Success"] = "Customer deleted successfully.";
             return RedirectToAction(nameof(Index));
         }
 

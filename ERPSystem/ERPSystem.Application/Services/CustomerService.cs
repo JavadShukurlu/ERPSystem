@@ -4,6 +4,7 @@ using ERPSystem.Application.Interfaces;
 using ERPSystem.Application.Interfaces.Services;
 using ERPSystem.Domain.Entities;
 using ERPSystem.Domain.Enums;
+using Microsoft.AspNetCore.Identity;
 
 namespace ERPSystem.Application.Services
 {
@@ -14,15 +15,18 @@ namespace ERPSystem.Application.Services
         private readonly IUnitOfWork _unitOfWork;
         private readonly ICurrentUserService _currentUserService;
         private readonly IModulePermissionService _modulePermissionService;
+        private readonly UserManager<AppUser> _userManager;
 
         public CustomerService(
             IUnitOfWork unitOfWork,
             ICurrentUserService currentUserService,
-            IModulePermissionService modulePermissionService)
+            IModulePermissionService modulePermissionService,
+            UserManager<AppUser> userManager)
         {
             _unitOfWork = unitOfWork;
             _currentUserService = currentUserService;
             _modulePermissionService = modulePermissionService;
+            _userManager = userManager;
         }
 
         public async Task<ResultDto<List<CustomerDto>>> GetAllAsync()
@@ -34,38 +38,31 @@ namespace ERPSystem.Application.Services
                 return ResultDto<List<CustomerDto>>.Failure("User is not authenticated.");
             }
 
-            var viewPermission = await _modulePermissionService.CheckPermissionAsync(
-                userId,
-                ModuleName,
-                "View");
-
-            if (!viewPermission.Data!.CanAccess)
-            {
-                return ResultDto<List<CustomerDto>>.Failure("You do not have permission to view customers.");
-            }
+            var isAdmin = await IsAdminAsync(userId);
 
             var customers = await _unitOfWork.Customers.GetAllAsync();
 
-            if (viewPermission.Data.AccessLevel == PermissionAccessLevel.Own)
+            if (!isAdmin)
             {
-                customers = customers
-                    .Where(customer => customer.CreatedByUserId == userId)
-                    .ToList();
+                var viewPermission = await _modulePermissionService.CheckPermissionAsync(
+                    userId,
+                    ModuleName,
+                    "View");
+
+                if (viewPermission.Data is null || !viewPermission.Data.CanAccess)
+                {
+                    return ResultDto<List<CustomerDto>>.Failure("You do not have permission to view customers.");
+                }
+
+                if (viewPermission.Data.AccessLevel == PermissionAccessLevel.Own)
+                {
+                    customers = customers
+                        .Where(customer => customer.CreatedByUserId == userId)
+                        .ToList();
+                }
             }
 
-            var result = customers.Select(customer => new CustomerDto
-            {
-                Id = customer.Id,
-                FullName = customer.FullName,
-                Email = customer.Email,
-                PhoneNumber = customer.PhoneNumber,
-                Address = customer.Address,
-                ImageUrl = customer.ImageUrl,
-                CreatedDate = customer.CreatedDate,
-                UpdatedDate = customer.UpdatedDate,
-                CreatedByUserId = customer.CreatedByUserId,
-                UpdatedByUserId = customer.UpdatedByUserId
-            }).ToList();
+            var result = customers.Select(MapToDto).ToList();
 
             return ResultDto<List<CustomerDto>>.Success(result);
         }
@@ -86,20 +83,23 @@ namespace ERPSystem.Application.Services
                 return ResultDto<CustomerDto>.Failure("Customer not found.");
             }
 
-            var hasPermission = await _modulePermissionService.HasPermissionAsync(
-                userId,
-                ModuleName,
-                "View",
-                customer);
+            var isAdmin = await IsAdminAsync(userId);
 
-            if (!hasPermission)
+            if (!isAdmin)
             {
-                return ResultDto<CustomerDto>.Failure("You do not have permission to view this customer.");
+                var hasPermission = await _modulePermissionService.HasPermissionAsync(
+                    userId,
+                    ModuleName,
+                    "View",
+                    customer);
+
+                if (!hasPermission)
+                {
+                    return ResultDto<CustomerDto>.Failure("You do not have permission to view this customer.");
+                }
             }
 
-            var result = MapToDto(customer);
-
-            return ResultDto<CustomerDto>.Success(result);
+            return ResultDto<CustomerDto>.Success(MapToDto(customer));
         }
 
         public async Task<ResultDto<CustomerDto>> CreateAsync(CreateCustomerDto dto)
@@ -111,14 +111,19 @@ namespace ERPSystem.Application.Services
                 return ResultDto<CustomerDto>.Failure("User is not authenticated.");
             }
 
-            var hasPermission = await _modulePermissionService.HasPermissionAsync(
-                userId,
-                ModuleName,
-                "Create");
+            var isAdmin = await IsAdminAsync(userId);
 
-            if (!hasPermission)
+            if (!isAdmin)
             {
-                return ResultDto<CustomerDto>.Failure("You do not have permission to create customers.");
+                var hasPermission = await _modulePermissionService.HasPermissionAsync(
+                    userId,
+                    ModuleName,
+                    "Create");
+
+                if (!hasPermission)
+                {
+                    return ResultDto<CustomerDto>.Failure("You do not have permission to create customers.");
+                }
             }
 
             var customer = new Customer
@@ -133,9 +138,7 @@ namespace ERPSystem.Application.Services
             await _unitOfWork.Customers.AddAsync(customer);
             await _unitOfWork.SaveChangesAsync();
 
-            var result = MapToDto(customer);
-
-            return ResultDto<CustomerDto>.Success(result, "Customer created successfully.");
+            return ResultDto<CustomerDto>.Success(MapToDto(customer), "Customer created successfully.");
         }
 
         public async Task<ResultDto<CustomerDto>> UpdateAsync(UpdateCustomerDto dto)
@@ -154,15 +157,20 @@ namespace ERPSystem.Application.Services
                 return ResultDto<CustomerDto>.Failure("Customer not found.");
             }
 
-            var hasPermission = await _modulePermissionService.HasPermissionAsync(
-                userId,
-                ModuleName,
-                "Update",
-                customer);
+            var isAdmin = await IsAdminAsync(userId);
 
-            if (!hasPermission)
+            if (!isAdmin)
             {
-                return ResultDto<CustomerDto>.Failure("You do not have permission to update this customer.");
+                var hasPermission = await _modulePermissionService.HasPermissionAsync(
+                    userId,
+                    ModuleName,
+                    "Update",
+                    customer);
+
+                if (!hasPermission)
+                {
+                    return ResultDto<CustomerDto>.Failure("You do not have permission to update this customer.");
+                }
             }
 
             customer.FullName = dto.FullName;
@@ -174,9 +182,7 @@ namespace ERPSystem.Application.Services
             _unitOfWork.Customers.Update(customer);
             await _unitOfWork.SaveChangesAsync();
 
-            var result = MapToDto(customer);
-
-            return ResultDto<CustomerDto>.Success(result, "Customer updated successfully.");
+            return ResultDto<CustomerDto>.Success(MapToDto(customer), "Customer updated successfully.");
         }
 
         public async Task<ResultDto<bool>> DeleteAsync(int id)
@@ -195,21 +201,38 @@ namespace ERPSystem.Application.Services
                 return ResultDto<bool>.Failure("Customer not found.");
             }
 
-            var hasPermission = await _modulePermissionService.HasPermissionAsync(
-                userId,
-                ModuleName,
-                "Delete",
-                customer);
+            var isAdmin = await IsAdminAsync(userId);
 
-            if (!hasPermission)
+            if (!isAdmin)
             {
-                return ResultDto<bool>.Failure("You do not have permission to delete this customer.");
+                var hasPermission = await _modulePermissionService.HasPermissionAsync(
+                    userId,
+                    ModuleName,
+                    "Delete",
+                    customer);
+
+                if (!hasPermission)
+                {
+                    return ResultDto<bool>.Failure("You do not have permission to delete this customer.");
+                }
             }
 
             _unitOfWork.Customers.Delete(customer);
             await _unitOfWork.SaveChangesAsync();
 
             return ResultDto<bool>.Success(true, "Customer deleted successfully.");
+        }
+
+        private async Task<bool> IsAdminAsync(string userId)
+        {
+            var user = await _userManager.FindByIdAsync(userId);
+
+            if (user is null)
+            {
+                return false;
+            }
+
+            return await _userManager.IsInRoleAsync(user, "Admin");
         }
 
         private static CustomerDto MapToDto(Customer customer)

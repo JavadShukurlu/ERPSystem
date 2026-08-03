@@ -1,326 +1,579 @@
 ﻿function initializeAdvancedFilter(config) {
-    const storageKey = config.storageKey;
-    const pinnedKey = config.pinnedKey;
-    const itemSelector = config.itemSelector;
-    const pageSelector = config.pageSelector;
-    const defaultPlaceholder = config.defaultPlaceholder;
+    const quickSearchInput = document.getElementById(config.quickSearchInputId);
+    const advancedFilterPopup = document.getElementById(config.advancedFilterPopupId);
+    const filterFields = document.getElementById(config.filterFieldsId);
+    const addFieldButton = document.getElementById(config.addFieldButtonId);
+    const restoreDefaultFields = document.getElementById(config.restoreDefaultFieldsId);
+    const applyButton = document.getElementById(config.applyButtonId);
+    const resetButton = document.getElementById(config.resetButtonId);
+    const saveFilterButton = document.getElementById(config.saveFilterButtonId);
+    const savedFiltersList = document.getElementById(config.savedFiltersListId);
+    const activeFilterChip = document.getElementById(config.activeFilterChipId);
+    const activeFilterName = document.getElementById(config.activeFilterNameId);
+    const clearActiveFilter = document.getElementById(config.clearActiveFilterId);
 
-    const page = document.querySelector(pageSelector);
-    const quickSearch = document.getElementById("quickSearch");
-    const filterPopup = document.getElementById("filterPopup");
-    const addFieldButton = document.getElementById("addFieldButton");
-    const addFieldMenu = document.getElementById("addFieldMenu");
-    const savedFiltersList = document.getElementById("savedFiltersList");
-    const saveFilterButton = document.getElementById("saveFilterButton");
-    const restoreFiltersButton = document.getElementById("restoreFiltersButton");
-    const searchButton = document.getElementById("searchButton");
-    const resetButton = document.getElementById("resetButton");
-    const activeFilterChip = document.getElementById("activeFilterChip");
-    const activeFilterName = document.getElementById("activeFilterName");
-    const clearActiveFilterButton = document.getElementById("clearActiveFilterButton");
+    const saveFilterBox = document.getElementById(config.saveFilterBoxId);
+    const saveFilterNameInput = document.getElementById(config.saveFilterNameId);
+    const confirmSaveFilterButton = document.getElementById(config.saveFilterConfirmId);
+    const cancelSaveFilterButton = document.getElementById(config.saveFilterCancelId);
 
-    function openFilterPopup() {
-        filterPopup.style.display = "grid";
-    }
+    const defaultFilterName = config.defaultFilterName || "All records";
+    const fieldSettingsGroupName = config.fieldSettingsGroupName || "Fields";
 
-    function closeFilterPopup() {
-        filterPopup.style.display = "none";
+    let activeFields = [...config.defaultFields];
+    let currentSavedFilterName = null;
 
-        if (addFieldMenu) {
-            addFieldMenu.style.display = "none";
+    function getSavedFilters() {
+        try {
+            return JSON.parse(localStorage.getItem(config.storageKey)) || [];
+        } catch {
+            return [];
         }
     }
 
-    function showActiveFilterChip(filterName) {
-        activeFilterName.textContent = filterName;
-        activeFilterChip.style.display = "inline-flex";
-        quickSearch.placeholder = "search";
+    function setSavedFilters(filters) {
+        localStorage.setItem(config.storageKey, JSON.stringify(filters));
     }
 
-    function hideActiveFilterChip() {
-        activeFilterName.textContent = "";
-        activeFilterChip.style.display = "none";
-        quickSearch.placeholder = defaultPlaceholder;
+    function getPinnedFilterName() {
+        return localStorage.getItem(config.pinnedStorageKey);
     }
 
-    function getFilters() {
+    function setPinnedFilterName(name) {
+        if (!name) {
+            localStorage.removeItem(config.pinnedStorageKey);
+            return;
+        }
+
+        localStorage.setItem(config.pinnedStorageKey, name);
+    }
+
+    function getField(key) {
+        return config.availableFields.find(field => field.key === key);
+    }
+
+    function getInput(key) {
+        return filterFields.querySelector(`[data-filter-input="${key}"]`);
+    }
+
+    function getItemValue(item, key) {
+        return (item.dataset[key] || "").toLowerCase();
+    }
+
+    function getAllItemValues(item) {
+        return config.availableFields
+            .map(field => getItemValue(item, field.key))
+            .join(" ");
+    }
+
+    function getCurrentValues() {
         const values = {};
 
-        config.fields.forEach(field => {
-            const input = document.getElementById(field.inputId);
-
-            if (!input) {
-                values[field.key] = "";
-                return;
-            }
-
-            values[field.key] = input.value.toLowerCase();
+        activeFields.forEach(key => {
+            const input = getInput(key);
+            values[key] = input ? input.value.trim() : "";
         });
 
         return values;
     }
 
-    function applyFilters() {
-        const filters = getFilters();
-        const items = document.querySelectorAll(itemSelector);
+    function renderFilterFields(values = {}) {
+        filterFields.innerHTML = "";
 
-        items.forEach(item => {
-            let isVisible = true;
+        activeFields.forEach(key => {
+            const field = getField(key);
 
-            config.fields.forEach(field => {
-                const filterValue = filters[field.key];
+            if (!field) {
+                return;
+            }
 
-                if (!filterValue) {
-                    return;
-                }
+            const wrapper = document.createElement("div");
+            wrapper.className = "filter-field";
 
-                const dataValue = item.dataset[field.dataKey]?.toLowerCase() || "";
+            const header = document.createElement("div");
+            header.className = "filter-field-header";
 
-                if (!dataValue.includes(filterValue)) {
-                    isVisible = false;
-                }
+            const label = document.createElement("label");
+            label.textContent = field.label;
+
+            const removeButton = document.createElement("button");
+            removeButton.type = "button";
+            removeButton.textContent = "x";
+            removeButton.className = "filter-field-remove";
+
+            removeButton.addEventListener("click", function () {
+                const valuesBeforeRemove = getCurrentValues();
+
+                activeFields = activeFields.filter(item => item !== key);
+                delete valuesBeforeRemove[key];
+
+                renderFilterFields(valuesBeforeRemove);
+                currentSavedFilterName = null;
+                updateActiveChip();
+                applyFilter();
             });
 
-            item.style.display = isVisible ? "" : "none";
+            let input;
+
+            if (field.type === "select") {
+                input = document.createElement("select");
+
+                const emptyOption = document.createElement("option");
+                emptyOption.value = "";
+                emptyOption.textContent = "Select";
+                input.appendChild(emptyOption);
+
+                (field.options || []).forEach(option => {
+                    const selectOption = document.createElement("option");
+                    selectOption.value = option.value;
+                    selectOption.textContent = option.text;
+                    input.appendChild(selectOption);
+                });
+
+                input.addEventListener("change", function () {
+                    currentSavedFilterName = null;
+                    updateActiveChip();
+                    applyFilter();
+                });
+            } else {
+                input = document.createElement("input");
+                input.type = field.type || "text";
+
+                input.addEventListener("input", function () {
+                    currentSavedFilterName = null;
+                    updateActiveChip();
+                    applyFilter();
+                });
+            }
+
+            input.dataset.filterInput = key;
+            input.value = values[key] || "";
+
+            header.appendChild(label);
+
+            if (!config.defaultFields.includes(key)) {
+                header.appendChild(removeButton);
+            }
+
+            wrapper.appendChild(header);
+            wrapper.appendChild(input);
+            filterFields.appendChild(wrapper);
         });
     }
 
-    function getSavedFilters() {
-        return JSON.parse(localStorage.getItem(storageKey) || "[]");
-    }
+    function applyFilter() {
+        const quickValue = quickSearchInput.value.trim().toLowerCase();
+        const values = getCurrentValues();
+        const items = document.querySelectorAll(config.itemSelector);
 
-    function setSavedFilters(filters) {
-        localStorage.setItem(storageKey, JSON.stringify(filters));
-    }
+        items.forEach(item => {
+            const quickMatch =
+                !quickValue ||
+                getAllItemValues(item).includes(quickValue);
 
-    function getVisibleOptionalFields() {
-        return [...document.querySelectorAll(".optional-filter")]
-            .filter(item => item.style.display !== "none")
-            .map(item => item.dataset.filterField);
-    }
+            const fieldMatch = activeFields.every(key => {
+                const value = (values[key] || "").toLowerCase();
 
-    function showOptionalFilter(fieldName) {
-        const field = document.querySelector(`[data-filter-field="${fieldName}"]`);
+                if (!value) {
+                    return true;
+                }
 
-        if (field) {
-            field.style.display = "";
-        }
+                return getItemValue(item, key).includes(value);
+            });
 
-        const checkbox = document.querySelector(`.field-choice[value="${fieldName}"]`);
-
-        if (checkbox) {
-            checkbox.checked = true;
-        }
-    }
-
-    function resetFilters(runFilter = true) {
-        document.querySelectorAll(".filter-input").forEach(input => {
-            input.value = "";
+            item.style.display = quickMatch && fieldMatch ? "" : "none";
         });
-
-        document.querySelectorAll(".optional-filter").forEach(item => {
-            item.style.display = "none";
-        });
-
-        document.querySelectorAll(".field-choice").forEach(choice => {
-            choice.checked = false;
-        });
-
-        hideActiveFilterChip();
-
-        if (runFilter) {
-            applyFilters();
-        }
     }
 
-    function saveCurrentFilter() {
-        const name = prompt("Filter name:");
+    function updateActiveChip() {
+        if (!currentSavedFilterName) {
+            activeFilterChip?.classList.add("d-none");
 
-        if (!name || !name.trim()) {
+            if (activeFilterName) {
+                activeFilterName.textContent = "";
+            }
+
             return;
         }
 
-        const filters = getSavedFilters();
+        activeFilterChip?.classList.remove("d-none");
 
-        filters.push({
-            id: Date.now().toString(),
-            name: name.trim(),
-            values: getFilters(),
-            optionalFields: getVisibleOptionalFields()
-        });
-
-        setSavedFilters(filters);
-        renderSavedFilters();
+        if (activeFilterName) {
+            activeFilterName.textContent = currentSavedFilterName;
+        }
     }
 
-    function applySavedFilter(filterId, shouldOpenPopup = true) {
+    function renderSavedFilters() {
         const filters = getSavedFilters();
-        const filter = filters.find(item => item.id === filterId);
+        const pinnedName = getPinnedFilterName();
+
+        savedFiltersList.innerHTML = "";
+
+        const allButton = document.createElement("button");
+        allButton.type = "button";
+        allButton.className = "saved-filter-main";
+        allButton.textContent = defaultFilterName;
+
+        allButton.addEventListener("click", function () {
+            currentSavedFilterName = null;
+            activeFields = [...config.defaultFields];
+            quickSearchInput.value = "";
+
+            renderFilterFields();
+            updateActiveChip();
+            applyFilter();
+            advancedFilterPopup.classList.remove("is-open");
+            advancedFilterPopup.classList.add("d-none");
+        });
+
+        savedFiltersList.appendChild(allButton);
+
+        filters.forEach(filter => {
+            const row = document.createElement("div");
+            row.className = "saved-filter-row";
+
+            const filterButton = document.createElement("button");
+            filterButton.type = "button";
+            filterButton.className = "saved-filter-item";
+            filterButton.textContent = filter.name;
+
+            if (filter.name === pinnedName) {
+                filterButton.classList.add("is-pinned");
+            }
+
+            filterButton.addEventListener("click", function () {
+                activeFields = [...filter.fields];
+                currentSavedFilterName = filter.name;
+
+                renderFilterFields(filter.values);
+                updateActiveChip();
+                applyFilter();
+                advancedFilterPopup.classList.remove("is-open");
+                advancedFilterPopup.classList.add("d-none");
+            });
+
+            const pinButton = document.createElement("button");
+            pinButton.type = "button";
+            pinButton.className = "saved-filter-pin";
+            pinButton.textContent = filter.name === pinnedName ? "Unpin" : "Pin";
+
+            pinButton.addEventListener("click", function (event) {
+                event.stopPropagation();
+
+                if (getPinnedFilterName() === filter.name) {
+                    setPinnedFilterName(null);
+                } else {
+                    setPinnedFilterName(filter.name);
+                }
+
+                renderSavedFilters();
+                loadPinnedFilter();
+            });
+
+            const deleteButton = document.createElement("button");
+            deleteButton.type = "button";
+            deleteButton.className = "saved-filter-delete";
+            deleteButton.textContent = "Delete";
+
+            deleteButton.addEventListener("click", function (event) {
+                event.stopPropagation();
+
+                const updated = getSavedFilters()
+                    .filter(item => item.name !== filter.name);
+
+                setSavedFilters(updated);
+
+                if (getPinnedFilterName() === filter.name) {
+                    setPinnedFilterName(null);
+                }
+
+                if (currentSavedFilterName === filter.name) {
+                    currentSavedFilterName = null;
+                    updateActiveChip();
+                }
+
+                renderSavedFilters();
+                applyFilter();
+            });
+
+            row.appendChild(filterButton);
+            row.appendChild(pinButton);
+            row.appendChild(deleteButton);
+            savedFiltersList.appendChild(row);
+        });
+    }
+
+    function openFieldSettings() {
+        const oldModal = document.getElementById("filterFieldSettingsModal");
+
+        if (oldModal) {
+            oldModal.remove();
+        }
+
+        const valuesBeforeModal = getCurrentValues();
+
+        const modal = document.createElement("div");
+        modal.id = "filterFieldSettingsModal";
+        modal.className = "field-settings-overlay is-open";
+
+        modal.innerHTML = `
+            <div class="field-settings-modal">
+                <div class="field-settings-header">
+                    <h3>Filter field settings</h3>
+                    <button type="button" class="field-settings-close">x</button>
+                </div>
+
+                <div class="field-settings-search-wrap">
+                    <input type="text" class="field-settings-search" placeholder="Find field" />
+                </div>
+
+                <div class="field-settings-group-title">${fieldSettingsGroupName}</div>
+
+                <div class="field-settings-list"></div>
+
+                <div class="field-settings-footer">
+                    <button type="button" class="field-settings-select-all">select all</button>
+
+                    <div>
+                        <button type="button" class="field-settings-apply">APPLY</button>
+                        <button type="button" class="field-settings-cancel">CANCEL</button>
+                    </div>
+
+                    <button type="button" class="field-settings-default">default</button>
+                </div>
+            </div>
+        `;
+
+        document.body.appendChild(modal);
+
+        const list = modal.querySelector(".field-settings-list");
+        const search = modal.querySelector(".field-settings-search");
+
+        function renderList(searchValue = "") {
+            list.innerHTML = "";
+
+            config.availableFields
+                .filter(field => field.label.toLowerCase().includes(searchValue.toLowerCase()))
+                .forEach(field => {
+                    const item = document.createElement("label");
+                    item.className = "field-settings-item";
+
+                    const checkbox = document.createElement("input");
+                    checkbox.type = "checkbox";
+                    checkbox.value = field.key;
+                    checkbox.checked = activeFields.includes(field.key);
+
+                    const span = document.createElement("span");
+                    span.textContent = field.label;
+
+                    item.appendChild(checkbox);
+                    item.appendChild(span);
+                    list.appendChild(item);
+                });
+        }
+
+        renderList();
+
+        search.addEventListener("input", function () {
+            renderList(this.value);
+        });
+
+        modal.querySelector(".field-settings-close").addEventListener("click", function () {
+            modal.remove();
+        });
+
+        modal.querySelector(".field-settings-cancel").addEventListener("click", function () {
+            modal.remove();
+        });
+
+        modal.querySelector(".field-settings-select-all").addEventListener("click", function () {
+            modal.querySelectorAll(".field-settings-item input").forEach(input => {
+                input.checked = true;
+            });
+        });
+
+        modal.querySelector(".field-settings-default").addEventListener("click", function () {
+            modal.querySelectorAll(".field-settings-item input").forEach(input => {
+                input.checked = config.defaultFields.includes(input.value);
+            });
+        });
+
+        modal.querySelector(".field-settings-apply").addEventListener("click", function () {
+            const selected = Array.from(modal.querySelectorAll(".field-settings-item input:checked"))
+                .map(input => input.value);
+
+            activeFields = selected.length > 0 ? selected : [...config.defaultFields];
+
+            renderFilterFields(valuesBeforeModal);
+            currentSavedFilterName = null;
+            updateActiveChip();
+            applyFilter();
+            modal.remove();
+        });
+    }
+
+    function saveCurrentFilterFromInlineInput() {
+        const name = saveFilterNameInput.value;
+
+        if (!name || !name.trim()) {
+            saveFilterNameInput.focus();
+            return;
+        }
+
+        const cleanName = name.trim();
+        const filters = getSavedFilters();
+
+        const newFilter = {
+            name: cleanName,
+            fields: [...activeFields],
+            values: getCurrentValues()
+        };
+
+        const index = filters.findIndex(filter => filter.name === cleanName);
+
+        if (index >= 0) {
+            filters[index] = newFilter;
+        } else {
+            filters.push(newFilter);
+        }
+
+        setSavedFilters(filters);
+
+        currentSavedFilterName = cleanName;
+        updateActiveChip();
+        renderSavedFilters();
+        applyFilter();
+
+        saveFilterBox.classList.add("d-none");
+        saveFilterButton.classList.remove("d-none");
+        saveFilterNameInput.value = "";
+    }
+
+    function loadPinnedFilter() {
+        const pinnedName = getPinnedFilterName();
+
+        if (!pinnedName) {
+            return;
+        }
+
+        const filter = getSavedFilters()
+            .find(item => item.name === pinnedName);
 
         if (!filter) {
             return;
         }
 
-        resetFilters(false);
+        activeFields = [...filter.fields];
+        currentSavedFilterName = filter.name;
 
-        if (shouldOpenPopup) {
-            openFilterPopup();
-        }
-
-        showActiveFilterChip(filter.name);
-
-        filter.optionalFields.forEach(field => {
-            showOptionalFilter(field);
-        });
-
-        config.fields.forEach(field => {
-            const input = document.getElementById(field.inputId);
-
-            if (input) {
-                input.value = filter.values[field.key] || "";
-            }
-        });
-
-        applyFilters();
+        renderFilterFields(filter.values);
+        updateActiveChip();
+        applyFilter();
     }
 
-    function pinFilter(filterId) {
-        localStorage.setItem(pinnedKey, filterId);
-        renderSavedFilters();
-        applySavedFilter(filterId);
-    }
-
-    function unpinFilter() {
-        localStorage.removeItem(pinnedKey);
+    function openSearchPopup() {
+        advancedFilterPopup.classList.remove("d-none");
+        advancedFilterPopup.classList.add("is-open");
         renderSavedFilters();
     }
 
-    function deleteSavedFilter(filterId) {
-        const filters = getSavedFilters().filter(item => item.id !== filterId);
-
-        setSavedFilters(filters);
-
-        if (localStorage.getItem(pinnedKey) === filterId) {
-            localStorage.removeItem(pinnedKey);
-            hideActiveFilterChip();
-            resetFilters();
-        }
-
-        renderSavedFilters();
-        applyFilters();
-    }
-
-    function renderSavedFilters() {
-        const filters = getSavedFilters();
-        const pinnedId = localStorage.getItem(pinnedKey);
-
-        savedFiltersList.innerHTML = "";
-
-        if (filters.length === 0) {
-            savedFiltersList.innerHTML = `<div class="text-muted small">No saved filters.</div>`;
-            return;
-        }
-
-        filters.forEach(filter => {
-            const item = document.createElement("div");
-            item.className = "saved-filter-item";
-
-            item.innerHTML = `
-                <button type="button" class="saved-filter-name">${filter.name}</button>
-                <button type="button" class="saved-filter-pin">${pinnedId === filter.id ? "Pinned" : "Pin"}</button>
-                <button type="button" class="saved-filter-delete">Delete</button>
-            `;
-
-            item.querySelector(".saved-filter-name").addEventListener("click", () => {
-                applySavedFilter(filter.id);
-            });
-
-            item.querySelector(".saved-filter-pin").addEventListener("click", () => {
-                if (pinnedId === filter.id) {
-                    unpinFilter();
-                } else {
-                    pinFilter(filter.id);
-                }
-            });
-
-            item.querySelector(".saved-filter-delete").addEventListener("click", () => {
-                deleteSavedFilter(filter.id);
-            });
-
-            savedFiltersList.appendChild(item);
-        });
-    }
-
-    quickSearch?.addEventListener("focus", openFilterPopup);
-    quickSearch?.addEventListener("click", openFilterPopup);
-
-    searchButton?.addEventListener("click", () => {
-        applyFilters();
-        closeFilterPopup();
+    quickSearchInput?.addEventListener("focus", function (event) {
+        event.stopPropagation();
+        openSearchPopup();
     });
 
-    resetButton?.addEventListener("click", () => {
-        localStorage.removeItem(pinnedKey);
-        resetFilters();
-        renderSavedFilters();
+    quickSearchInput?.addEventListener("click", function (event) {
+        event.stopPropagation();
+        openSearchPopup();
     });
 
-    restoreFiltersButton?.addEventListener("click", () => {
-        resetFilters();
+    advancedFilterPopup?.addEventListener("click", function (event) {
+        event.stopPropagation();
     });
 
-    addFieldButton?.addEventListener("click", () => {
-        addFieldMenu.style.display = addFieldMenu.style.display === "block" ? "none" : "block";
+    document.addEventListener("click", function () {
+        advancedFilterPopup?.classList.remove("is-open");
+        advancedFilterPopup?.classList.add("d-none");
     });
 
-    document.querySelectorAll(".field-choice").forEach(choice => {
-        choice.addEventListener("change", function () {
-            if (this.checked) {
-                showOptionalFilter(this.value);
-            } else {
-                const field = document.querySelector(`[data-filter-field="${this.value}"]`);
-
-                if (field) {
-                    field.style.display = "none";
-
-                    const input = field.querySelector("input");
-
-                    if (input) {
-                        input.value = "";
-                    }
-                }
-            }
-        });
+    quickSearchInput?.addEventListener("input", function () {
+        currentSavedFilterName = null;
+        updateActiveChip();
+        applyFilter();
     });
 
-    saveFilterButton?.addEventListener("click", saveCurrentFilter);
-
-    activeFilterChip?.addEventListener("click", function () {
-        openFilterPopup();
+    addFieldButton?.addEventListener("click", function (event) {
+        event.stopPropagation();
+        openFieldSettings();
     });
 
-    clearActiveFilterButton?.addEventListener("click", function (event) {
+    restoreDefaultFields?.addEventListener("click", function () {
+        activeFields = [...config.defaultFields];
+        currentSavedFilterName = null;
+        quickSearchInput.value = "";
+
+        renderFilterFields();
+        updateActiveChip();
+        applyFilter();
+    });
+
+    applyButton?.addEventListener("click", function () {
+        applyFilter();
+        advancedFilterPopup.classList.remove("is-open");
+        advancedFilterPopup.classList.add("d-none");
+    });
+
+    resetButton?.addEventListener("click", function () {
+        activeFields = [...config.defaultFields];
+        currentSavedFilterName = null;
+        quickSearchInput.value = "";
+
+        renderFilterFields();
+        updateActiveChip();
+        applyFilter();
+    });
+
+    saveFilterButton?.addEventListener("click", function (event) {
         event.stopPropagation();
 
-        localStorage.removeItem(pinnedKey);
-        hideActiveFilterChip();
-        resetFilters();
-        renderSavedFilters();
+        saveFilterBox.classList.remove("d-none");
+        saveFilterButton.classList.add("d-none");
+        saveFilterNameInput.value = "";
+        saveFilterNameInput.focus();
     });
 
-    document.addEventListener("click", function (event) {
-        const searchArea = document.querySelector(".search-area");
+    cancelSaveFilterButton?.addEventListener("click", function () {
+        saveFilterBox.classList.add("d-none");
+        saveFilterButton.classList.remove("d-none");
+        saveFilterNameInput.value = "";
+    });
 
-        if (!searchArea.contains(event.target)) {
-            closeFilterPopup();
+    confirmSaveFilterButton?.addEventListener("click", function () {
+        saveCurrentFilterFromInlineInput();
+    });
+
+    saveFilterNameInput?.addEventListener("keydown", function (event) {
+        if (event.key === "Enter") {
+            event.preventDefault();
+            saveCurrentFilterFromInlineInput();
         }
     });
 
+    clearActiveFilter?.addEventListener("click", function () {
+        currentSavedFilterName = null;
+        setPinnedFilterName(null);
+        quickSearchInput.value = "";
+
+        activeFields = [...config.defaultFields];
+
+        renderFilterFields();
+        renderSavedFilters();
+        updateActiveChip();
+        applyFilter();
+    });
+
+    renderFilterFields();
     renderSavedFilters();
-
-    const pinnedFilterId = localStorage.getItem(pinnedKey);
-
-    if (pinnedFilterId) {
-        applySavedFilter(pinnedFilterId, false);
-    }
+    loadPinnedFilter();
+    applyFilter();
 }

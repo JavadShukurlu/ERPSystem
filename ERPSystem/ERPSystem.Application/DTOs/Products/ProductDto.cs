@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace ERPSystem.Application.DTOs.Products
+﻿namespace ERPSystem.Application.DTOs.Products
 {
     public class ProductDto
     {
@@ -29,5 +23,9 @@ namespace ERPSystem.Application.DTOs.Products
         public DateTime CreatedDate { get; set; }
 
         public DateTime? UpdatedDate { get; set; }
+
+        public string? CreatedByUserId { get; set; }
+
+        public string? UpdatedByUserId { get; set; }
     }
 }
