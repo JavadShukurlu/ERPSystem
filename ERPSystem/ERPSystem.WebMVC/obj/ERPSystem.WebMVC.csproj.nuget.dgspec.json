@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\cavad\\Desktop\\FinalProject\\ERPSystem\\ERPSystem.WebMVC\\ERPSystem.WebMVC.csproj": {}
+    "C:\\Users\\cavad\\Desktop\\ERPSystem\\ERPSystem\\ERPSystem.WebMVC\\ERPSystem.WebMVC.csproj": {}
   },
   "projects": {
-    "C:\\Users\\cavad\\Desktop\\FinalProject\\ERPSystem\\ERPSystem.WebMVC\\ERPSystem.WebMVC.csproj": {
+    "C:\\Users\\cavad\\Desktop\\ERPSystem\\ERPSystem\\ERPSystem.WebMVC\\ERPSystem.WebMVC.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\cavad\\Desktop\\FinalProject\\ERPSystem\\ERPSystem.WebMVC\\ERPSystem.WebMVC.csproj",
+        "projectUniqueName": "C:\\Users\\cavad\\Desktop\\ERPSystem\\ERPSystem\\ERPSystem.WebMVC\\ERPSystem.WebMVC.csproj",
         "projectName": "ERPSystem.WebMVC",
-        "projectPath": "C:\\Users\\cavad\\Desktop\\FinalProject\\ERPSystem\\ERPSystem.WebMVC\\ERPSystem.WebMVC.csproj",
+        "projectPath": "C:\\Users\\cavad\\Desktop\\ERPSystem\\ERPSystem\\ERPSystem.WebMVC\\ERPSystem.WebMVC.csproj",
         "packagesPath": "C:\\Users\\cavad\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\cavad\\Desktop\\FinalProject\\ERPSystem\\ERPSystem.WebMVC\\obj\\",
+        "outputPath": "C:\\Users\\cavad\\Desktop\\ERPSystem\\ERPSystem\\ERPSystem.WebMVC\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"

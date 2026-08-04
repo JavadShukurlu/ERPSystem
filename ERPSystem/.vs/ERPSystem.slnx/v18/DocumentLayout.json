@@ -1,9 +1,9 @@
 {
   "Version": 1,
-  "WorkspaceRootPath": "C:\\Users\\cavad\\Desktop\\FinalProject\\ERPSystem\\",
+  "WorkspaceRootPath": "C:\\Users\\cavad\\Desktop\\ERPSystem\\ERPSystem\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{6FAD6E84-7802-291A-2026-334945D7E435}|ERPSystem.WebMVC\\ERPSystem.WebMVC.csproj|c:\\users\\cavad\\desktop\\finalproject\\erpsystem\\erpsystem.webmvc\\views\\sales\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "AbsoluteMoniker": "D:0:0:{6FAD6E84-7802-291A-2026-334945D7E435}|ERPSystem.WebMVC\\ERPSystem.WebMVC.csproj|c:\\users\\cavad\\desktop\\erpsystem\\erpsystem\\erpsystem.webmvc\\views\\sales\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
       "RelativeMoniker": "D:0:0:{6FAD6E84-7802-291A-2026-334945D7E435}|ERPSystem.WebMVC\\ERPSystem.WebMVC.csproj|solutionrelative:erpsystem.webmvc\\views\\sales\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     }
   ],
@@ -28,11 +28,11 @@
               "$type": "Document",
               "DocumentIndex": 0,
               "Title": "Index.cshtml",
-              "DocumentMoniker": "C:\\Users\\cavad\\Desktop\\FinalProject\\ERPSystem\\ERPSystem.WebMVC\\Views\\Sales\\Index.cshtml",
+              "DocumentMoniker": "C:\\Users\\cavad\\Desktop\\ERPSystem\\ERPSystem\\ERPSystem.WebMVC\\Views\\Sales\\Index.cshtml",
               "RelativeDocumentMoniker": "ERPSystem.WebMVC\\Views\\Sales\\Index.cshtml",
-              "ToolTip": "C:\\Users\\cavad\\Desktop\\FinalProject\\ERPSystem\\ERPSystem.WebMVC\\Views\\Sales\\Index.cshtml",
+              "ToolTip": "C:\\Users\\cavad\\Desktop\\ERPSystem\\ERPSystem\\ERPSystem.WebMVC\\Views\\Sales\\Index.cshtml",
               "RelativeToolTip": "ERPSystem.WebMVC\\Views\\Sales\\Index.cshtml",
-              "ViewState": "AgIAABkCAAAAAAAAAAAYwC0CAAABAAAAAAAAAA==",
+              "ViewState": "AgIAABkCAAAAAAAAAAAYwCICAABGAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
               "WhenOpened": "2026-08-03T13:07:01.478Z",
               "EditorCaption": ""
